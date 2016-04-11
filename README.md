@@ -1,2 +1,2 @@
 # xmppDemo
-This is xmppDemo repo.
+This is a xmppDemo repo.
