@@ -34,35 +34,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A4j-GW-5DT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User Name" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A4j-GW-5DT">
                                 <rect key="frame" x="16" y="100" width="288" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="inK-my-VMV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="inK-my-VMV">
                                 <rect key="frame" x="16" y="160" width="288" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dY1-st-iwR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Address" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dY1-st-iwR">
                                 <rect key="frame" x="16" y="220" width="288" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQv-kj-pcn">
                                 <rect key="frame" x="20" y="320" width="280" height="30"/>
-                                <state key="normal" title="Register"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="3sC-3p-wqk" kind="push" id="dqf-ZS-l4l"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDH-Am-4l4">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDH-Am-4l4">
                                 <rect key="frame" x="16" y="280" width="288" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Login"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Oum-iL-bc7" kind="modal" id="DSM-mY-jv4"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="inK-my-VMV" firstAttribute="centerX" secondItem="hBV-83-JLb" secondAttribute="centerX" id="6Ja-do-TMn"/>
                             <constraint firstItem="qQv-kj-pcn" firstAttribute="top" secondItem="gDH-Am-4l4" secondAttribute="bottom" constant="10" id="6RF-fT-6qt"/>
@@ -75,7 +87,7 @@
                             <constraint firstItem="gDH-Am-4l4" firstAttribute="leading" secondItem="inK-my-VMV" secondAttribute="leading" id="kcE-FT-ZNN"/>
                             <constraint firstItem="gDH-Am-4l4" firstAttribute="leading" secondItem="hBV-83-JLb" secondAttribute="leadingMargin" id="nfN-Sb-YLU"/>
                             <constraint firstItem="A4j-GW-5DT" firstAttribute="centerX" secondItem="hBV-83-JLb" secondAttribute="centerX" id="pWq-M1-KPX"/>
-                            <constraint firstItem="gDH-Am-4l4" firstAttribute="leading" secondItem="A4j-GW-5DT" secondAttribute="leading" id="sbY-vh-upd"/>
+                            <constraint firstItem="gDH-Am-4l4" firstAttribute="leading" secondItem="A4j-GW-5DT" secondAttribute="leading" priority="999" id="sbY-vh-upd"/>
                             <constraint firstItem="dY1-st-iwR" firstAttribute="top" secondItem="inK-my-VMV" secondAttribute="bottom" constant="30" id="uG2-Qw-hey"/>
                             <constraint firstItem="A4j-GW-5DT" firstAttribute="top" secondItem="y3D-R2-PCw" secondAttribute="bottom" constant="36" id="wAH-nb-nfr"/>
                         </constraints>
@@ -98,27 +110,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2LH-9I-oey">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2LH-9I-oey">
                                 <rect key="frame" x="20" y="100" width="280" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bxV-Zz-KMh">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bxV-Zz-KMh">
                                 <rect key="frame" x="20" y="160" width="280" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Server Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XCh-eK-eQ6">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Server Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XCh-eK-eQ6">
                                 <rect key="frame" x="20" y="220" width="280" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3a-vi-ViQ">
                                 <rect key="frame" x="20" y="280" width="280" height="30"/>
-                                <state key="normal" title="Register"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2LH-9I-oey" firstAttribute="leading" secondItem="aIJ-Bi-JyQ" secondAttribute="leadingMargin" constant="4" id="1gc-et-59L"/>
                             <constraint firstItem="bxV-Zz-KMh" firstAttribute="top" secondItem="2LH-9I-oey" secondAttribute="bottom" constant="30" id="2is-Xc-oSK"/>
@@ -139,5 +158,86 @@
             </objects>
             <point key="canvasLocation" x="601" y="268"/>
         </scene>
+        <!--Friends-->
+        <scene sceneID="MYT-fM-mfy">
+            <objects>
+                <viewController id="rYv-b1-2Wz" userLabel="Friends" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oKB-OT-f00"/>
+                        <viewControllerLayoutGuide type="bottom" id="WDp-NK-jf4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5rU-KN-YTG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Friends" image="Two" selectedImage="Two" id="BfA-3x-Wzy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tbT-4i-f5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1118" y="1229"/>
+        </scene>
+        <!--Me-->
+        <scene sceneID="Nit-PV-RTk">
+            <objects>
+                <viewController id="kF8-0a-ArO" userLabel="Me" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v9B-hh-sOf"/>
+                        <viewControllerLayoutGuide type="bottom" id="4At-Mc-BtS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1zQ-oc-pji">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Me" image="Three" selectedImage="Three" id="TMO-aT-BQS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R73-VW-eMZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1118" y="1884"/>
+        </scene>
+        <!--Messages-->
+        <scene sceneID="9ep-eU-YbT">
+            <objects>
+                <viewController id="cIF-tU-lPo" userLabel="Messages" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w00-kw-13Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="zyT-lq-Fdn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="adn-Go-lhR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Messages" image="One" selectedImage="One" id="FIX-O9-Tkk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ufD-tp-29g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1118" y="600"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="MSs-xv-y54">
+            <objects>
+                <tabBarController id="Oum-iL-bc7" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="LPk-rk-0if">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="cIF-tU-lPo" kind="relationship" relationship="viewControllers" id="e3C-et-zA5"/>
+                        <segue destination="rYv-b1-2Wz" kind="relationship" relationship="viewControllers" id="31F-EX-PdN"/>
+                        <segue destination="kF8-0a-ArO" kind="relationship" relationship="viewControllers" id="ODi-ay-0QD"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NUF-wB-yc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="601" y="915"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="One" width="32" height="32"/>
+        <image name="Three" width="32" height="32"/>
+        <image name="Two" width="32" height="32"/>
+    </resources>
 </document>
