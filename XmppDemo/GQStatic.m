@@ -13,8 +13,8 @@
 @end
 
 @implementation GQStatic
-+ (AppDelegate *)appDelegate{
-    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
++ (GQAppDelegate *)appDelegate{
+    return (GQAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 + (XMPPStream *)xmppStream {

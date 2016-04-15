@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "GQAppDelegate.h"
 
 static NSString *USERID = @"userId";
 static NSString *PASS= @"pass";
@@ -21,7 +21,7 @@ static NSString *WARNING = @"Warining";
 static float padding = 20;
 
 @interface GQStatic : NSObject 
-+ (AppDelegate *)appDelegate;
++ (GQAppDelegate *)appDelegate;
 + (XMPPStream *)xmppStream;
 + (void)clearUserDeaults;
 @end

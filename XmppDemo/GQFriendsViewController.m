@@ -25,7 +25,7 @@ static NSString* FRIENDVIEW = @"FriendView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    AppDelegate *del = [GQStatic appDelegate];
+    GQAppDelegate *del = [GQStatic appDelegate];
     del.chatDelegate = self;
     self.tView.delegate = self;
     self.tView.dataSource = self;

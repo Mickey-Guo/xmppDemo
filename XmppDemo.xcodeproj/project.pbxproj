@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF6B1A2B1CACC5D5005C6AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2A1CACC5D5005C6AC8 /* main.m */; };
-		AF6B1A2E1CACC5D5005C6AC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2D1CACC5D5005C6AC8 /* AppDelegate.m */; };
+		AF6B1A2E1CACC5D5005C6AC8 /* GQAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */; };
 		AF6B1A341CACC5D5005C6AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */; };
 		AF6B1A361CACC5D5005C6AC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6B1A351CACC5D5005C6AC8 /* Assets.xcassets */; };
 		AF6B1A391CACC5D5005C6AC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6B1A371CACC5D5005C6AC8 /* LaunchScreen.storyboard */; };
@@ -177,8 +177,8 @@
 /* Begin PBXFileReference section */
 		AF6B1A261CACC5D5005C6AC8 /* XmppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XmppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6B1A2A1CACC5D5005C6AC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AF6B1A2C1CACC5D5005C6AC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AF6B1A2D1CACC5D5005C6AC8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQAppDelegate.h; sourceTree = "<group>"; };
+		AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQAppDelegate.m; sourceTree = "<group>"; };
 		AF6B1A331CACC5D5005C6AC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF6B1A351CACC5D5005C6AC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF6B1A381CACC5D5005C6AC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -552,8 +552,8 @@
 			isa = PBXGroup;
 			children = (
 				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
-				AF6B1A2C1CACC5D5005C6AC8 /* AppDelegate.h */,
-				AF6B1A2D1CACC5D5005C6AC8 /* AppDelegate.m */,
+				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
+				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
 				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
 				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
 				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
@@ -1648,7 +1648,7 @@
 				AFB93A791CBB4DF30071E0B1 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				AFB93A9A1CBB4DF30071E0B1 /* XMPPURI.m in Sources */,
 				AFB93A891CBB4DF30071E0B1 /* XMPPRegistration.m in Sources */,
-				AF6B1A2E1CACC5D5005C6AC8 /* AppDelegate.m in Sources */,
+				AF6B1A2E1CACC5D5005C6AC8 /* GQAppDelegate.m in Sources */,
 				AF6B240D1CAD14B2005C6AC8 /* GCDMulticastDelegate.m in Sources */,
 				AFB93A771CBB4DF30071E0B1 /* XMPPvCardCoreDataStorage.m in Sources */,
 				AFB93A861CBB4DF30071E0B1 /* TURNSocket.m in Sources */,

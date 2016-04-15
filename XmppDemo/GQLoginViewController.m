@@ -7,7 +7,7 @@
 //
 
 #import "GQLoginViewController.h"
-#import "AppDelegate.h"
+#import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQLoginDelegate.h"
 
@@ -26,7 +26,7 @@ static NSString* LOGINVIEW = @"LoginView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    AppDelegate* del = [GQStatic appDelegate];
+    GQAppDelegate* del = [GQStatic appDelegate];
     del.loginDelegate = self;
 }
 

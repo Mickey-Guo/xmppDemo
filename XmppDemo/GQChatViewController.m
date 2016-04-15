@@ -7,7 +7,7 @@
 //
 
 #import "GQChatViewController.h"
-#import "AppDelegate.h"
+#import "GQAppDelegate.h"
 #import "GQStatic.h"
 
 static NSString* CHATVIEW = @"chatView";

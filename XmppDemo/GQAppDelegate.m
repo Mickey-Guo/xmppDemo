@@ -6,17 +6,17 @@
 //  Copyright © 2016年 guoqing. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "GQAppDelegate.h"
 #import "GQStatic.h"
 
-@interface AppDelegate ()
+@interface GQAppDelegate ()
 
 - (void)setupStream;
 - (void)goOnline;
 - (void)goOffline;
 @end
 
-@implementation AppDelegate
+@implementation GQAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

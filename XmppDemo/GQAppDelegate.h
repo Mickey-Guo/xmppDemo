@@ -14,7 +14,7 @@
 
 @class GQFriendsViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, XMPPStreamDelegate>
+@interface GQAppDelegate : UIResponder <UIApplicationDelegate, XMPPStreamDelegate>
 
 //@property (strong, nonatomic) IBOutlet UIWindow *window;
 //@property (strong, nonatomic) IBOutlet GQFriendsViewController *viewController;
