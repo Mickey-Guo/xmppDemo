@@ -161,10 +161,13 @@
     }
     NSString *body = [[message elementForName:@"body"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *time = [GQStatic getCurrentTime];
     
     NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
     [m setObject:body forKey:@"msg"];
     [m setObject:from forKey:@"sender"];
+    [m setObject:time forKey:@"time"];
+    NSLog(@"time: %@", time);
     
     [_messageDelegate newMessageReceived:m];
 }

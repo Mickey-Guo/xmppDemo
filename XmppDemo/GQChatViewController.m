@@ -9,6 +9,7 @@
 #import "GQChatViewController.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
+#import "GQMessageCell.h"
 
 static NSString* CHATVIEW = @"chatView";
 
@@ -90,7 +91,7 @@ static NSString* CHATVIEW = @"chatView";
         [dictionary setObject:message forKey:@"msg"];
         [dictionary setObject:@"you" forKey:@"sender"];
         //加入发送时间
-        //[dictionary setObject:[Statics getCurrentTime] forKey:@"time"];
+        [dictionary setObject:[GQStatic getCurrentTime] forKey:@"time"];
         
         [self.messages addObject:dictionary];
         [self.tView reloadData];
@@ -103,18 +104,91 @@ static NSString* CHATVIEW = @"chatView";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSDictionary *s = (NSDictionary *) [_messages objectAtIndex:indexPath.row];
     static NSString *CellIdentifier = @"MessageCellIdentifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+//    }
+//    
+//    cell.textLabel.text = [s objectForKey:@"msg"];
+//    cell.detailTextLabel.text = [s objectForKey:@"sender"];
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.userInteractionEnabled = NO;
+    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
+
     
-    cell.textLabel.text = [s objectForKey:@"msg"];
-    cell.detailTextLabel.text = [s objectForKey:@"sender"];
+    NSMutableDictionary *dict = [self.messages objectAtIndex:indexPath.row];
+    
+    //发送者
+    NSString *sender = [dict objectForKey:@"sender"];
+    //消息
+    NSString *message = [dict objectForKey:@"msg"];
+    //时间
+    NSString *time = [dict objectForKey:@"time"];
+    NSLog(@"ChatView time: %@", time);
+    
+    CGSize textSize = {260.0 ,10000.0};
+    //    CGSize size = [message sizeWithFont:[UIFont boldSystemFontOfSize:13] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
+    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine /*| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading*/ attributes:valueLableAttribute context:nil].size;
+    NSLog(@"size.height:%f",size.height);
+    
+    size.width +=(padding/2);
+    //    size.height +=13;//修正偏差,13是可以的对于[UIFont boldSystemFontOfSize:13]
+    UIFont *test_font = [UIFont boldSystemFontOfSize:13];
+    // NSLog(@"[UIFont boldSystemFontOfSize:13].lineHeight:%f",[UIFont boldSystemFontOfSize:13].lineHeight);//15.509000
+    size.height +=test_font.lineHeight;//修正偏差//textView需要留边吗？上下天地留白。。//label不用吧，不知道用不用修正一个lineHeight
+    
+    cell.messageContentView.text = message;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.userInteractionEnabled = NO;
     
+    UIImage *bgImage = nil;
+    
+    //发送消息
+    if ([sender isEqualToString:@"you"]) {
+        //背景图
+        bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
+        [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
+        
+        
+        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+    } else {
+        
+        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
+        
+        [cell.messageContentView setFrame:CGRectMake(320-size.width - padding, padding*2, size.width, size.height)];
+        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+    }
+    
+    cell.bgImageView.image = bgImage;
+    //    cell.bgImageView.backgroundColor = [UIColor purpleColor];
+    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@ %@", sender, time];
     return cell;
+}
+
+//每一行的高度
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSMutableDictionary *dict  = [self.messages objectAtIndex:indexPath.row];
+    NSString *msg = [dict objectForKey:@"msg"];
+    
+    CGSize textSize = {260.0 ,10000.0};
+    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
+    CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
+    
+    size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
+    //    size.height += padding*2;
+    size.height += padding*3;
+    
+    CGFloat height = size.height < 65 ? 65 : size.height;
+    
+    return height;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableview numberOfRowsInSection:(NSInteger)section {

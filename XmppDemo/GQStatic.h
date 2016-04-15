@@ -24,4 +24,5 @@ static float padding = 20;
 + (GQAppDelegate *)appDelegate;
 + (XMPPStream *)xmppStream;
 + (void)clearUserDeaults;
++ (NSString *)getCurrentTime;
 @end
