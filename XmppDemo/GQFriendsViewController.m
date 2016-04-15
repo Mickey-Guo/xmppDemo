@@ -11,6 +11,7 @@
 #import "GQStatic.h"
 
 static NSString* FRIENDVIEW = @"FriendView";
+
 @interface GQFriendsViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) NSMutableArray *onlineFriends;

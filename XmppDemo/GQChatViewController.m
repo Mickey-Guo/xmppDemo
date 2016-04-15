@@ -11,6 +11,7 @@
 #import "GQStatic.h"
 
 static NSString* CHATVIEW = @"chatView";
+
 @interface GQChatViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UITableView *tView;
@@ -90,6 +91,7 @@ static NSString* CHATVIEW = @"chatView";
         //[dictionary setObject:[Statics getCurrentTime] forKey:@"time"];
         
         [self.messages addObject:dictionary];
+        [self.tView reloadData];
     }
 }
 
@@ -114,10 +116,16 @@ static NSString* CHATVIEW = @"chatView";
 }
 
 - (NSInteger)tableView:(UITableView *)tableview numberOfRowsInSection:(NSInteger)section {
-    return _messages.count;
+    return self.messages.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+#pragma mark-GQMessageDelegate
+- (void)newMessageReceived:(NSDictionary *)messageContent {
+    [self.messages addObject:messageContent];
+    [self.tView reloadData];
 }
 @end
