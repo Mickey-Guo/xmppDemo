@@ -14,7 +14,7 @@ static NSString* CHATVIEW = @"chatView";
 
 @interface GQChatViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
-@property (weak, nonatomic) IBOutlet UITableView *tView;
+@property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (nonatomic, retain) NSMutableArray *messages;
 
 - (IBAction)sendMessage:(id)sender;
@@ -38,6 +38,8 @@ static NSString* CHATVIEW = @"chatView";
     _messages = [[NSMutableArray alloc] init];
     self.navigationItem.title = _chatWithUser;
     
+    GQAppDelegate *del = [GQStatic appDelegate];
+    del.messageDelegate = self;
     //[self.messageField becomeFirstResponder];
     NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
 }

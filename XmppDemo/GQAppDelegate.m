@@ -156,11 +156,14 @@
 
 //the delegate will use these events to populate the online buddies table accordingly.
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSString *msg = [[message elementForName:@"body"] stringValue];
+    if (![message isChatMessageWithBody]) {
+        return;
+    }
+    NSString *body = [[message elementForName:@"body"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
     
     NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
-    [m setObject:msg forKey:@"msg"];
+    [m setObject:body forKey:@"msg"];
     [m setObject:from forKey:@"sender"];
     
     [_messageDelegate newMessageReceived:m];

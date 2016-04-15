@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GQMessageCell : UIView
+@interface GQMessageCell : UITableViewCell
+
+@property (nonatomic, strong) UILabel *senderAndTimeLabel;
+@property (nonatomic, strong) UITextView *messageContentView;
+@property (nonatomic, strong) UIImageView *bgImageView;
 
 @end
