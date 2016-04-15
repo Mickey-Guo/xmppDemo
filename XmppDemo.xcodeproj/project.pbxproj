@@ -169,6 +169,9 @@
 		AFDBC4481CBCB434004D0967 /* GQLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4471CBCB434004D0967 /* GQLoginViewController.m */; };
 		AFDBC44B1CBCC0A9004D0967 /* GQFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */; };
 		AFDBC44E1CBCC4BA004D0967 /* GQChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */; };
+		AFDBC4561CBF8BED004D0967 /* GQStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4551CBF8BED004D0967 /* GQStatic.m */; };
+		AFDBC45B1CBFBFB2004D0967 /* GQMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */; };
+		AFDBC45E1CC0D7FC004D0967 /* GQMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -497,6 +500,13 @@
 		AFDBC44F1CBCE2D7004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GQChatDelegate.h; path = ../../GQChatDelegate.h; sourceTree = "<group>"; };
 		AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQChatDelegate.h; sourceTree = "<group>"; };
 		AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMessageDelegate.h; sourceTree = "<group>"; };
+		AFDBC4541CBF8BED004D0967 /* GQStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStatic.h; sourceTree = "<group>"; };
+		AFDBC4551CBF8BED004D0967 /* GQStatic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStatic.m; sourceTree = "<group>"; };
+		AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQLoginDelegate.h; sourceTree = "<group>"; };
+		AFDBC4591CBFBFB2004D0967 /* GQMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GQMeViewController.h; path = ../GQMeViewController.h; sourceTree = "<group>"; };
+		AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GQMeViewController.m; path = ../GQMeViewController.m; sourceTree = "<group>"; };
+		AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQMessageCell.h; sourceTree = "<group>"; };
+		AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,16 +551,24 @@
 		AF6B1A281CACC5D5005C6AC8 /* XmppDemo */ = {
 			isa = PBXGroup;
 			children = (
+				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
 				AF6B1A2C1CACC5D5005C6AC8 /* AppDelegate.h */,
 				AF6B1A2D1CACC5D5005C6AC8 /* AppDelegate.m */,
 				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
 				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
+				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
 				AFDBC4461CBCB434004D0967 /* GQLoginViewController.h */,
 				AFDBC4471CBCB434004D0967 /* GQLoginViewController.m */,
 				AFDBC4491CBCC0A9004D0967 /* GQFriendsViewController.h */,
 				AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */,
 				AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */,
 				AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */,
+				AFDBC4591CBFBFB2004D0967 /* GQMeViewController.h */,
+				AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */,
+				AFDBC4541CBF8BED004D0967 /* GQStatic.h */,
+				AFDBC4551CBF8BED004D0967 /* GQStatic.m */,
+				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
+				AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */,
 				AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */,
 				AF6B1A351CACC5D5005C6AC8 /* Assets.xcassets */,
 				AF6B1A371CACC5D5005C6AC8 /* LaunchScreen.storyboard */,
@@ -566,7 +584,6 @@
 				AF6B24131CAD14DC005C6AC8 /* libresolv.9.tbd */,
 				AFDBC4411CBCAEE2004D0967 /* libxml2.tbd */,
 				AF6B24141CAD14DC005C6AC8 /* libresolv.tbd */,
-				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
 				AFDBC43F1CBCAEA3004D0967 /* CoreGraphics.framework */,
 				AFDBC43D1CBCAE98004D0967 /* Foundation.framework */,
 				AFDBC43B1CBCAE89004D0967 /* UIKit.framework */,
@@ -1573,6 +1590,7 @@
 				AFB93AA21CBB4DF30071E0B1 /* XMPPStreamManagementStanzas.m in Sources */,
 				AFB93A661CBB4DF30071E0B1 /* XMPPPrivacy.m in Sources */,
 				AFB93AA71CBB4DF30071E0B1 /* XMPPTime.m in Sources */,
+				AFDBC45B1CBFBFB2004D0967 /* GQMeViewController.m in Sources */,
 				AFB93AAA1CBB4DF30071E0B1 /* XMPPAttentionModule.m in Sources */,
 				AF6B24011CAD14B2005C6AC8 /* NSNumber+XMPP.m in Sources */,
 				AFB93A541CBB4DF30071E0B1 /* XMPPGoogleSharedStatus.m in Sources */,
@@ -1585,6 +1603,7 @@
 				AF6B23FD1CAD14B2005C6AC8 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				AF6B23FB1CAD14B2005C6AC8 /* XMPPDigestMD5Authentication.m in Sources */,
 				AFB93AA11CBB4DF30071E0B1 /* XMPPStreamManagementMemoryStorage.m in Sources */,
+				AFDBC4561CBF8BED004D0967 /* GQStatic.m in Sources */,
 				AFB93A921CBB4DF30071E0B1 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				AFB93AA61CBB4DF30071E0B1 /* XMPPAutoTime.m in Sources */,
 				AFB93A7E1CBB4DF30071E0B1 /* XMPPvCardTempEmail.m in Sources */,
@@ -1643,6 +1662,7 @@
 				AFB93A761CBB4DF30071E0B1 /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				AF6B24021CAD14B2005C6AC8 /* NSXMLElement+XMPP.m in Sources */,
 				AFB93AAB1CBB4DF30071E0B1 /* XMPPMessage+XEP_0224.m in Sources */,
+				AFDBC45E1CC0D7FC004D0967 /* GQMessageCell.m in Sources */,
 				AFB93A5E1CBB4DF30071E0B1 /* XMPPUserMemoryStorageObject.m in Sources */,
 				AFB93A601CBB4DF30071E0B1 /* XMPPSystemInputActivityMonitor.m in Sources */,
 				AFB93AA41CBB4DF30071E0B1 /* XMPPAutoPing.m in Sources */,

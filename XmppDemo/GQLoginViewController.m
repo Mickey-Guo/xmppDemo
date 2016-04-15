@@ -7,13 +7,18 @@
 //
 
 #import "GQLoginViewController.h"
+#import "AppDelegate.h"
+#import "GQStatic.h"
+#import "GQLoginDelegate.h"
 
-@interface GQLoginViewController ()
+static NSString* LOGINVIEW = @"LoginView";
+@interface GQLoginViewController () <GQLoginDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *serverAddressField;
 
 - (IBAction)login:(id)sender;
+- (IBAction)hideKeyboard:(id)sender;
 @end
 
 @implementation GQLoginViewController
@@ -21,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    AppDelegate* del = [GQStatic appDelegate];
+    del.loginDelegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,11 +46,58 @@
 */
 
 - (IBAction)login:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setObject:self.nameField.text forKey:@"userID"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.passwordField.text forKey:@"userPassword"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.serverAddressField.text forKey:@"serverAddress"];
+    NSString* ret = [NSString stringWithFormat:@"%@@%@", self.nameField.text, HOSTNAME];
+    [[NSUserDefaults standardUserDefaults] setObject:ret forKey:USERID];
+    [[NSUserDefaults standardUserDefaults] setObject:self.passwordField.text forKey:PASS];
+    [[NSUserDefaults standardUserDefaults] setObject:self.serverAddressField.text forKey:SERVER];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"Saved standardUserDefaults");
+    
+    [[GQStatic appDelegate] connect];
+    
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (IBAction)hideKeyboard:(id)sender {
+    [self.nameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    [self.serverAddressField resignFirstResponder];
+}
+
+- (void)didAuthenticate {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"%@: didAuthenticate.", LOGINVIEW);
+}
+
+- (void)didNotAuthenticate {
+    [GQStatic clearUserDeaults];
+    self.passwordField.text = nil;
+    UIAlertController *loginAlert = [UIAlertController
+                                     alertControllerWithTitle:WARNING message:PASSWORD_ERROR preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* okAction = [UIAlertAction
+                               actionWithTitle:OK
+                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                               }];
+    [loginAlert addAction:okAction];
+    [self presentViewController:loginAlert animated:YES completion:nil];
+}
+
+- (void)didNotConnect {
+    UIAlertController *loginAlert = [UIAlertController
+                                     alertControllerWithTitle:WARNING message:CONNECT_FAILED preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* okAction = [UIAlertAction
+                               actionWithTitle:OK
+                               style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+    [loginAlert addAction:okAction];
+    [self presentViewController:loginAlert animated:YES completion:nil];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.nameField resignFirstResponder];
+    [self.passwordField resignFirstResponder];
+    [self.serverAddressField resignFirstResponder];
 }
 @end

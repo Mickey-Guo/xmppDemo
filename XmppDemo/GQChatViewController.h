@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GQChatViewController : UIViewController
+@property (nonatomic, retain) NSString *chatWithUser;
 
-//- (id) initwithUser: (NSString *) userName;
+- (id) initWithUser: (NSString *) userName;
 @end

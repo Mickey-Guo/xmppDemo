@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "GQStatic.h"
 
 @interface AppDelegate ()
 
@@ -40,6 +41,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSLog(@"applicationDidBecomeActive");
     [self connect];
 }
 
@@ -66,9 +68,9 @@
     
     [self setupStream];
     
-    NSString *jabberID = [[NSUserDefaults standardUserDefaults] stringForKey:@"userID"];
-    NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:@"userPassword"];
-    NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:@"serverAddress"];
+    NSString *jabberID = [[NSUserDefaults standardUserDefaults] stringForKey:USERID];
+    NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:PASS];
+    NSString *server = [[NSUserDefaults standardUserDefaults] stringForKey:SERVER];
     
     if (![_xmppStream isDisconnected]) {
         NSLog(@"connected!");
@@ -80,6 +82,7 @@
         return NO;
     }
     
+    NSLog(@"id:%@ password:%@ server:%@", jabberID, myPassword, server);
     //set UserId
     [_xmppStream setMyJID:[XMPPJID jidWithString:jabberID]];
     //set Password
@@ -91,11 +94,9 @@
     NSError *error = nil;
     if (![_xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error])
     {
-        NSLog(@"connect failed");
-        
+        NSLog(@"CONNECT ERROR");
         return NO;
     }
-    
     return YES;
 }
 
@@ -103,6 +104,7 @@
     
     [self goOffline];
     [_xmppStream disconnect];
+    NSLog(@"XmppStream disconnet");
     
 }
 
@@ -110,14 +112,29 @@
 #pragma XMPP delegate
 
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
+    NSLog(@"xmppStreamDidConnect");
     _isOpen = YES;
     NSError *error = nil;
-    [self.xmppStream authenticateWithPassword:_password error:&error];
+    if (![self.xmppStream authenticateWithPassword:_password error:&error]) {
+        NSLog(@"AUTHENTICATE ERROR:%@", error);
+    }
+}
+
+- (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender {
+    NSLog(@"XmppStreamConnectDidTimeout");
+    [self.loginDelegate didNotConnect];
 }
 
 //when authentication is successful, we should notify the server that we are online
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
+    NSLog(@"xmppStreamDidAuthenticate");
     [self goOnline];
+    [self.loginDelegate didAuthenticate];
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
+    NSLog(@"AUTHENTICATE FAILED:%@", error);
+    [self.loginDelegate didNotAuthenticate];
 }
 
 //when we receive a presence notification, we can dispatch the message to the chat delegate
@@ -129,9 +146,9 @@
     
     if (![presenceFromUser isEqualToString:myUsername]) {
         if ([presenceType isEqualToString:@"available"]) {
-            [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, @"jerry.local"]];
+            [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         } else if ([presenceType isEqualToString:@"unavailable"]) {
-            [_chatDelegate friendWentOffline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, @"jerry.local"]];
+            [_chatDelegate friendWentOffline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         }
     }
     

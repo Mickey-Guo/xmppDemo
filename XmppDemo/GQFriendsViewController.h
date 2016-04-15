@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GQChatDelegate.h"
 #import "AppDelegate.h"
+#import "GQLoginViewController.h"
 
 @interface GQFriendsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, GQChatDelegate>
 

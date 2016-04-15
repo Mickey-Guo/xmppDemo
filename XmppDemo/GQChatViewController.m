@@ -7,11 +7,13 @@
 //
 
 #import "GQChatViewController.h"
+#import "AppDelegate.h"
+#import "GQStatic.h"
 
+static NSString* CHATVIEW = @"chatView";
 @interface GQChatViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UITableView *tView;
-@property (nonatomic, retain) NSString *chatWithUser;
 @property (nonatomic, retain) NSMutableArray *messages;
 
 - (IBAction)sendMessage:(id)sender;
@@ -19,14 +21,24 @@
 
 @implementation GQChatViewController
 
+- (id)initWithUser:(NSString *)userName {
+    if (self = [super init]) {
+        _chatWithUser = userName;
+    }
+    NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tView.delegate = self;
     self.tView.dataSource = self;
     _messages = [[NSMutableArray alloc] init];
+    self.navigationItem.title = _chatWithUser;
     
-    [self.messageField becomeFirstResponder];
+    //[self.messageField becomeFirstResponder];
+    NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,13 +57,39 @@
 */
 
 - (IBAction)sendMessage:(id)sender {
-    NSString *messageStr = self.messageField.text;
+    NSString *message = self.messageField.text;
     
-    if (messageStr.length > 0) {
-        self.messageField.text = @"";
+    if (message.length > 0) {
+        //XMPPFramework通过KissXML来生成XML文件
+        //生成<body>文档
+        NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+        [body setStringValue:message];
         
-        NSString *m = [NSString stringWithFormat:@"%@:%@", messageStr, @"you"];
-
+        //生成XML消息文档
+        NSXMLElement *mes = [NSXMLElement elementWithName:@"message"];
+        //消息类型
+        [mes addAttributeWithName:@"type" stringValue:@"chat"];
+        //发送给谁
+        [mes addAttributeWithName:@"to" stringValue:_chatWithUser];
+        //由谁发送
+        [mes addAttributeWithName:@"from" stringValue:[[NSUserDefaults standardUserDefaults] stringForKey:USERID]];
+        //组合
+        [mes addChild:body];
+        
+        //发送消息
+        [[GQStatic xmppStream] sendElement:mes];
+        
+        self.messageField.text = @"";
+        [self.messageField resignFirstResponder];
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        
+        [dictionary setObject:message forKey:@"msg"];
+        [dictionary setObject:@"you" forKey:@"sender"];
+        //加入发送时间
+        //[dictionary setObject:[Statics getCurrentTime] forKey:@"time"];
+        
+        [self.messages addObject:dictionary];
     }
 }
 
