@@ -43,6 +43,7 @@ static NSString* CHATVIEW = @"chatView";
     del.messageDelegate = self;
     //[self.messageField becomeFirstResponder];
     NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
+    [self.tView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,6 +96,7 @@ static NSString* CHATVIEW = @"chatView";
         
         [self.messages addObject:dictionary];
         [self.tView reloadData];
+        NSLog(@"Sent:%@", mes);
     }
 }
 
@@ -131,14 +133,12 @@ static NSString* CHATVIEW = @"chatView";
     NSString *time = [dict objectForKey:@"time"];
     NSLog(@"ChatView time: %@", time);
     
-    CGSize textSize = {260.0 ,10000.0};
-    //    CGSize size = [message sizeWithFont:[UIFont boldSystemFontOfSize:13] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize textSize = {260.0 ,100000.0};
     NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine /*| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading*/ attributes:valueLableAttribute context:nil].size;
+    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
     NSLog(@"size.height:%f",size.height);
     
     size.width +=(padding/2);
-    //    size.height +=13;//修正偏差,13是可以的对于[UIFont boldSystemFontOfSize:13]
     UIFont *test_font = [UIFont boldSystemFontOfSize:13];
     // NSLog(@"[UIFont boldSystemFontOfSize:13].lineHeight:%f",[UIFont boldSystemFontOfSize:13].lineHeight);//15.509000
     size.height +=test_font.lineHeight;//修正偏差//textView需要留边吗？上下天地留白。。//label不用吧，不知道用不用修正一个lineHeight
@@ -150,9 +150,9 @@ static NSString* CHATVIEW = @"chatView";
     UIImage *bgImage = nil;
     
     //发送消息
-    if ([sender isEqualToString:@"you"]) {
+    if (![sender isEqualToString:@"you"]) {
         //背景图
-        bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:20 topCapHeight:15];
+        bgImage = [UIImage imageNamed:@"orange.png"];
         [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
         
         
@@ -182,10 +182,12 @@ static NSString* CHATVIEW = @"chatView";
     CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
     
     size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
-    //    size.height += padding*2;
+        //size.height += padding*2;
     size.height += padding*3;
     
     CGFloat height = size.height < 65 ? 65 : size.height;
+    
+//    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     
     return height;
     

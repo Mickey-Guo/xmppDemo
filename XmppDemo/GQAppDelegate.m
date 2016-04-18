@@ -156,6 +156,7 @@
 
 //the delegate will use these events to populate the online buddies table accordingly.
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    NSLog(@"Message:%@", message);
     if (![message isChatMessageWithBody]) {
         return;
     }
