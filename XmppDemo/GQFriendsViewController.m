@@ -120,6 +120,9 @@ static NSString* FRIENDVIEW = @"FriendView";
 }
 
 - (void)newFriendOnline:(NSString *)friendName {
+    if ([_onlineFriends indexOfObject:friendName] != NSNotFound) {
+        return ;
+    }
     [_onlineFriends addObject:friendName];
     [self.tView reloadData];
 }

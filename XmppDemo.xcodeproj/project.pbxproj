@@ -551,6 +551,7 @@
 		AF6B1A281CACC5D5005C6AC8 /* XmppDemo */ = {
 			isa = PBXGroup;
 			children = (
+				AFDBC4621CC61D60004D0967 /* Tools */,
 				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
 				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
 				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
@@ -565,8 +566,6 @@
 				AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */,
 				AFDBC4591CBFBFB2004D0967 /* GQMeViewController.h */,
 				AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */,
-				AFDBC4541CBF8BED004D0967 /* GQStatic.h */,
-				AFDBC4551CBF8BED004D0967 /* GQStatic.m */,
 				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
 				AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */,
 				AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */,
@@ -1493,6 +1492,15 @@
 				AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */,
 			);
 			path = "XEP-0352";
+			sourceTree = "<group>";
+		};
+		AFDBC4621CC61D60004D0967 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AFDBC4541CBF8BED004D0967 /* GQStatic.h */,
+				AFDBC4551CBF8BED004D0967 /* GQStatic.m */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

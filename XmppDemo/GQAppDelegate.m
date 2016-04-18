@@ -139,11 +139,12 @@
 
 //when we receive a presence notification, we can dispatch the message to the chat delegate
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
-    
+    NSLog(@"presence : %@, %@", presence.fromStr, presence.type);
+
     NSString *presenceType = [presence type]; // online/offline
     NSString *myUsername = [[sender myJID] user];
     NSString *presenceFromUser = [[presence from] user];
-    
+
     if (![presenceFromUser isEqualToString:myUsername]) {
         if ([presenceType isEqualToString:@"available"]) {
             [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
