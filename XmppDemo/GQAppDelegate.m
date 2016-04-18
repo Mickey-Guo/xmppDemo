@@ -139,6 +139,7 @@
 
 //when we receive a presence notification, we can dispatch the message to the chat delegate
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"presence : %@, %@", presence.fromStr, presence.type);
     
     NSString *presenceType = [presence type]; // online/offline
     NSString *myUsername = [[sender myJID] user];
