@@ -10,6 +10,7 @@
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQMessageCell.h"
+#import "GQStreamManager.h"
 
 static NSString* CHATVIEW = @"chatView";
 
@@ -39,8 +40,10 @@ static NSString* CHATVIEW = @"chatView";
     _messages = [[NSMutableArray alloc] init];
     self.navigationItem.title = _chatWithUser;
     
-    GQAppDelegate *del = [GQStatic appDelegate];
-    del.messageDelegate = self;
+    //GQAppDelegate *del = [GQStatic appDelegate];
+    //del.messageDelegate = self;
+    GQStreamManager *streamManager = [GQStreamManager manager];
+    streamManager.messageDelegate = self;
     //[self.messageField becomeFirstResponder];
     NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
     [self.tView reloadData];

@@ -9,6 +9,7 @@
 #import "GQMeViewController.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
+#import "GQStreamManager.h"
 
 @interface GQMeViewController()
 
@@ -20,7 +21,7 @@
 - (IBAction)logout:(id)sender {
     [GQStatic clearUserDeaults];
     [self.tabBarController setSelectedIndex:0];
-    GQAppDelegate *del = [GQStatic appDelegate];
-    [del disconnect];
+    GQStreamManager *streamManager = [GQStreamManager manager];
+    [streamManager disconnect];
 }
 @end

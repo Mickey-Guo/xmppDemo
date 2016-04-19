@@ -11,24 +11,19 @@
 #import "GQChatDelegate.h"
 #import "GQMessageDelegate.h"
 #import "GQLoginDelegate.h"
+@class GQStreamManager;
 
 @class GQFriendsViewController;
 
 @interface GQAppDelegate : UIResponder <UIApplicationDelegate, XMPPStreamDelegate>
 
-//@property (strong, nonatomic) IBOutlet UIWindow *window;
-//@property (strong, nonatomic) IBOutlet GQFriendsViewController *viewController;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) GQFriendsViewController *viewController;
 @property (strong, readonly) XMPPStream *xmppStream;
 @property (nonatomic) BOOL isOpen;
 @property (strong, nonatomic) NSString *password;
 
-@property (nonatomic) id<GQChatDelegate> chatDelegate;
-@property (nonatomic) id<GQMessageDelegate> messageDelegate;
-@property (nonatomic) id<GQLoginDelegate> loginDelegate;
+@property (strong, nonatomic,readonly) GQStreamManager *streamManager;
 
-- (BOOL)connect;
-- (void)disconnect;
 @end
 

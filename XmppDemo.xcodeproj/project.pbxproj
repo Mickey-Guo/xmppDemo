@@ -172,6 +172,7 @@
 		AFDBC4561CBF8BED004D0967 /* GQStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4551CBF8BED004D0967 /* GQStatic.m */; };
 		AFDBC45B1CBFBFB2004D0967 /* GQMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */; };
 		AFDBC45E1CC0D7FC004D0967 /* GQMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */; };
+		AFDBC4651CC62100004D0967 /* GQStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4641CC62100004D0967 /* GQStreamManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -507,6 +508,8 @@
 		AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GQMeViewController.m; path = ../GQMeViewController.m; sourceTree = "<group>"; };
 		AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQMessageCell.h; sourceTree = "<group>"; };
 		AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQMessageCell.m; sourceTree = "<group>"; };
+		AFDBC4631CC62100004D0967 /* GQStreamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStreamManager.h; sourceTree = "<group>"; };
+		AFDBC4641CC62100004D0967 /* GQStreamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStreamManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -553,11 +556,6 @@
 			children = (
 				AFDBC4621CC61D60004D0967 /* Tools */,
 				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
-				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
-				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
-				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
-				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
-				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
 				AFDBC4461CBCB434004D0967 /* GQLoginViewController.h */,
 				AFDBC4471CBCB434004D0967 /* GQLoginViewController.m */,
 				AFDBC4491CBCC0A9004D0967 /* GQFriendsViewController.h */,
@@ -1499,6 +1497,13 @@
 			children = (
 				AFDBC4541CBF8BED004D0967 /* GQStatic.h */,
 				AFDBC4551CBF8BED004D0967 /* GQStatic.m */,
+				AFDBC4631CC62100004D0967 /* GQStreamManager.h */,
+				AFDBC4641CC62100004D0967 /* GQStreamManager.m */,
+				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
+				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
+				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
+				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
+				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1697,6 +1702,7 @@
 				AF6B24101CAD14B2005C6AC8 /* XMPPSRVResolver.m in Sources */,
 				AFB93A561CBB4DF30071E0B1 /* XMPPReconnect.m in Sources */,
 				AFDBC44B1CBCC0A9004D0967 /* GQFriendsViewController.m in Sources */,
+				AFDBC4651CC62100004D0967 /* GQStreamManager.m in Sources */,
 				AFDBC44E1CBCC4BA004D0967 /* GQChatViewController.m in Sources */,
 				AFB93AAD1CBB4DF30071E0B1 /* XMPPMessageCarbons.m in Sources */,
 				AFB93A9E1CBB4DF30071E0B1 /* XMPPMessage+XEP_0184.m in Sources */,

@@ -9,6 +9,7 @@
 #import "GQFriendsViewController.h"
 #import "GQChatViewController.h"
 #import "GQStatic.h"
+#import "GQStreamManager.h"
 
 static NSString* FRIENDVIEW = @"FriendView";
 
@@ -26,8 +27,9 @@ static NSString* FRIENDVIEW = @"FriendView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    GQAppDelegate *del = [GQStatic appDelegate];
-    del.chatDelegate = self;
+    //GQAppDelegate *appDelegate = [GQStatic appDelegate];
+    GQStreamManager *streamManager = [GQStreamManager manager];
+    streamManager.chatDelegate = self;
     self.tView.delegate = self;
     self.tView.dataSource = self;
     _onlineFriends = [[NSMutableArray alloc] init];

@@ -10,6 +10,7 @@
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQLoginDelegate.h"
+#import "GQStreamManager.h"
 
 static NSString* LOGINVIEW = @"LoginView";
 @interface GQLoginViewController () <GQLoginDelegate>
@@ -26,8 +27,8 @@ static NSString* LOGINVIEW = @"LoginView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    GQAppDelegate* del = [GQStatic appDelegate];
-    del.loginDelegate = self;
+    GQStreamManager *streamManager = [GQStreamManager manager];
+    streamManager.loginDelegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,8 +55,9 @@ static NSString* LOGINVIEW = @"LoginView";
     
     NSLog(@"Saved standardUserDefaults");
     
-    [[GQStatic appDelegate] connect];
-    
+    //[[GQStatic appDelegate] connect];
+    GQStreamManager *streamManager = [GQStreamManager manager];
+    [streamManager connect];
     
     //[self dismissViewControllerAnimated:YES completion:nil];
     
