@@ -173,6 +173,7 @@
 		AFDBC45B1CBFBFB2004D0967 /* GQMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */; };
 		AFDBC45E1CC0D7FC004D0967 /* GQMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */; };
 		AFDBC4651CC62100004D0967 /* GQStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4641CC62100004D0967 /* GQStreamManager.m */; };
+		AFDBC46B1CC64CB3004D0967 /* GQRosterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -510,6 +511,8 @@
 		AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQMessageCell.m; sourceTree = "<group>"; };
 		AFDBC4631CC62100004D0967 /* GQStreamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStreamManager.h; sourceTree = "<group>"; };
 		AFDBC4641CC62100004D0967 /* GQStreamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStreamManager.m; sourceTree = "<group>"; };
+		AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQRosterManager.h; sourceTree = "<group>"; };
+		AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQRosterManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1504,6 +1507,8 @@
 				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
 				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
 				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
+				AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */,
+				AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1668,6 +1673,7 @@
 				AFB93A5D1CBB4DF30071E0B1 /* XMPPRosterMemoryStorage.m in Sources */,
 				AF6B238B1CAD0FCD005C6AC8 /* DDAbstractDatabaseLogger.m in Sources */,
 				AFB93A6C1CBB4DF30071E0B1 /* XMPPRoomHybridStorage.m in Sources */,
+				AFDBC46B1CC64CB3004D0967 /* GQRosterManager.m in Sources */,
 				AFB93A6D1CBB4DF30071E0B1 /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				AF6B24081CAD14B2005C6AC8 /* XMPPModule.m in Sources */,
 				AFB93A671CBB4DF30071E0B1 /* XMPPRoom.xcdatamodeld in Sources */,

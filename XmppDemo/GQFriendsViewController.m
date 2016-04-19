@@ -10,13 +10,16 @@
 #import "GQChatViewController.h"
 #import "GQStatic.h"
 #import "GQStreamManager.h"
+#import "GQRosterManager.h"
 
 static NSString* FRIENDVIEW = @"FriendView";
 
-@interface GQFriendsViewController ()
+@interface GQFriendsViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) NSMutableArray *onlineFriends;
 @property (strong, nonatomic) NSString *chatUserName;
+
+@property (strong, nonatomic) NSFetchedResultsController *friendsController;
 
 - (void)showLogin;
 
@@ -30,6 +33,9 @@ static NSString* FRIENDVIEW = @"FriendView";
     //GQAppDelegate *appDelegate = [GQStatic appDelegate];
     GQStreamManager *streamManager = [GQStreamManager manager];
     streamManager.chatDelegate = self;
+    
+    [self getFriends];
+    
     self.tView.delegate = self;
     self.tView.dataSource = self;
     _onlineFriends = [[NSMutableArray alloc] init];
@@ -57,6 +63,13 @@ static NSString* FRIENDVIEW = @"FriendView";
 }
 
 
+- (void)getFriends {
+    NSLog(@"getting friends");
+    _friendsController = [[GQRosterManager manager] getFriendsController];
+    _friendsController.delegate = self;
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -78,11 +91,55 @@ static NSString* FRIENDVIEW = @"FriendView";
     
 #pragma mark -
 #pragma mark Table view delegates
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    NSString *s = (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
+//    
+//    static NSString *CellIdentifier = @"FriendCell";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//    }
+//    
+//    cell.textLabel.text = s;
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    
+//    return cell;
+//    
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    
+//    return [_onlineFriends count];
+//    
+//}
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    
+//    return 1;
+//    
+//}
+//
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    _chatUserName= (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
+//    [self performSegueWithIdentifier:@"toChat" sender:self];
+//    
+//}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"number of sections in table view");
+    return [_friendsController sections].count;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *s = (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
-    
     static NSString *CellIdentifier = @"FriendCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -90,32 +147,49 @@ static NSString* FRIENDVIEW = @"FriendView";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = s;
+    XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = friend.jidStr;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    return cell;
-    
+    return (UITableViewCell *)cell;
+
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return [_onlineFriends count];
-    
+#pragma mark -NSFetchedResultsControllerDelegate
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller{
+    [_tView beginUpdates];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-    
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [_tView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [_tView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [_tView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [_tView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            [_tView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationTop];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+    [_tView endUpdates];
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    _chatUserName= (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"toChat" sender:self];
-    
-}
+
+
+
+
 
 -(XMPPStream *)xmppStream {
     return [[GQStatic appDelegate] xmppStream];

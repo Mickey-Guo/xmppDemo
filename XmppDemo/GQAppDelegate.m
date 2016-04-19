@@ -9,6 +9,8 @@
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQStreamManager.h"
+#import "GQRosterManager.h"
+
 
 @interface GQAppDelegate ()
 
@@ -50,6 +52,15 @@
     [_xmppStream addDelegate:_streamManager delegateQueue:dispatch_get_main_queue()];
     NSLog(@"applicationDidFinishLaunching");
     [_streamManager connect];
+    
+    
+    //注册花名册
+    XMPPRosterCoreDataStorage *rosterDataStorage = [XMPPRosterCoreDataStorage sharedInstance];
+    _roster = [[XMPPRoster alloc]initWithRosterStorage:rosterDataStorage];
+    _roster.autoFetchRoster = YES;
+    [_roster activate:_xmppStream];
+    _rosterManager = [[GQRosterManager alloc]init];
+    [_roster addDelegate:_rosterManager delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

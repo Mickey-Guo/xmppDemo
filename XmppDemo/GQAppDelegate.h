@@ -12,6 +12,8 @@
 #import "GQMessageDelegate.h"
 #import "GQLoginDelegate.h"
 @class GQStreamManager;
+@class GQRosterManager;
+@class XMPPRoster;
 
 @class GQFriendsViewController;
 
@@ -20,10 +22,12 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) GQFriendsViewController *viewController;
 @property (strong, readonly) XMPPStream *xmppStream;
+@property (strong, nonatomic, readonly) XMPPRoster *roster;
 @property (nonatomic) BOOL isOpen;
 @property (strong, nonatomic) NSString *password;
 
-@property (strong, nonatomic,readonly) GQStreamManager *streamManager;
+@property (strong, nonatomic, readonly) GQStreamManager *streamManager;
+@property (strong, nonatomic, readonly) GQRosterManager *rosterManager;
 
 @end
 
