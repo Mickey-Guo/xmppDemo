@@ -135,8 +135,14 @@ static NSString* FRIENDVIEW = @"FriendView";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"number of sections in table view");
+    NSLog(@"number of sections in table view, %ld", (long)[_friendsController sections].count);
     return [_friendsController sections].count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    id<NSFetchedResultsSectionInfo> sectionObj = [[_friendsController sections]
+                                                  objectAtIndex:section];
+    return [sectionObj numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
