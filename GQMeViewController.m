@@ -10,6 +10,7 @@
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQStreamManager.h"
+#import "GQRosterManager.h"
 
 @interface GQMeViewController()
 
@@ -23,5 +24,6 @@
     [self.tabBarController setSelectedIndex:0];
     GQStreamManager *streamManager = [GQStreamManager manager];
     [streamManager disconnect];
+    [[GQRosterManager manager] deleteRosterStorage];
 }
 @end

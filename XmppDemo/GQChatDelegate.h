@@ -9,8 +9,7 @@
 
 @protocol GQChatDelegate
 
-- (void)newFriendOnline:(NSString *)friendName;
-- (void)friendWentOffline:(NSString *)friendName;
+@optional
 - (void)didDisconnect;
 
 @end

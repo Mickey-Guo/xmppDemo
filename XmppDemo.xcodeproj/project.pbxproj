@@ -174,6 +174,8 @@
 		AFDBC45E1CC0D7FC004D0967 /* GQMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */; };
 		AFDBC4651CC62100004D0967 /* GQStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4641CC62100004D0967 /* GQStreamManager.m */; };
 		AFDBC46B1CC64CB3004D0967 /* GQRosterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */; };
+		AFDBC4731CC75EEB004D0967 /* GQFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */; };
+		AFDBC4761CC76D8D004D0967 /* GQFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -513,6 +515,9 @@
 		AFDBC4641CC62100004D0967 /* GQStreamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStreamManager.m; sourceTree = "<group>"; };
 		AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQRosterManager.h; sourceTree = "<group>"; };
 		AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQRosterManager.m; sourceTree = "<group>"; };
+		AFDBC4701CC75EEB004D0967 /* GQFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQFriendCell.h; sourceTree = "<group>"; };
+		AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQFriendCell.m; sourceTree = "<group>"; };
+		AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GQFriendCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -569,6 +574,9 @@
 				AFDBC45A1CBFBFB2004D0967 /* GQMeViewController.m */,
 				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
 				AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */,
+				AFDBC4701CC75EEB004D0967 /* GQFriendCell.h */,
+				AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */,
+				AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */,
 				AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */,
 				AF6B1A351CACC5D5005C6AC8 /* Assets.xcassets */,
 				AF6B1A371CACC5D5005C6AC8 /* LaunchScreen.storyboard */,
@@ -1573,6 +1581,7 @@
 				AF6B23AF1CAD1483005C6AC8 /* build-libidn.sh in Resources */,
 				AF6B1A391CACC5D5005C6AC8 /* LaunchScreen.storyboard in Resources */,
 				AF6B1A361CACC5D5005C6AC8 /* Assets.xcassets in Resources */,
+				AFDBC4761CC76D8D004D0967 /* GQFriendCell.xib in Resources */,
 				AF6B23931CAD0FCD005C6AC8 /* README.txt in Resources */,
 				AF6B1A341CACC5D5005C6AC8 /* Main.storyboard in Resources */,
 			);
@@ -1604,6 +1613,7 @@
 				AFB93A851CBB4DF30071E0B1 /* XMPPPubSub.m in Sources */,
 				AFB93A501CBB4DF30071E0B1 /* XMPPCoreDataStorage.m in Sources */,
 				AFB93A4F1CBB4DF30071E0B1 /* XMPPBandwidthMonitor.m in Sources */,
+				AFDBC4731CC75EEB004D0967 /* GQFriendCell.m in Sources */,
 				AFB93A8C1CBB4DF30071E0B1 /* XMPPMessage+XEP_0085.m in Sources */,
 				AFB93AA21CBB4DF30071E0B1 /* XMPPStreamManagementStanzas.m in Sources */,
 				AFB93A661CBB4DF30071E0B1 /* XMPPPrivacy.m in Sources */,

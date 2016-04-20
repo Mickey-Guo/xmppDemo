@@ -9,8 +9,10 @@
 #import "GQFriendsViewController.h"
 #import "GQChatViewController.h"
 #import "GQStatic.h"
+#import "GQFriendCell.h"
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
+
 
 static NSString* FRIENDVIEW = @"FriendView";
 
@@ -146,16 +148,31 @@ static NSString* FRIENDVIEW = @"FriendView";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"FriendCell";
+    static NSString *CellIdentifier = @"GQFriendCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    GQFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = (GQFriendCell *)[[NSBundle mainBundle]loadNibNamed:CellIdentifier owner:self options:nil].firstObject;
+        [_tView registerNib:[UINib nibWithNibName:CellIdentifier bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
     }
     
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = friend.jidStr;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.name = friend.jidStr;
+    switch (friend.section) {
+        case 0:
+            cell.presence = @"Online";
+            break;
+        case 1:
+            cell.presence = @"Leaving";
+            break;
+        case 2:
+            cell.presence = @"Offline";
+            break;
+        default:
+            cell.presence = @"Unknown";
+            break;
+    }
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return (UITableViewCell *)cell;
 
@@ -199,19 +216,6 @@ static NSString* FRIENDVIEW = @"FriendView";
 
 -(XMPPStream *)xmppStream {
     return [[GQStatic appDelegate] xmppStream];
-}
-
-- (void)newFriendOnline:(NSString *)friendName {
-    if ([_onlineFriends indexOfObject:friendName] != NSNotFound) {
-        return ;
-    }
-    [_onlineFriends addObject:friendName];
-    [self.tView reloadData];
-}
-
-- (void)friendWentOffline:(NSString *)friendName {
-    [_onlineFriends removeObject: friendName];
-    [self.tView reloadData];
 }
 
 -(void)didDisconnect {

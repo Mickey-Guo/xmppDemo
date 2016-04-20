@@ -139,9 +139,9 @@
     
     if (![presenceFromUser isEqualToString:myUsername]) {
         if ([presenceType isEqualToString:@"available"]) {
-            [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
+//            [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         } else if ([presenceType isEqualToString:@"unavailable"]) {
-            [_chatDelegate friendWentOffline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
+//            [_chatDelegate friendWentOffline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         }
     }
     
