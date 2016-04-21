@@ -17,7 +17,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         //日期标签
-        senderAndTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
+        CGRect rx = [UIScreen mainScreen].bounds;
+        senderAndTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, rx.size.width-20, 20)];
         //居中显示
         senderAndTimeLabel.textAlignment = NSTextAlignmentCenter;
         senderAndTimeLabel.font = [UIFont systemFontOfSize:11.0];

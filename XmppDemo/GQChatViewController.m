@@ -135,15 +135,15 @@ static NSString* CHATVIEW = @"chatView";
     NSString *time = [dict objectForKey:@"time"];
     NSLog(@"ChatView time: %@", time);
     
-    CGSize textSize = {260.0 ,100000.0};
+    CGRect rx = [ UIScreen mainScreen ].bounds;
+    CGSize textSize = {rx.size.width-60 ,100000.0};
     NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
     CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
     NSLog(@"size.height:%f",size.height);
     
     size.width +=(padding/2);
     UIFont *test_font = [UIFont boldSystemFontOfSize:13];
-    // NSLog(@"[UIFont boldSystemFontOfSize:13].lineHeight:%f",[UIFont boldSystemFontOfSize:13].lineHeight);//15.509000
-    size.height +=test_font.lineHeight;//修正偏差//textView需要留边吗？上下天地留白。。//label不用吧，不知道用不用修正一个lineHeight
+    size.height +=test_font.lineHeight;
     
     cell.messageContentView.text = message;
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -163,13 +163,14 @@ static NSString* CHATVIEW = @"chatView";
         
         bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
         
-        [cell.messageContentView setFrame:CGRectMake(320-size.width - padding, padding*2, size.width, size.height)];
+        [cell.messageContentView setFrame:CGRectMake(rx.size.width-size.width - padding, padding*2, size.width, size.height)];
         [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
     }
     
     cell.bgImageView.image = bgImage;
     //    cell.bgImageView.backgroundColor = [UIColor purpleColor];
-    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@ %@", sender, time];
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@",time];
     return cell;
 }
 
