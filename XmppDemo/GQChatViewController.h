@@ -10,7 +10,7 @@
 #import "GQMessageDelegate.h"
 
 @interface GQChatViewController : UIViewController <GQMessageDelegate>
-@property (nonatomic, retain) NSString *chatWithUser;
+@property (nonatomic, retain) NSString *friendName;
 
 - (id) initWithUser: (NSString *) userName;
 @end

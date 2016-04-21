@@ -73,7 +73,7 @@ static NSString* FRIENDVIEW = @"FriendView";
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"toChat"]) {
         GQChatViewController *chatController = segue.destinationViewController;
-        chatController.chatWithUser = _chatUserName;
+        chatController.friendName = _chatUserName;
     }
 }
 

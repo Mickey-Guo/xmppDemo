@@ -26,9 +26,9 @@ static NSString* CHATVIEW = @"chatView";
 
 - (id)initWithUser:(NSString *)userName {
     if (self = [super init]) {
-        _chatWithUser = userName;
+        _friendName = userName;
     }
-    NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
+    NSLog(@"%@: %@", CHATVIEW, _friendName);
     return self;
 }
 
@@ -38,14 +38,14 @@ static NSString* CHATVIEW = @"chatView";
     self.tView.delegate = self;
     self.tView.dataSource = self;
     _messages = [[NSMutableArray alloc] init];
-    self.navigationItem.title = _chatWithUser;
+    self.navigationItem.title = _friendName;
     
     //GQAppDelegate *del = [GQStatic appDelegate];
     //del.messageDelegate = self;
     GQStreamManager *streamManager = [GQStreamManager manager];
     streamManager.messageDelegate = self;
     self.tView;
-    NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
+    NSLog(@"%@: %@", CHATVIEW, _friendName);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +66,7 @@ static NSString* CHATVIEW = @"chatView";
 - (IBAction)sendMessage:(id)sender {
     NSString *message = self.messageField.text;
     
+    
     if (message.length > 0) {
         //XMPPFramework通过KissXML来生成XML文件
         //生成<body>文档
@@ -77,7 +78,7 @@ static NSString* CHATVIEW = @"chatView";
         //消息类型
         [mes addAttributeWithName:@"type" stringValue:@"chat"];
         //发送给谁
-        [mes addAttributeWithName:@"to" stringValue:_chatWithUser];
+        [mes addAttributeWithName:@"to" stringValue:_friendName];
         //由谁发送
         [mes addAttributeWithName:@"from" stringValue:[[NSUserDefaults standardUserDefaults] stringForKey:USERID]];
         //组合
@@ -108,16 +109,7 @@ static NSString* CHATVIEW = @"chatView";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSDictionary *s = (NSDictionary *) [_messages objectAtIndex:indexPath.row];
     static NSString *CellIdentifier = @"MessageCellIdentifier";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-//    }
-//    
-//    cell.textLabel.text = [s objectForKey:@"msg"];
-//    cell.detailTextLabel.text = [s objectForKey:@"sender"];
-//    cell.accessoryType = UITableViewCellAccessoryNone;
-//    cell.userInteractionEnabled = NO;
+
     GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -185,12 +177,9 @@ static NSString* CHATVIEW = @"chatView";
     CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
     
     size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
-        //size.height += padding*2;
     size.height += padding*3;
     
     CGFloat height = size.height < 65 ? 65 : size.height;
-    
-//    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
     
     return height;
     
