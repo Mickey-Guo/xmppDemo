@@ -13,4 +13,5 @@
 @property (nonatomic, retain) NSString *friendName;
 
 - (id) initWithUser: (NSString *) userName;
+- (void)scrollToButtomWithAnimated:(BOOL)animated;
 @end

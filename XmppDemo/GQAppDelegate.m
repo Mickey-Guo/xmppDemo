@@ -10,6 +10,8 @@
 #import "GQStatic.h"
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
+#import "GQMessageManager.h"
+#import "XMPPMessageArchivingCoreDataStorage.h"
 
 
 @interface GQAppDelegate ()
@@ -61,6 +63,12 @@
     [_roster activate:_xmppStream];
     _rosterManager = [[GQRosterManager alloc]init];
     [_roster addDelegate:_rosterManager delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
+    
+    //注册消息记录模块
+    XMPPMessageArchivingCoreDataStorage *messageDataStorage = [XMPPMessageArchivingCoreDataStorage sharedInstance];
+    _messageArchiving = [[XMPPMessageArchiving alloc]initWithMessageArchivingStorage:messageDataStorage dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
+    [_messageArchiving activate:_xmppStream];
+    _messageManager = [[GQMessageManager alloc]init];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

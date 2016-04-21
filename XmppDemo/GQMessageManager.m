@@ -57,7 +57,7 @@
     }
     XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:jid];
     [message addBody:body];
-    
+    NSLog(@"Sent to: %@ Content: %@", jid, message);
     [[GQStatic appDelegate].xmppStream sendElement:message];
 }
 

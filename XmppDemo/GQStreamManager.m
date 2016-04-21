@@ -149,7 +149,7 @@
 //the delegate will use these events to populate the online buddies table accordingly.
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
     NSLog(@"Message:%@", message);
-    if (![message isChatMessageWithBody]) {
+    /*if (![message isChatMessageWithBody]) {
         return;
     }
     NSString *body = [[message elementForName:@"body"] stringValue];
@@ -162,7 +162,7 @@
     [m setObject:time forKey:@"time"];
     NSLog(@"time: %@", time);
     
-    [_messageDelegate newMessageReceived:m];
+    [_messageDelegate newMessageReceived:m];*/
 }
 
 @end
