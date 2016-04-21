@@ -176,6 +176,7 @@
 		AFDBC46B1CC64CB3004D0967 /* GQRosterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */; };
 		AFDBC4731CC75EEB004D0967 /* GQFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */; };
 		AFDBC4761CC76D8D004D0967 /* GQFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */; };
+		AFDBC4791CC8AD13004D0967 /* GQMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFDBC4781CC8AD13004D0967 /* GQMessageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -502,7 +503,6 @@
 		AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQChatViewController.h; sourceTree = "<group>"; };
 		AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQChatViewController.m; sourceTree = "<group>"; };
 		AFDBC44F1CBCE2D7004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GQChatDelegate.h; path = ../../GQChatDelegate.h; sourceTree = "<group>"; };
-		AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQChatDelegate.h; sourceTree = "<group>"; };
 		AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMessageDelegate.h; sourceTree = "<group>"; };
 		AFDBC4541CBF8BED004D0967 /* GQStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStatic.h; sourceTree = "<group>"; };
 		AFDBC4551CBF8BED004D0967 /* GQStatic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStatic.m; sourceTree = "<group>"; };
@@ -518,6 +518,8 @@
 		AFDBC4701CC75EEB004D0967 /* GQFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQFriendCell.h; sourceTree = "<group>"; };
 		AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQFriendCell.m; sourceTree = "<group>"; };
 		AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GQFriendCell.xib; sourceTree = "<group>"; };
+		AFDBC4771CC8AD13004D0967 /* GQMessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQMessageManager.h; sourceTree = "<group>"; };
+		AFDBC4781CC8AD13004D0967 /* GQMessageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQMessageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1512,11 +1514,12 @@
 				AFDBC4641CC62100004D0967 /* GQStreamManager.m */,
 				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
 				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
-				AFDBC4501CBCE321004D0967 /* GQChatDelegate.h */,
 				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
 				AFDBC4571CBF9001004D0967 /* GQLoginDelegate.h */,
 				AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */,
 				AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */,
+				AFDBC4771CC8AD13004D0967 /* GQMessageManager.h */,
+				AFDBC4781CC8AD13004D0967 /* GQMessageManager.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1623,6 +1626,7 @@
 				AF6B24011CAD14B2005C6AC8 /* NSNumber+XMPP.m in Sources */,
 				AFB93A541CBB4DF30071E0B1 /* XMPPGoogleSharedStatus.m in Sources */,
 				AFB93A651CBB4DF30071E0B1 /* XMPPLastActivity.m in Sources */,
+				AFDBC4791CC8AD13004D0967 /* GQMessageManager.m in Sources */,
 				AFB93A621CBB4DF30071E0B1 /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				AF6B238F1CAD0FCD005C6AC8 /* DDTTYLogger.m in Sources */,
 				AF6B23FE1CAD14B2005C6AC8 /* XMPPXFacebookPlatformAuthentication.m in Sources */,

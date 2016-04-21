@@ -18,7 +18,6 @@ static NSString* FRIENDVIEW = @"FriendView";
 
 @interface GQFriendsViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tView;
-@property (strong, nonatomic) NSMutableArray *onlineFriends;
 @property (strong, nonatomic) NSString *chatUserName;
 
 @property (strong, nonatomic) NSFetchedResultsController *friendsController;
@@ -32,15 +31,11 @@ static NSString* FRIENDVIEW = @"FriendView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //GQAppDelegate *appDelegate = [GQStatic appDelegate];
-    GQStreamManager *streamManager = [GQStreamManager manager];
-    streamManager.chatDelegate = self;
     
     [self getFriends];
     
     self.tView.delegate = self;
     self.tView.dataSource = self;
-    _onlineFriends = [[NSMutableArray alloc] init];
     NSLog(@"%@ did load", FRIENDVIEW);
 }
 
@@ -53,8 +48,6 @@ static NSString* FRIENDVIEW = @"FriendView";
 //            NSLog(@"Show buddy list");
 //        }
     } else {
-        [_onlineFriends removeAllObjects];
-        [self.tView reloadData];
         [self showLogin];
     }
 }
@@ -86,8 +79,6 @@ static NSString* FRIENDVIEW = @"FriendView";
 
 
 - (void)showLogin {
-    //GQLoginViewController *loginController = [[GQLoginViewController alloc] init];
-    //[self presentModalViewController:loginController animated:YES];
     [self performSegueWithIdentifier:@"toLogin" sender:self];
 }
     
@@ -133,7 +124,10 @@ static NSString* FRIENDVIEW = @"FriendView";
 //}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
+    _chatUserName = friend.jidStr;
     
+    [self performSegueWithIdentifier:@"toChat" sender:self];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -152,8 +146,9 @@ static NSString* FRIENDVIEW = @"FriendView";
     
     GQFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = (GQFriendCell *)[[NSBundle mainBundle]loadNibNamed:CellIdentifier owner:self options:nil].firstObject;
+        //cell = (GQFriendCell *)[[NSBundle mainBundle]loadNibNamed:CellIdentifier owner:self options:nil].firstObject;
         [_tView registerNib:[UINib nibWithNibName:CellIdentifier bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+        cell = [_tView dequeueReusableCellWithIdentifier:CellIdentifier];
     }
     
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
@@ -172,7 +167,7 @@ static NSString* FRIENDVIEW = @"FriendView";
             cell.presence = @"Unknown";
             break;
     }
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return (UITableViewCell *)cell;
 
@@ -216,11 +211,6 @@ static NSString* FRIENDVIEW = @"FriendView";
 
 -(XMPPStream *)xmppStream {
     return [[GQStatic appDelegate] xmppStream];
-}
-
--(void)didDisconnect {
-    [_onlineFriends removeAllObjects];
-    [self.tView reloadData];
 }
 
 @end

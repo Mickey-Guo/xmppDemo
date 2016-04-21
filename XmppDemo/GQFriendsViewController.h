@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GQChatDelegate.h"
 #import "GQAppDelegate.h"
 #import "GQLoginViewController.h"
 
-@interface GQFriendsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, GQChatDelegate>
+@interface GQFriendsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

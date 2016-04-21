@@ -9,6 +9,7 @@
 #import "GQRosterManager.h"
 #import "GQStreamManager.h"
 #import "GQAppDelegate.h"
+#import "GQStatic.h"
 
 @interface GQRosterManager()
 
@@ -30,7 +31,7 @@
 }
 
 - (void)getRoster {
-    GQAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    GQAppDelegate *appDelegate = [GQStatic appDelegate];
     _roster = appDelegate.roster;
 }
 
@@ -39,8 +40,10 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"XMPPUserCoreDataStorageObject"];
     
     //排序
-    NSSortDescriptor * sort = [NSSortDescriptor sortDescriptorWithKey:@"jidStr" ascending:YES];//jidStr
-    request.sortDescriptors = @[sort];
+    NSSortDescriptor * sort1 = [NSSortDescriptor sortDescriptorWithKey:@"displayName" ascending:YES];//jidStr
+    NSSortDescriptor *sort2 = [NSSortDescriptor sortDescriptorWithKey:@"sectionNum" ascending:YES];
+    
+    request.sortDescriptors = @[sort2, sort1];
     
     NSFetchedResultsController *fetchFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
     NSError *error = nil;

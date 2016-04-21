@@ -10,7 +10,6 @@
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
 #import "GQLoginDelegate.h"
-#import "GQChatDelegate.h"
 #import "GQMessageDelegate.h"
 
 @interface GQStreamManager() <XMPPStreamDelegate>
@@ -29,14 +28,14 @@
 
 #pragma mark- class methods
 + (GQStreamManager *)manager {
-    GQAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    GQAppDelegate *appDelegate = [GQStatic appDelegate];
     return appDelegate.streamManager;
 }
 
 #pragma mark- public methods
 - (id)init {
     if (self = [super init]) {
-        _appDelegate = [[UIApplication sharedApplication] delegate];
+        _appDelegate = [GQStatic appDelegate];
         [self getStream];
     }
     

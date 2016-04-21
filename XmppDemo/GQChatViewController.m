@@ -44,9 +44,8 @@ static NSString* CHATVIEW = @"chatView";
     //del.messageDelegate = self;
     GQStreamManager *streamManager = [GQStreamManager manager];
     streamManager.messageDelegate = self;
-    //[self.messageField becomeFirstResponder];
+    self.tView;
     NSLog(@"%@: %@", CHATVIEW, _chatWithUser);
-    [self.tView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
