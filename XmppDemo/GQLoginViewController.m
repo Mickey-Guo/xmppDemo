@@ -49,15 +49,18 @@ static NSString* LOGINVIEW = @"LoginView";
 - (IBAction)login:(id)sender {
     NSString* ret = [NSString stringWithFormat:@"%@@%@", self.nameField.text, HOSTNAME];
     [[NSUserDefaults standardUserDefaults] setObject:ret forKey:USERID];
+    //[[NSUserDefaults standardUserDefaults] setObject:self.nameField forKey:USERID];
     [[NSUserDefaults standardUserDefaults] setObject:self.passwordField.text forKey:PASS];
     [[NSUserDefaults standardUserDefaults] setObject:self.serverAddressField.text forKey:SERVER];
+    [[NSUserDefaults standardUserDefaults] setObject:@"iPhone" forKey:SOURCE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSLog(@"Saved standardUserDefaults");
     
     //[[GQStatic appDelegate] connect];
     GQStreamManager *streamManager = [GQStreamManager manager];
-    [streamManager connect];
+    //[streamManager connect];
+    [streamManager login];
     
     //[self dismissViewControllerAnimated:YES completion:nil];
     

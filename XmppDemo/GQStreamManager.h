@@ -18,7 +18,9 @@
 
 + (GQStreamManager *) manager;
 
+- (void)login;
 - (BOOL)connect;
 - (void)disconnect;
+- (void)registerWithName: (NSString *)name Password:(NSString *)password ServerAddress:(NSString *)serverAddress;
 
 @end

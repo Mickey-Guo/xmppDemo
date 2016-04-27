@@ -12,6 +12,7 @@
 static NSString *USERID = @"userId";
 static NSString *PASS= @"pass";
 static NSString *SERVER = @"server";
+static NSString *SOURCE = @"source";
 static NSString *HOSTNAME = @"xmpp.test";
 
 static NSString *PASSWORD_ERROR = @"Your password is wrong. Please input again.";

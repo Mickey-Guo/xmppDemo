@@ -12,6 +12,11 @@
 #import "GQLoginDelegate.h"
 #import "GQMessageDelegate.h"
 
+typedef NS_ENUM(NSInteger, ManagerOpertion) {
+    ManagerOpertionLogin,
+    ManagerOpertionRegister
+};
+
 @interface GQStreamManager() <XMPPStreamDelegate>
 
 @property (strong, nonatomic) XMPPStream *stream;
@@ -20,6 +25,7 @@
 @property (strong, nonatomic) NSString *server;
 @property (strong, nonatomic) NSString *resource;
 
+@property (assign, nonatomic) ManagerOpertion operation;
 @property (strong, nonatomic) GQAppDelegate *appDelegate;
 
 @end
@@ -56,6 +62,21 @@
     [_stream sendElement:presence];
 }
 
+
+- (void)login {
+    self.operation = ManagerOpertionLogin;
+    [self connect];
+    return;
+    //[_stream disconnect];
+    
+    [self getStream];
+    [self getUser];
+    NSLog(@"name:%@ pass:%@ server:%@ resource:%@",_name, _password, _server, _resource);
+    
+    XMPPJID *jid = [XMPPJID jidWithUser:_name domain:_server resource:_resource];
+    NSLog(@"XMPPJID *jid = %@",jid);
+    [self getConnectWithJID:jid];
+}
 - (BOOL)connect {
     
     //[self setupStream];
@@ -78,6 +99,7 @@
     NSLog(@"id:%@ password:%@ server:%@", jabberID, myPassword, server);
     //set UserId
     [_stream setMyJID:[XMPPJID jidWithString:jabberID]];
+    NSLog(@"setMyJID:%@", _stream.myJID);
     //set Password
     _password = myPassword;
     //set ServerAddress
@@ -106,10 +128,22 @@
     NSLog(@"xmppStreamDidConnect");
     //_isOpen = YES;
     NSError *error = nil;
-    if (![self.stream authenticateWithPassword:_password error:&error]) {
-        NSLog(@"AUTHENTICATE ERROR:%@", error);
+    switch (self.operation) {
+        case ManagerOpertionLogin:
+            if (![self.stream authenticateWithPassword:self.password error:&error]) {
+                NSLog(@"AUTHENTICATE ERROR:%@", error);
+            }
+            break;
+        case ManagerOpertionRegister:
+            if (![self.stream registerWithPassword:self.password error:&error]) {
+                NSLog(@"REGISTERWITHPASSWORD ERROR:%@",error);
+            }
+            break;
+        default:
+            break;
     }
 }
+    
 
 - (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender {
     NSLog(@"XmppStreamConnectDidTimeout");
@@ -138,9 +172,7 @@
     
     if (![presenceFromUser isEqualToString:myUsername]) {
         if ([presenceType isEqualToString:@"available"]) {
-//            [_chatDelegate newFriendOnline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         } else if ([presenceType isEqualToString:@"unavailable"]) {
-//            [_chatDelegate friendWentOffline:[NSString stringWithFormat:@"%@@%@", presenceFromUser, HOSTNAME]];
         }
     }
     
@@ -149,20 +181,46 @@
 //the delegate will use these events to populate the online buddies table accordingly.
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
     NSLog(@"Message:%@", message);
-    /*if (![message isChatMessageWithBody]) {
-        return;
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"Register Success"
+                                          message:@"tap Back to login"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *backAction = [UIAlertAction
+                                 actionWithTitle:@"OK"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * _Nonnull action) {
+                                     
+                                 }];
+    [alertController addAction:backAction];
+}
+
+- (void)registerWithName:(NSString *)name Password:(NSString *)password ServerAddress:(NSString *)serverAddress {
+    self.operation = ManagerOpertionRegister;
+    self.password = password;
+    [self getStream];
+    XMPPJID *jid = [XMPPJID jidWithUser:name domain:serverAddress resource:@"iPhone"];
+    
+    [self getConnectWithJID:jid];
+}
+
+- (void)getConnectWithJID:(XMPPJID *)jid {
+    _stream.myJID = jid;
+    NSLog(@"_stream.myJID:%@", _stream.myJID);
+    NSError *err = nil;
+    if (![_stream connectWithTimeout:XMPPStreamTimeoutNone error:&err]) {
+        NSLog(@"connect error: %@", err);
     }
-    NSString *body = [[message elementForName:@"body"] stringValue];
-    NSString *from = [[message attributeForName:@"from"] stringValue];
-    NSString *time = [GQStatic getCurrentTime];
-    
-    NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
-    [m setObject:body forKey:@"msg"];
-    [m setObject:from forKey:@"sender"];
-    [m setObject:time forKey:@"time"];
-    NSLog(@"time: %@", time);
-    
-    [_messageDelegate newMessageReceived:m];*/
+}
+
+- (void) getUser {
+    //NSString *jabberID = [[NSUserDefaults standardUserDefaults] stringForKey:USERID];
+    self.name = [[NSUserDefaults standardUserDefaults] stringForKey:USERID];
+    self.password = [[NSUserDefaults standardUserDefaults] stringForKey:PASS];
+    self.server = [[NSUserDefaults standardUserDefaults] stringForKey:SERVER];
+    self.resource = [[NSUserDefaults standardUserDefaults] stringForKey:SOURCE];
 }
 
 @end
