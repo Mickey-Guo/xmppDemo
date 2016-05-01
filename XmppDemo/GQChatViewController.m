@@ -47,6 +47,7 @@ static NSString* CHATVIEW = @"chatView";
     GQStreamManager *streamManager = [GQStreamManager manager];
     streamManager.messageDelegate = self;
     NSLog(@"%@: %@", CHATVIEW, _friendName);
+    [self scrollToButtomWithAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,68 +141,7 @@ static NSString* CHATVIEW = @"chatView";
     }
     
     cell.bgImageView.image = bgImage;
-    //    cell.bgImageView.backgroundColor = [UIColor purpleColor];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@",time];
     return cell;
-
-        /*NSDictionary *s = (NSDictionary *) [_messages objectAtIndex:indexPath.row];
-    static NSString *CellIdentifier = @"MessageCellIdentifier";
-
-    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-    }
-
-    
-    NSMutableDictionary *dict = [self.messages objectAtIndex:indexPath.row];
-    
-    //发送者
-    NSString *sender = [dict objectForKey:@"sender"];
-    //消息
-    NSString *message = [dict objectForKey:@"msg"];
-    //时间
-    NSString *time = [dict objectForKey:@"time"];
-    NSLog(@"ChatView time: %@", time);
-    
-    CGRect rx = [ UIScreen mainScreen ].bounds;
-    CGSize textSize = {rx.size.width-60 ,100000.0};
-    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
-    NSLog(@"size.height:%f",size.height);
-    
-    size.width +=(padding/2);
-    UIFont *test_font = [UIFont boldSystemFontOfSize:13];
-    size.height +=test_font.lineHeight;
-    
-    cell.messageContentView.text = message;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.userInteractionEnabled = NO;
-    
-    UIImage *bgImage = nil;
-    
-    //发送消息
-    if (![sender isEqualToString:@"you"]) {
-        //背景图
-        bgImage = [UIImage imageNamed:@"orange.png"];
-        [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
-        
-        
-        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
-    } else {
-        
-        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
-        
-        [cell.messageContentView setFrame:CGRectMake(rx.size.width-size.width - padding, padding*2, size.width, size.height)];
-        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
-    }
-    
-    cell.bgImageView.image = bgImage;
-    //    cell.bgImageView.backgroundColor = [UIColor purpleColor];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@",time];
-    return cell;*/
 }
 
 //每一行的高度
@@ -221,6 +161,11 @@ static NSString* CHATVIEW = @"chatView";
     
     return height;
     
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    return 80;
 }
 
 #pragma mark- UITableViewDataSource
@@ -265,16 +210,18 @@ static NSString* CHATVIEW = @"chatView";
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
     [_tView endUpdates];
-    [self scrollToBottomWithAnimated:YES];
+    [self scrollToButtomWithAnimated:YES];
 }
 
-- (void)scrollToBottomWithAnimated:(BOOL)animated {
+
+
+- (void)scrollToButtomWithAnimated:(BOOL)animated {
 //    CGSize contentSize = [_tView contentSize];
 //    CGSize screenSize = [[UIScreen mainScreen]bounds].size;
 ////    CGPoint point = CGPointMake(0, contentSize.height - screenSize.height + 50);
 //    CGPoint point = CGPointMake(0, _tView.bounds.size.height);
 //    [_tView setContentOffset:point animated:animated];
-    id<NSFetchedResultsSectionInfo> sectionObj = [[_history sections] objectAtIndex:0];
-    [_tView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow: [sectionObj numberOfObjects]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated: YES];
+//    id<NSFetchedResultsSectionInfo> sectionObj = [[_history sections] objectAtIndex:0];
+//    [_tView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow: [sectionObj numberOfObjects]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated: YES];
 }
 @end

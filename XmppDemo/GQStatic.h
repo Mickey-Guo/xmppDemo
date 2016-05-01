@@ -21,6 +21,11 @@ static NSString *OK = @"OK";
 static NSString *WARNING = @"Warining";
 static float padding = 20;
 
+static NSString *STREAM_MANAGER_LOGIN_FAIL = @"StreamManagerLoginFail";
+static NSString *STREAM_MANAGER_LOGIN_SUCCESS = @"StreamManagerLoginSuccess";
+static NSString *STREAM_MANAGER_CONNECT_FAIL = @"StreamManagerConnectFail";
+static NSString *STREAM_MANAGER_CONNECT_SUCCESS = @"StreamManagerConnectSuccess";
+
 @interface GQStatic : NSObject 
 + (GQAppDelegate *)appDelegate;
 + (XMPPStream *)xmppStream;

@@ -15,8 +15,8 @@
         "cap-insets" : {
           "bottom" : 56,
           "top" : 55,
-          "right" : 48,
-          "left" : 48
+          "right" : 78,
+          "left" : 47
         }
       },
       "idiom" : "universal",

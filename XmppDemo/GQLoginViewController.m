@@ -9,11 +9,10 @@
 #import "GQLoginViewController.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
-#import "GQLoginDelegate.h"
 #import "GQStreamManager.h"
 
 static NSString* LOGINVIEW = @"LoginView";
-@interface GQLoginViewController () <GQLoginDelegate>
+@interface GQLoginViewController () //<GQLoginDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *serverAddressField;
@@ -28,7 +27,15 @@ static NSString* LOGINVIEW = @"LoginView";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     GQStreamManager *streamManager = [GQStreamManager manager];
-    streamManager.loginDelegate = self;
+    //streamManager.loginDelegate = self;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccess) name:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginFail) name:STREAM_MANAGER_LOGIN_FAIL object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(connectFail) name:STREAM_MANAGER_CONNECT_FAIL object:nil];}
+
+- (void)viewDidUnload {
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:STREAM_MANAGER_LOGIN_FAIL object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:STREAM_MANAGER_CONNECT_FAIL object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,9 +54,9 @@ static NSString* LOGINVIEW = @"LoginView";
 */
 
 - (IBAction)login:(id)sender {
-    NSString* ret = [NSString stringWithFormat:@"%@@%@", self.nameField.text, HOSTNAME];
-    [[NSUserDefaults standardUserDefaults] setObject:ret forKey:USERID];
-    //[[NSUserDefaults standardUserDefaults] setObject:self.nameField forKey:USERID];
+    //NSString* ret = [NSString stringWithFormat:@"%@@%@", self.nameField.text, HOSTNAME];
+    //[[NSUserDefaults standardUserDefaults] setObject:ret forKey:USERID];
+    [[NSUserDefaults standardUserDefaults] setObject:self.nameField.text forKey:USERID];
     [[NSUserDefaults standardUserDefaults] setObject:self.passwordField.text forKey:PASS];
     [[NSUserDefaults standardUserDefaults] setObject:self.serverAddressField.text forKey:SERVER];
     [[NSUserDefaults standardUserDefaults] setObject:@"iPhone" forKey:SOURCE];
@@ -72,12 +79,12 @@ static NSString* LOGINVIEW = @"LoginView";
     [self.serverAddressField resignFirstResponder];
 }
 
-- (void)didAuthenticate {
+- (void)loginSuccess {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"%@: didAuthenticate.", LOGINVIEW);
 }
 
-- (void)didNotAuthenticate {
+- (void)loginFail {
     [GQStatic clearUserDeaults];
     self.passwordField.text = nil;
     UIAlertController *loginAlert = [UIAlertController
@@ -90,7 +97,7 @@ static NSString* LOGINVIEW = @"LoginView";
     [self presentViewController:loginAlert animated:YES completion:nil];
 }
 
-- (void)didNotConnect {
+- (void)connectFail {
     UIAlertController *loginAlert = [UIAlertController
                                      alertControllerWithTitle:WARNING message:CONNECT_FAILED preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* okAction = [UIAlertAction

@@ -53,7 +53,7 @@
     _streamManager = [[GQStreamManager alloc] init];
     [_xmppStream addDelegate:_streamManager delegateQueue:dispatch_get_main_queue()];
     NSLog(@"applicationDidFinishLaunching");
-    [_streamManager connect];
+    [_streamManager login];
     
     
     //注册花名册

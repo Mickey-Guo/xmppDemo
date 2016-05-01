@@ -9,7 +9,6 @@
 #import "GQStreamManager.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
-#import "GQLoginDelegate.h"
 #import "GQMessageDelegate.h"
 
 typedef NS_ENUM(NSInteger, ManagerOpertion) {
@@ -65,9 +64,9 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 
 - (void)login {
     self.operation = ManagerOpertionLogin;
-    [self connect];
-    return;
-    //[_stream disconnect];
+    //[self connect];
+    //return;
+    [_stream disconnect];
     
     [self getStream];
     [self getUser];
@@ -147,19 +146,20 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 
 - (void)xmppStreamConnectDidTimeout:(XMPPStream *)sender {
     NSLog(@"XmppStreamConnectDidTimeout");
-    [self.loginDelegate didNotConnect];
+    [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_CONNECT_FAIL object:nil];
 }
 
 //when authentication is successful, we should notify the server that we are online
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
     NSLog(@"xmppStreamDidAuthenticate");
     [self goOnline];
-    [self.loginDelegate didAuthenticate];
+    [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {
     NSLog(@"AUTHENTICATE FAILED:%@", error);
-    [self.loginDelegate didNotAuthenticate];
+    [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_LOGIN_FAIL object:nil];
+
 }
 
 //when we receive a presence notification, we can dispatch the message to the chat delegate
@@ -222,5 +222,4 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
     self.server = [[NSUserDefaults standardUserDefaults] stringForKey:SERVER];
     self.resource = [[NSUserDefaults standardUserDefaults] stringForKey:SOURCE];
 }
-
 @end
