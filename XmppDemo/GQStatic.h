@@ -25,6 +25,9 @@ static NSString *STREAM_MANAGER_LOGIN_FAIL = @"StreamManagerLoginFail";
 static NSString *STREAM_MANAGER_LOGIN_SUCCESS = @"StreamManagerLoginSuccess";
 static NSString *STREAM_MANAGER_CONNECT_FAIL = @"StreamManagerConnectFail";
 static NSString *STREAM_MANAGER_CONNECT_SUCCESS = @"StreamManagerConnectSuccess";
+static NSString *STREAM_MANAGER_REGISTER_FAIL = @"StreamManagerRegisterFail";
+static NSString *STREAM_MANAGER_REGISTER_SUCCESS =  @"StreamManagerRegisterSuccess";
+static NSString *STREAM_MANAGER_RECEIVE_SUBSCRIBE = @"StreamManagerReceiveSubscribe";
 
 @interface GQStatic : NSObject 
 + (GQAppDelegate *)appDelegate;

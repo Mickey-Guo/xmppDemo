@@ -166,16 +166,13 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
     NSLog(@"presence : %@, %@", presence.fromStr, presence.type);
     
-    NSString *presenceType = [presence type]; // online/offline
-    NSString *myUsername = [[sender myJID] user];
-    NSString *presenceFromUser = [[presence from] user];
-    
-    if (![presenceFromUser isEqualToString:myUsername]) {
-        if ([presenceType isEqualToString:@"available"]) {
-        } else if ([presenceType isEqualToString:@"unavailable"]) {
-        }
+    if ([presence.type isEqualToString:@"error"]) {
+        NSLog(@"error is %@", presence.show);
     }
     
+    if ([presence.type isEqualToString:@"subscribe"]) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_RECEIVE_SUBSCRIBE object:presence.from];
+    }
 }
 
 //the delegate will use these events to populate the online buddies table accordingly.
@@ -183,23 +180,20 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
     NSLog(@"Message:%@", message);
 }
 
+- (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    NSLog(@"register success");
+    [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_REGISTER_SUCCESS object:nil];
+}
+
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
-    UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:@"Register Success"
-                                          message:@"tap Back to login"
-                                          preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *backAction = [UIAlertAction
-                                 actionWithTitle:@"OK"
-                                 style:UIAlertActionStyleDefault
-                                 handler:^(UIAlertAction * _Nonnull action) {
-                                     
-                                 }];
-    [alertController addAction:backAction];
+    NSLog(@"register failed: %@", error);
+    [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_REGISTER_FAIL object:nil];
 }
 
 - (void)registerWithName:(NSString *)name Password:(NSString *)password ServerAddress:(NSString *)serverAddress {
     self.operation = ManagerOpertionRegister;
     self.password = password;
+    [self.stream disconnect];
     [self getStream];
     XMPPJID *jid = [XMPPJID jidWithUser:name domain:serverAddress resource:@"iPhone"];
     

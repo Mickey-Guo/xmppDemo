@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF36AECB1CD0A5C7002772D8 /* GQMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36AECA1CD0A5C7002772D8 /* GQMeViewController.m */; };
 		AF36AECE1CD0A6F0002772D8 /* GQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36AECD1CD0A6F0002772D8 /* GQRegisterViewController.m */; };
+		AF36AED91CD72DA3002772D8 /* GQAddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36AED81CD72DA3002772D8 /* GQAddFriendViewController.m */; };
 		AF6B1A2B1CACC5D5005C6AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2A1CACC5D5005C6AC8 /* main.m */; };
 		AF6B1A2E1CACC5D5005C6AC8 /* GQAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */; };
 		AF6B1A341CACC5D5005C6AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */; };
@@ -185,6 +186,8 @@
 		AF36AECA1CD0A5C7002772D8 /* GQMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQMeViewController.m; sourceTree = "<group>"; };
 		AF36AECC1CD0A6F0002772D8 /* GQRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQRegisterViewController.h; sourceTree = "<group>"; };
 		AF36AECD1CD0A6F0002772D8 /* GQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQRegisterViewController.m; sourceTree = "<group>"; };
+		AF36AED71CD72DA3002772D8 /* GQAddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQAddFriendViewController.h; sourceTree = "<group>"; };
+		AF36AED81CD72DA3002772D8 /* GQAddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQAddFriendViewController.m; sourceTree = "<group>"; };
 		AF6B1A261CACC5D5005C6AC8 /* XmppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XmppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6B1A2A1CACC5D5005C6AC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQAppDelegate.h; sourceTree = "<group>"; };
@@ -576,6 +579,8 @@
 				AF36AECD1CD0A6F0002772D8 /* GQRegisterViewController.m */,
 				AFDBC4491CBCC0A9004D0967 /* GQFriendsViewController.h */,
 				AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */,
+				AF36AED71CD72DA3002772D8 /* GQAddFriendViewController.h */,
+				AF36AED81CD72DA3002772D8 /* GQAddFriendViewController.m */,
 				AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */,
 				AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */,
 				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
@@ -1637,6 +1642,7 @@
 				AFB93A7A1CBB4DF30071E0B1 /* XMPPvCardTemp.m in Sources */,
 				AF6B23FD1CAD14B2005C6AC8 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				AF6B23FB1CAD14B2005C6AC8 /* XMPPDigestMD5Authentication.m in Sources */,
+				AF36AED91CD72DA3002772D8 /* GQAddFriendViewController.m in Sources */,
 				AFB93AA11CBB4DF30071E0B1 /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				AFDBC4561CBF8BED004D0967 /* GQStatic.m in Sources */,
 				AFB93A921CBB4DF30071E0B1 /* XMPPCapsCoreDataStorageObject.m in Sources */,

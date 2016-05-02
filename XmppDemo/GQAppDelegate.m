@@ -69,9 +69,32 @@
     _messageArchiving = [[XMPPMessageArchiving alloc]initWithMessageArchivingStorage:messageDataStorage dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)];
     [_messageArchiving activate:_xmppStream];
     _messageManager = [[GQMessageManager alloc]init];
+    
+    //好友添加的通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showAddFriendAlert:) name:STREAM_MANAGER_RECEIVE_SUBSCRIBE object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)showAddFriendAlert:(NSNotification *)sender {
+    XMPPJID *jid = (XMPPJID *)sender.object;
+    NSString *message = [jid.user stringByAppendingString:@" wants to add you"];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"friend request" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.rosterManager acceptFriend:jid];
+    }];
+    
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"NO" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.rosterManager rejectFriend:jid];
+    }];
+    
+    [alert addAction:okAction];
+    [alert addAction:noAction];
+    
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 @end

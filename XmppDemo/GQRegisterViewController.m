@@ -8,6 +8,7 @@
 
 #import "GQRegisterViewController.h"
 #import "GQStreamManager.h"
+#import "GQStatic.h"
 
 @interface GQRegisterViewController () <UITextFieldDelegate> {
 }
@@ -41,6 +42,8 @@
     _passwordField1.delegate = self;
     _passwordField2.delegate = self;
     _serverAddressField.delegate = self;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess) name:STREAM_MANAGER_REGISTER_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFail) name:STREAM_MANAGER_REGISTER_FAIL object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +63,8 @@
 
 - (IBAction)register:(id)sender {
     if ([self checkInputs]) {
-       // [self.streamManager r]
+        [self.streamManager registerWithName:self.name Password:self.password ServerAddress:self.serverAddress];
+        NSLog(@"register");
     }
     
 }
@@ -80,6 +84,10 @@
     }
     if ([self.passwordField2.text isEqualToString:empty]) {
         self.warningLabel.text = @"confirm password can't be empty";
+        return NO;
+    }
+    if (![self.passwordField2.text isEqualToString:self.password]) {
+        self.warningLabel.text = @"twice passwords must be the same";
         return NO;
     }
     
@@ -122,5 +130,20 @@
     [self.passwordField1 resignFirstResponder];
     [self.passwordField2 resignFirstResponder];
     [self.serverAddressField resignFirstResponder];
+}
+
+- (void)registerFail {
+    self.warningLabel.text = @"Register failed. Change a name";
+}
+
+- (void)registerSuccess {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Register success"
+                                                                             message:@"Tap OK to login"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *backAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    [alertController addAction:backAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 @end

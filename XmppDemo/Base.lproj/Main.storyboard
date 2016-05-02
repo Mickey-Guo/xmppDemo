@@ -281,7 +281,46 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zk-gn-yLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1342" y="915"/>
+            <point key="canvasLocation" x="1489" y="915"/>
+        </scene>
+        <!--AddFriendView-->
+        <scene sceneID="1GG-uD-j2H">
+            <objects>
+                <viewController id="Gqr-vK-6od" userLabel="AddFriendView" customClass="GQAddFriendViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aJP-Tb-3pt"/>
+                        <viewControllerLayoutGuide type="bottom" id="dCi-sL-vrd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pHJ-IR-Wc8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type the friend's JID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k8D-Bw-uwq">
+                                <rect key="frame" x="20" y="177" width="280" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8z-0c-aCb">
+                                <rect key="frame" x="20" y="336" width="280" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriend:" destination="Gqr-vK-6od" eventType="touchUpInside" id="53S-1B-snC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Friends" id="E5J-gt-CXd"/>
+                    <connections>
+                        <outlet property="nameField" destination="k8D-Bw-uwq" id="R5d-e0-kGF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sby-iw-9VP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2075" y="1090"/>
         </scene>
         <!--FriendsView-->
         <scene sceneID="c48-l0-ASP">
@@ -306,7 +345,15 @@
                             <outlet property="delegate" destination="dhW-Tp-H6N" id="fnL-b4-OBg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Friends" id="eQk-CP-tWP"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Friends" id="eQk-CP-tWP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="iU3-2P-rWL">
+                            <connections>
+                                <segue destination="Gqr-vK-6od" kind="push" id="RM2-qU-HYI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tView" destination="LeN-24-hpG" id="nFq-fx-R0n"/>
                         <segue destination="w7N-4I-Hhp" kind="modal" identifier="toLogin" id="eJx-h2-u8S"/>
@@ -519,7 +566,7 @@
         <image name="One" width="32" height="32"/>
         <image name="Three" width="32" height="32"/>
         <image name="Two" width="32" height="32"/>
-        <image name="chat_recive_nor" width="47" height="56"/>
+        <image name="chat_recive_nor" width="63" height="56"/>
         <image name="chat_send_nor" width="49" height="56"/>
     </resources>
 </document>
