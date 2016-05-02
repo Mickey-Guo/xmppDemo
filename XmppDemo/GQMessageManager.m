@@ -51,6 +51,32 @@
     return resultsController;
 }
 
+- (void)deleteHistoryByName:(NSString *)name {
+    NSManagedObjectContext *context = [[XMPPMessageArchivingCoreDataStorage sharedInstance] mainThreadManagedObjectContext];
+    
+    NSEntityDescription *description = [NSEntityDescription entityForName:@"XMPPMessageArchiving_Message_CoreDataObject" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:description];
+    
+    
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"bareJidStr=%@", name];
+    request.predicate = predicate;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
+    request.sortDescriptors = @[sort];
+    NSError *error = nil;
+    NSArray *historyList = [context executeRequest:request error:&error];
+//    if ([historyList count] > 0) {
+//        NSManagedObject *message = [historyList lastObject];
+//        [context deleteObject:message];
+//        
+//        error  = nil;
+//        if ([context hasChanges] && ![context save:&error]) {
+//            NSLog(@"删除和%@的聊天记录失败", name);
+//        }
+//    }
+}
+
 - (void)sendMessage:(NSString *)body forUser:(XMPPJID *)jid {
     if (body.length < 1) {
         return;

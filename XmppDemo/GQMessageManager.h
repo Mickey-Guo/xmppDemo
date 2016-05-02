@@ -15,6 +15,7 @@
 + (instancetype)manager;
 
 - (NSFetchedResultsController *)getHistoryByName:(NSString *)name;
+- (void)deleteHistoryByName:(NSString *)name;
 - (void)sendMessage:(NSString *)body forUser:(XMPPJID *)jid;
 - (void)deleteMessageStorage;
 @end

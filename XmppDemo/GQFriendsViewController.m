@@ -12,6 +12,7 @@
 #import "GQFriendCell.h"
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
+#import "GQMessageManager.h"
 
 
 static NSString* FRIENDVIEW = @"FriendView";
@@ -36,6 +37,7 @@ static NSString* FRIENDVIEW = @"FriendView";
     
     self.tView.delegate = self;
     self.tView.dataSource = self;
+    self.navigationItem.leftBarButtonItem =self.editButtonItem;
     NSLog(@"%@ did load", FRIENDVIEW);
 }
 
@@ -84,44 +86,6 @@ static NSString* FRIENDVIEW = @"FriendView";
     
 #pragma mark -
 #pragma mark Table view delegates
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    NSString *s = (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
-//    
-//    static NSString *CellIdentifier = @"FriendCell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//    }
-//    
-//    cell.textLabel.text = s;
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    
-//    return cell;
-//    
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    
-//    return [_onlineFriends count];
-//    
-//}
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    
-//    return 1;
-//    
-//}
-//
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    _chatUserName= (NSString *) [_onlineFriends objectAtIndex:indexPath.row];
-//    [self performSegueWithIdentifier:@"toChat" sender:self];
-//    
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
@@ -170,7 +134,32 @@ static NSString* FRIENDVIEW = @"FriendView";
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return (UITableViewCell *)cell;
+}
 
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView setEditing:YES animated:YES];
+    return UITableViewCellEditingStyleDelete;
+}
+
+//设置编辑模式显示样式
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Delete Friend";
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
+    [[GQMessageManager manager]deleteHistoryByName:friend.jidStr];
+    [[GQRosterManager manager]removeFriend:friend.jidStr];
 }
 
 #pragma mark -NSFetchedResultsControllerDelegate

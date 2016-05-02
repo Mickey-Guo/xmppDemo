@@ -72,6 +72,7 @@
 - (void)removeFriend:(NSString *)name {
     XMPPJID *friendJID = [XMPPJID jidWithString:name];
     [_roster removeUser:friendJID];
+    NSLog(@"removed friend %@", name);
 }
 
 - (XMPPUserCoreDataStorageObject *)getUserByName:(NSString *)name {
