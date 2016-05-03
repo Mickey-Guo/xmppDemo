@@ -65,16 +65,18 @@
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES];
     request.sortDescriptors = @[sort];
     NSError *error = nil;
-    NSArray *historyList = [context executeRequest:request error:&error];
-//    if ([historyList count] > 0) {
-//        NSManagedObject *message = [historyList lastObject];
-//        [context deleteObject:message];
-//        
-//        error  = nil;
-//        if ([context hasChanges] && ![context save:&error]) {
-//            NSLog(@"删除和%@的聊天记录失败", name);
-//        }
-//    }
+    NSArray *historyList = [context executeFetchRequest:request error:&error];
+    if ([historyList count] > 0) {
+        int count = (int)[historyList count];
+        for (int i = 0; i < count; i++) {
+            NSManagedObject *message = [historyList objectAtIndex:i];
+            [context deleteObject:message];
+            error  = nil;
+            if ([context hasChanges] && ![context save:&error]) {
+                NSLog(@"删除和%@的聊天记录失败", name);
+            }
+        }
+    }
 }
 
 - (void)sendMessage:(NSString *)body forUser:(XMPPJID *)jid {
