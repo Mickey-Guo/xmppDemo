@@ -43,9 +43,6 @@ static NSString* CHATVIEW = @"chatView";
     self.tView.delegate = self;
     self.tView.dataSource = self;
     self.navigationItem.title = _friendName;
-
-    GQStreamManager *streamManager = [GQStreamManager manager];
-    streamManager.messageDelegate = self;
     NSLog(@"%@: %@", CHATVIEW, _friendName);
     [self scrollToButtomWithAnimated:YES];
 }
@@ -81,16 +78,6 @@ static NSString* CHATVIEW = @"chatView";
     }
     XMPPJID *jid = [XMPPJID jidWithString:self.friendName];
     [[GQMessageManager manager]sendMessage:message forUser:jid];
-    self.messageField.text = @"";
-        
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        
-        [dictionary setObject:message forKey:@"msg"];
-        [dictionary setObject:@"you" forKey:@"sender"];
-        //加入发送时间
-        [dictionary setObject:[GQStatic getCurrentTime] forKey:@"time"];
-    
-        [self.tView reloadData];
 }
 
 #pragma mark -
@@ -117,8 +104,11 @@ static NSString* CHATVIEW = @"chatView";
     size.width +=(padding/2);
     UIFont *test_font = [UIFont boldSystemFontOfSize:13];
     size.height +=test_font.lineHeight;
-    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *strDate = [dateFormatter stringFromDate:messageObj.timestamp];
     cell.messageContentView.text = message;
+    cell.senderAndTimeLabel.text = strDate;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.userInteractionEnabled = NO;
     
@@ -179,12 +169,6 @@ static NSString* CHATVIEW = @"chatView";
     return [sectionObj numberOfObjects];
 }
 
-#pragma mark-GQMessageDelegate
-- (void)newMessageReceived:(NSDictionary *)messageContent {
-    //[self.tView reloadData];
-}
-
-
 #pragma mark -NSFetchedResultsControllerDelegate
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller{
     [_tView beginUpdates];
@@ -216,12 +200,9 @@ static NSString* CHATVIEW = @"chatView";
 
 
 - (void)scrollToButtomWithAnimated:(BOOL)animated {
-//    CGSize contentSize = [_tView contentSize];
-//    CGSize screenSize = [[UIScreen mainScreen]bounds].size;
-////    CGPoint point = CGPointMake(0, contentSize.height - screenSize.height + 50);
-//    CGPoint point = CGPointMake(0, _tView.bounds.size.height);
-//    [_tView setContentOffset:point animated:animated];
-//    id<NSFetchedResultsSectionInfo> sectionObj = [[_history sections] objectAtIndex:0];
-//    [_tView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow: [sectionObj numberOfObjects]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated: YES];
+    CGSize contentSize = [self.tView contentSize];
+    CGSize screenSize = [[UIScreen mainScreen]bounds].size;
+    CGPoint point = CGPointMake(0, contentSize.height - screenSize.height+200);
+    [self.tView setContentOffset:point animated:animated];
 }
 @end

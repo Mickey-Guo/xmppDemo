@@ -9,7 +9,6 @@
 #import "GQStreamManager.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
-#import "GQMessageDelegate.h"
 
 typedef NS_ENUM(NSInteger, ManagerOpertion) {
     ManagerOpertionLogin,
@@ -173,11 +172,6 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
     if ([presence.type isEqualToString:@"subscribe"]) {
         [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_RECEIVE_SUBSCRIBE object:presence.from];
     }
-}
-
-//the delegate will use these events to populate the online buddies table accordingly.
-- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSLog(@"Message:%@", message);
 }
 
 - (void)xmppStreamDidRegister:(XMPPStream *)sender {

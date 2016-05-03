@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "XMPP.h"
-#import "GQMessageDelegate.h"
 @class GQStreamManager;
 @class GQRosterManager;
 @class GQMessageManager;

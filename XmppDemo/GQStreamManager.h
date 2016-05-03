@@ -8,11 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "XMPP.h"
-#import "GQMessageDelegate.h"
 
 @interface GQStreamManager : NSObject
-
-@property (nonatomic) id<GQMessageDelegate> messageDelegate;
 
 + (GQStreamManager *) manager;
 

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GQMessageDelegate.h"
 
-@interface GQChatViewController : UIViewController <GQMessageDelegate>
+@interface GQChatViewController : UIViewController
 @property (nonatomic, retain) NSString *friendName;
 
 - (id) initWithUser: (NSString *) userName;

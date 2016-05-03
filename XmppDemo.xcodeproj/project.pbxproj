@@ -511,7 +511,6 @@
 		AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQChatViewController.h; sourceTree = "<group>"; };
 		AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQChatViewController.m; sourceTree = "<group>"; };
 		AFDBC44F1CBCE2D7004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GQChatDelegate.h; path = ../../GQChatDelegate.h; sourceTree = "<group>"; };
-		AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMessageDelegate.h; sourceTree = "<group>"; };
 		AFDBC4541CBF8BED004D0967 /* GQStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStatic.h; sourceTree = "<group>"; };
 		AFDBC4551CBF8BED004D0967 /* GQStatic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStatic.m; sourceTree = "<group>"; };
 		AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQMessageCell.h; sourceTree = "<group>"; };
@@ -1523,7 +1522,6 @@
 				AFDBC4641CC62100004D0967 /* GQStreamManager.m */,
 				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
 				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
-				AFDBC4511CBCE533004D0967 /* GQMessageDelegate.h */,
 				AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */,
 				AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */,
 				AFDBC4771CC8AD13004D0967 /* GQMessageManager.h */,
