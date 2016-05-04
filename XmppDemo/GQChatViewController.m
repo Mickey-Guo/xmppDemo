@@ -14,6 +14,8 @@
 #import "GQMessageManager.h"
 #import "XMPPUserCoreDataStorageObject.h"
 #import "GQRosterManager.h"
+#import "GQRecordTools.h"
+#import "XMPPMessage+Tools.h"
 
 static NSString* CHATVIEW = @"chatView";
 
@@ -25,6 +27,8 @@ static NSString* CHATVIEW = @"chatView";
 @property (strong, nonatomic) NSFetchedResultsController *history;
 
 - (IBAction)sendMessage:(id)sender;
+- (IBAction)startRecord:(id)sender;
+- (IBAction)stopRecord:(id)sender;
 @end
 
 @implementation GQChatViewController
@@ -71,6 +75,29 @@ static NSString* CHATVIEW = @"chatView";
 }
 */
 
+- (IBAction)startRecord:(id)sender {
+    NSLog(@"开始录音");
+    [[GQRecordTools sharedRecorder] startRecord];
+}
+
+- (IBAction)stopRecord:(id)sender {
+    NSLog(@"停止录音");
+    [[GQRecordTools sharedRecorder] stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"audio:%.1fs", time]];
+    } andFailed:^{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                  message:@"Recording time is too short!"
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }];
+}
+
+#pragma mark - send messages
+
 - (IBAction)sendMessage:(id)sender {
     NSString *message = self.messageField.text;
     if (message.length == 0) {
@@ -78,6 +105,20 @@ static NSString* CHATVIEW = @"chatView";
     }
     XMPPJID *jid = [XMPPJID jidWithString:self.friendName];
     [[GQMessageManager manager]sendMessage:message forUser:jid];
+}
+
+- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name {
+    XMPPJID *jid = [XMPPJID jidWithString:self.friendName];
+    XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:jid];
+    [message addBody:name];
+    
+    NSString *base64str = [data base64EncodedStringWithOptions:0];
+    
+    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
+    [message addChild:attachment];
+    
+    [[GQStatic appDelegate].xmppStream sendElement:message];
+    NSLog(@"send data message:%@", message);
 }
 
 #pragma mark -
@@ -131,6 +172,21 @@ static NSString* CHATVIEW = @"chatView";
     }
     
     cell.bgImageView.image = bgImage;
+    
+    
+    
+    
+    
+    if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
+        messageObj.messageStr = [messageObj.message compactXMLString];
+        [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
+    }
+    
+    cell.audioPath  = nil;
+    NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
+    if ([messageObj.body hasPrefix:@"audio"]) {
+        cell.audioPath = path;
+    }
     return cell;
 }
 
@@ -150,8 +206,6 @@ static NSString* CHATVIEW = @"chatView";
     CGFloat height = size.height < 65 ? 65 : size.height;
     
     return height;
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

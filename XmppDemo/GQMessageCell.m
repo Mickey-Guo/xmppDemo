@@ -6,6 +6,9 @@
 //  Copyright © 2016年 guoqing. All rights reserved.
 //
 #import "GQMessageCell.h"
+#import "GQRecordTools.h"
+@interface GQMessageCell() <UITextViewDelegate>
+@end
 
 @implementation GQMessageCell
 
@@ -38,8 +41,29 @@
         messageContentView.scrollEnabled = NO;
         [messageContentView sizeToFit];
         [self.contentView addSubview:messageContentView];
+        messageContentView.delegate = self;
+        [bgImageView setUserInteractionEnabled:YES];
+        [bgImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(playVoice)]];
     }
     return self;
+}
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    [self playVoice];
+}
+- (void)playVoice {
+    // 如果有音频数据，直接播放音频
+    if (self.audioPath != nil) {
+        // 播放音频
+        self.messageContentView.textColor = [UIColor redColor];
+        
+        // 如果单例的块代码中包含self，一定使用weakSelf
+        __weak GQMessageCell *weakSelf = self;
+        [[GQRecordTools sharedRecorder] playPath:self.audioPath completion:^{
+            weakSelf.messageContentView.textColor = [UIColor whiteColor];
+        }];
+    }
 }
 
 @end

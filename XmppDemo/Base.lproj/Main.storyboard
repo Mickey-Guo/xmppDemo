@@ -375,12 +375,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K4h-33-A5C">
-                                <rect key="frame" x="10" y="72" width="247" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K4h-33-A5C">
+                                <rect key="frame" x="44" y="72" width="213" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="213" id="Jck-j3-fO1"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hwg-h0-zdv">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hwg-h0-zdv">
                                 <rect key="frame" x="0.0" y="110" width="320" height="409"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -455,18 +458,31 @@
                                     <action selector="sendMessage:" destination="Sme-hV-X2h" eventType="touchUpInside" id="IdO-9x-7xS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-1z-Db2">
+                                <rect key="frame" x="6" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QU9-eO-cXI"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="chat_bottom_voice_nor"/>
+                                <connections>
+                                    <action selector="startRecord:" destination="Sme-hV-X2h" eventType="touchDown" id="k3M-NX-Krg"/>
+                                    <action selector="stopRecord:" destination="Sme-hV-X2h" eventType="touchUpInside" id="1zu-nB-FzK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Hwg-h0-zdv" secondAttribute="trailing" id="0IX-2c-xD1"/>
-                            <constraint firstItem="K4h-33-A5C" firstAttribute="leading" secondItem="Atm-eV-y9O" secondAttribute="leadingMargin" constant="-6" id="5Ur-Q6-Fnc"/>
-                            <constraint firstItem="2lf-Pr-Jfs" firstAttribute="leading" secondItem="K4h-33-A5C" secondAttribute="trailing" constant="8" symbolic="YES" id="BJI-ls-ltr"/>
-                            <constraint firstItem="Hwg-h0-zdv" firstAttribute="leading" secondItem="Atm-eV-y9O" secondAttribute="leading" id="Ynb-Ht-NlO"/>
-                            <constraint firstItem="Hwg-h0-zdv" firstAttribute="top" secondItem="K4h-33-A5C" secondAttribute="bottom" constant="8" symbolic="YES" id="e3x-hg-7Ig"/>
-                            <constraint firstItem="Hwg-h0-zdv" firstAttribute="bottom" secondItem="6mF-u7-4kG" secondAttribute="top" id="fRz-oK-sdI"/>
+                            <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="z0Z-1z-Db2" secondAttribute="top" id="1O4-OT-9ge"/>
+                            <constraint firstItem="6mF-u7-4kG" firstAttribute="top" secondItem="Hwg-h0-zdv" secondAttribute="bottom" constant="5" id="3LT-0L-NMc"/>
+                            <constraint firstItem="Hwg-h0-zdv" firstAttribute="leading" secondItem="Atm-eV-y9O" secondAttribute="leading" id="CKZ-id-MdH"/>
+                            <constraint firstItem="z0Z-1z-Db2" firstAttribute="leading" secondItem="Atm-eV-y9O" secondAttribute="leadingMargin" constant="-10" id="Rol-V8-X1i"/>
+                            <constraint firstItem="Hwg-h0-zdv" firstAttribute="top" secondItem="z0Z-1z-Db2" secondAttribute="bottom" constant="8" symbolic="YES" id="U3r-AZ-akV"/>
+                            <constraint firstItem="2lf-Pr-Jfs" firstAttribute="leading" secondItem="K4h-33-A5C" secondAttribute="trailing" constant="8" symbolic="YES" id="XZf-4p-fg1"/>
+                            <constraint firstItem="K4h-33-A5C" firstAttribute="leading" secondItem="z0Z-1z-Db2" secondAttribute="trailing" constant="8" symbolic="YES" id="czX-37-cHo"/>
+                            <constraint firstAttribute="trailing" secondItem="Hwg-h0-zdv" secondAttribute="trailing" id="h49-At-WTv"/>
+                            <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="2lf-Pr-Jfs" secondAttribute="top" id="iIP-lW-psh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2lf-Pr-Jfs" secondAttribute="trailing" constant="-13" id="jJf-vT-0Dp"/>
-                            <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="sWF-i5-A0g" secondAttribute="bottom" constant="8" symbolic="YES" id="jiz-cm-daD"/>
-                            <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="2lf-Pr-Jfs" secondAttribute="top" id="uJb-my-d0V"/>
+                            <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="sWF-i5-A0g" secondAttribute="bottom" constant="8" symbolic="YES" id="xrk-zA-QmS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xtW-D0-EsZ">
@@ -565,6 +581,7 @@
         <image name="One" width="32" height="32"/>
         <image name="Three" width="32" height="32"/>
         <image name="Two" width="32" height="32"/>
+        <image name="chat_bottom_voice_nor" width="34" height="34"/>
         <image name="chat_recive_nor" width="63" height="56"/>
         <image name="chat_send_nor" width="49" height="56"/>
     </resources>
