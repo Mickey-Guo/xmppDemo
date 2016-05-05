@@ -22,6 +22,7 @@
     NSString *path = [cachePath stringByAppendingPathComponent:name];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:path error:nil];
+    NSLog(@"删除语音记录:%@", name);
 }
 
 @end

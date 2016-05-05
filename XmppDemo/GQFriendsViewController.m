@@ -13,6 +13,7 @@
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
 #import "GQMessageManager.h"
+#import "NSFileManager+Tools.h"
 
 
 static NSString* FRIENDVIEW = @"FriendView";
@@ -159,6 +160,7 @@ static NSString* FRIENDVIEW = @"FriendView";
 {
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
     [[GQMessageManager manager]deleteHistoryByName:friend.jidStr];
+    [NSFileManager deleteDirInCachPathWithName:friend.jidStr];
     [[GQRosterManager manager]removeFriend:friend.jidStr];
 }
 
