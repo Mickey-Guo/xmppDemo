@@ -17,6 +17,17 @@
 #import "GQRecordTools.h"
 #import "XMPPMessage+Tools.h"
 
+
+#import "UIImage+Category.h"
+#import "UIButton+Category.h"
+#import "mMessageFrame.h"
+#import "mMessage.h"
+#import "mMessageVoice.h"
+#import "mMessageImage.h"
+#import "TextTableViewCell.h"
+#import "VoiceTableViewCell.h"
+#import "ImageTableViewCell.h"
+
 static NSString* CHATVIEW = @"chatView";
 
 @interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -114,66 +125,106 @@ static NSString* CHATVIEW = @"chatView";
 #pragma mark Table view delegates
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    //获得消息实体
     XMPPMessageArchiving_Message_CoreDataObject *messageObj = [_history objectAtIndexPath:indexPath];
-    
-    static NSString *CellIdentifier = @"MessageCellIdentifier";
-    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-    }
-    cell.userInteractionEnabled = YES;
-
-    
-    CGRect rx = [ UIScreen mainScreen ].bounds;
-    CGSize textSize = {rx.size.width-60 ,100000.0};
-    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-    NSString *message = messageObj.body;
-    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
-    NSLog(@"size.height:%f",size.height);
-    
-    size.width +=(padding/2);
-    UIFont *test_font = [UIFont boldSystemFontOfSize:13];
-    size.height +=test_font.lineHeight;
+    //获得时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *strDate = [dateFormatter stringFromDate:messageObj.timestamp];
-    cell.messageContentView.text = message;
-    cell.senderAndTimeLabel.text = strDate;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.userInteractionEnabled = NO;
-    
-    UIImage *bgImage = nil;
-    
-    //发送消息
-    if (![messageObj isOutgoing]) {
-        //背景图
-        bgImage = [UIImage imageNamed:@"orange.png"];
-        [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
-        
-        
-        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+    //mMessage
+    mMessage *model = nil;
+    if (messageObj.isOutgoing) {
+        model = [[mMessage alloc]initWithSendType:Receive andDateTime:strDate];
     } else {
-        
-        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
-        
-        [cell.messageContentView setFrame:CGRectMake(rx.size.width-size.width - padding, padding*2, size.width, size.height)];
-        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+        model = [[mMessage alloc]initWithSendType:Send andDateTime:strDate];
+    }
+    model.messageType = [messageObj.message getMessageType];
+    //mMessageFram
+    mMessageFrame *frameModel = [[mMessageFrame alloc]init];
+    frameModel.messageModel = model;
+    
+    if (model.messageType == MsgText) {
+        model.msg = messageObj.body;
+        static NSString *ID = @"textCell";
+        TextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        if (cell == nil) {
+            cell = [[TextTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        cell.messageFrame = frameModel;
+        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
+        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        return cell;
+    } else {
+        static NSString *ID = @"voiceCell";
+        VoiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        if(cell == nil)
+        {
+            cell = [[VoiceTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        cell.messageFrame = frameModel;
+        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
+        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        return cell;
     }
     
-    cell.bgImageView.image = bgImage;
-
-    if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
-        messageObj.messageStr = [messageObj.message compactXMLString];
-        [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
-    }
-    
-    cell.audioPath  = nil;
-    NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
-    if ([messageObj.message getMessageType] == MsgVoice) {
-        cell.audioPath = path;
-    }
-    return cell;
+//    static NSString *CellIdentifier = @"MessageCellIdentifier";
+//    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    
+//    if (cell == nil) {
+//        cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+//    }
+//    cell.userInteractionEnabled = YES;
+//
+//    
+//    CGRect rx = [ UIScreen mainScreen ].bounds;
+//    CGSize textSize = {rx.size.width-60 ,100000.0};
+//    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
+//    NSString *message = messageObj.body;
+//    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
+//    NSLog(@"size.height:%f",size.height);
+//    
+//    size.width +=(padding/2);
+//    UIFont *test_font = [UIFont boldSystemFontOfSize:13];
+//    size.height +=test_font.lineHeight;
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSString *strDate = [dateFormatter stringFromDate:messageObj.timestamp];
+//    cell.messageContentView.text = message;
+//    cell.senderAndTimeLabel.text = strDate;
+//    cell.accessoryType = UITableViewCellAccessoryNone;
+//    cell.userInteractionEnabled = NO;
+//    
+//    UIImage *bgImage = nil;
+//    
+//    //发送消息
+//    if (![messageObj isOutgoing]) {
+//        //背景图
+//        bgImage = [UIImage imageNamed:@"orange.png"];
+//        [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
+//        
+//        
+//        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+//    } else {
+//        
+//        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
+//        
+//        [cell.messageContentView setFrame:CGRectMake(rx.size.width-size.width - padding, padding*2, size.width, size.height)];
+//        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
+//    }
+//    
+//    cell.bgImageView.image = bgImage;
+//
+//    if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
+//        messageObj.messageStr = [messageObj.message compactXMLString];
+//        [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
+//    }
+//    
+//    cell.audioPath  = nil;
+//    NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
+//    if ([messageObj.message getMessageType] == MsgVoice) {
+//        cell.audioPath = path;
+//    }
+//    return cell;
 }
 
 //每一行的高度

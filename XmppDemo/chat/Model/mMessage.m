@@ -21,6 +21,14 @@
     return self;
 }
 
+- (instancetype)initWithSendType:(SendType)mSendType andDateTime:(NSString *)mDateTime {
+    if (self = [super init]) {
+        self.sendType = mSendType;
+        self.dateTime = mDateTime;
+    }
+    return self;
+}
+
 
 
 

@@ -32,5 +32,6 @@
 @property(nonatomic,assign)BOOL hiddenDateTime;
 
 -(instancetype)initDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithSendType:(SendType)sendType andDateTime:(NSString *)dateTime;
 
 @end

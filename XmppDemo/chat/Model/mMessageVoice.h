@@ -16,5 +16,6 @@
 @property(nonatomic,assign)NSInteger timeLength;
 
 -(instancetype)initDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithVoiceUrl:(NSString *)voiceUrl andTimeLength:(NSInteger)timeLength;
 
 @end

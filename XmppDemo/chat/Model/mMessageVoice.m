@@ -21,6 +21,12 @@
     return self;
 }
 
-
+- (instancetype)initWithVoiceUrl:(NSString *)mVoiceUrl andTimeLength:(NSInteger)mTimeLength {
+    if (self == [super init]) {
+        self.voiceUrl = mVoiceUrl;
+        self.timeLength = mTimeLength;
+    }
+    return self;
+}
 
 @end
