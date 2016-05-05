@@ -12,7 +12,7 @@
     format.dateFormat = @"yyyyMMddHHmmss";
     NSString *fileName = [format stringFromDate:timestamp];
     path = [path stringByAppendingPathComponent:fileName];
-    NSLog(@"create dir: %@", path);
+    //NSLog(@"create dir: %@", path);
     return path;
 }
 

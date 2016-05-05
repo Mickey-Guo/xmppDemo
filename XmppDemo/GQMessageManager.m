@@ -89,7 +89,7 @@
     XMPPElement *typeName = [XMPPElement elementWithName:MESSAGE_TYPE stringValue:TEXT];
     //DDXMLElement *element = [XMPPElement elementWithName:MESSAGE_TYPE numberValue:@1];
     [message addChild:typeName];
-    NSLog(@"Sent to: %@ Content: %@", jid, message);
+    //NSLog(@"Sent to: %@ Content: %@", jid, message);
     [[GQStatic appDelegate].xmppStream sendElement:message];
 }
 
@@ -107,7 +107,7 @@
     [message addChild:attachment];
     
     [[GQStatic appDelegate].xmppStream sendElement:message];
-    NSLog(@"send data message:%@", message);
+    //NSLog(@"send data message:%@", message);
 }
 
 - (void)deleteMessageStorage {

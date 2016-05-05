@@ -141,6 +141,7 @@ static NSString* CHATVIEW = @"chatView";
         model = [[mMessage alloc]initWithSendType:Receive andDateTime:strDate];
     }
     model.messageType = [messageObj.message getMessageType];
+    NSLog(@"indexPath:%@ sendType:%d", indexPath, model.sendType);
     //mMessageFrame
     mMessageFrame *frameModel = [[mMessageFrame alloc]init];
     

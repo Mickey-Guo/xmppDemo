@@ -421,6 +421,10 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
 	XMPPLogTrace();
+    //下面这个if是后来添加的
+    if (![message.type  isEqual: @"chat"]) {
+        return;
+    }
 	
 	if ([self shouldArchiveMessage:message outgoing:NO xmppStream:sender])
 	{
