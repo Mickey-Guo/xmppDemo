@@ -17,4 +17,11 @@
     return path;
 }
 
++(void)deleteDirInCachPathWithName:(NSString *)name {
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *path = [cachePath stringByAppendingPathComponent:name];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:path error:nil];
+}
+
 @end

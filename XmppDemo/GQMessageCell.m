@@ -41,8 +41,9 @@
         messageContentView.scrollEnabled = NO;
         [messageContentView sizeToFit];
         [self.contentView addSubview:messageContentView];
+        messageContentView.userInteractionEnabled = YES;
         messageContentView.delegate = self;
-        [bgImageView setUserInteractionEnabled:YES];
+        bgImageView.userInteractionEnabled = YES;
         [bgImageView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(playVoice)]];
     }
     return self;

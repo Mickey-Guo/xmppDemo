@@ -133,6 +133,7 @@ static NSString* CHATVIEW = @"chatView";
     if (cell == nil) {
         cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
+    cell.userInteractionEnabled = YES;
 
     
     CGRect rx = [ UIScreen mainScreen ].bounds;
@@ -211,6 +212,11 @@ static NSString* CHATVIEW = @"chatView";
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     return 80;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSLog(@"selected: %@", indexPath);
+}
+
 
 #pragma mark- UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
