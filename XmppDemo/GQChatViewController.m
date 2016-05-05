@@ -59,6 +59,8 @@ static NSString* CHATVIEW = @"chatView";
     self.tView.dataSource = self;
     self.navigationItem.title = _friendName;
     NSLog(@"%@: %@", CHATVIEW, _friendName);
+    UIImageView *tableBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_bg"]];
+    [self.tView setBackgroundView:tableBg];
     [self scrollToButtomWithAnimated:YES];
 }
 
@@ -95,7 +97,7 @@ static NSString* CHATVIEW = @"chatView";
     NSLog(@"停止录音");
     [[GQRecordTools sharedRecorder] stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
         NSData *data = [NSData dataWithContentsOfURL:url];
-        [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"audio:%.1fs", time] typeName:VOICE];
+        [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"%d", (int)time] typeName:VOICE];
     } andFailed:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
                                                                                   message:@"Recording time is too short!"
@@ -134,38 +136,49 @@ static NSString* CHATVIEW = @"chatView";
     //mMessage
     mMessage *model = nil;
     if (messageObj.isOutgoing) {
-        model = [[mMessage alloc]initWithSendType:Receive andDateTime:strDate];
-    } else {
         model = [[mMessage alloc]initWithSendType:Send andDateTime:strDate];
+    } else {
+        model = [[mMessage alloc]initWithSendType:Receive andDateTime:strDate];
     }
     model.messageType = [messageObj.message getMessageType];
-    //mMessageFram
+    //mMessageFrame
     mMessageFrame *frameModel = [[mMessageFrame alloc]init];
-    frameModel.messageModel = model;
     
     if (model.messageType == MsgText) {
-        model.msg = messageObj.body;
+        model.msg = [messageObj.body copy];
         static NSString *ID = @"textCell";
         TextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if (cell == nil) {
             cell = [[TextTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
+        // ATTENTION:这里需要注意，frameModel是mMessageFrame类型，mMessageFrame的成员方法setMessageModel（mMessage类型）中需要用到mMessage中的一些属性，如果此时mMessage中没有什么内容的话，那么计算出的frame将是不正确的
+        frameModel.messageModel = model;
         cell.messageFrame = frameModel;
         cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
         cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
         return cell;
     } else {
+        NSString *timeLenStr = messageObj.message.body;
+        NSInteger timeLen = [timeLenStr integerValue];
+        NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
+        mMessageVoice *voice = [[mMessageVoice alloc]initWithVoiceUrl:path andTimeLength:timeLen];
+        model.messageVoice = voice;
         static NSString *ID = @"voiceCell";
         VoiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if(cell == nil)
-        {
+        if(cell == nil) {
             cell = [[VoiceTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
+        frameModel.messageModel = model;
         cell.messageFrame = frameModel;
         cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
         cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
+            messageObj.messageStr = [messageObj.message compactXMLString];
+            [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
+        }
         return cell;
     }
+    return nil;
     
 //    static NSString *CellIdentifier = @"MessageCellIdentifier";
 //    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -230,19 +243,31 @@ static NSString* CHATVIEW = @"chatView";
 //每一行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     XMPPMessageArchiving_Message_CoreDataObject *messageObj = [_history objectAtIndexPath:indexPath];
-    NSString *msg = messageObj.body;
+    mMessageFrame *frameModel = nil;
+    MessageType type = [messageObj.message getMessageType];
+    if (type == MsgText) {
+        TextTableViewCell *cell = (TextTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        frameModel = cell.messageFrame;
+    } else if (type == MsgVoice) {
+        VoiceTableViewCell *cell = (VoiceTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        frameModel = cell.messageFrame;
+    }
+    return frameModel.cellHeight;
     
-    CGRect rx = [UIScreen mainScreen].bounds;
-    CGSize textSize = {rx.size.width-60, 10000.0};
-    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-    CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
-    
-    size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
-    size.height += padding*3;
-    
-    CGFloat height = size.height < 65 ? 65 : size.height;
-    
-    return height;
+//    XMPPMessageArchiving_Message_CoreDataObject *messageObj = [_history objectAtIndexPath:indexPath];
+//    NSString *msg = messageObj.body;
+//    
+//    CGRect rx = [UIScreen mainScreen].bounds;
+//    CGSize textSize = {rx.size.width-60, 10000.0};
+//    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
+//    CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
+//    
+//    size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
+//    size.height += padding*3;
+//    
+//    CGFloat height = size.height < 65 ? 65 : size.height;
+//    
+//    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

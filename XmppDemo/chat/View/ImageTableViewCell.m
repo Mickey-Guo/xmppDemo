@@ -58,7 +58,8 @@
         //设置按钮中内容的边距
         self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         
-        
+        //设置选中时没有颜色变化
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }

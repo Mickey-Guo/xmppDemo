@@ -58,12 +58,11 @@
         contentView.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         //设置换行
         contentView.titleLabel.numberOfLines = 0;
-        //设置字体的颜色
-        [contentView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         //设置按钮中内容的边距
         self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         
-       
+        //设置选中时没有颜色变化
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -99,10 +98,13 @@
     {
         self.portraitImageView.image = self.sendPortraitImage;
         [self.contentButton setBackgroundImage:[UIImage stretchableImage:@"chat_send_press_pic"] forState:UIControlStateNormal];
+        [self.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }else //被动接收
     {
         self.portraitImageView.image = self.recivePortraitImage;
         [self.contentButton setBackgroundImage:[UIImage stretchableImage:@"chat_recive_nor"] forState:UIControlStateNormal];
+        //设置字体的颜色
+        [self.contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
        
     }

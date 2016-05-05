@@ -65,6 +65,8 @@
         //设置按钮中内容的边距
         self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         
+        //设置选中时没有颜色变化
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     return self;
@@ -101,6 +103,9 @@
         self.portraitImageView.image =  self.sendPortraitImage;
         [self.contentButton setBackgroundImage:[UIImage stretchableImage:@"chat_send_press_pic"] forState:UIControlStateNormal];
         [self.contentButton setImage:[UIImage imageNamed:@"chat_send_icon"] forState:UIControlStateNormal];
+        //设置字体的颜色
+        [self.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
 
         CGFloat maxX = messageFrame.contentFrame.size.width - 30;
         self.contentButton.iconFrame = CGRectMake(maxX, 19, 10, 21);
@@ -113,6 +118,7 @@
         self.portraitImageView.image = self.recivePortraitImage;
         [self.contentButton setBackgroundImage:[UIImage stretchableImage:@"chat_recive_nor"] forState:UIControlStateNormal];
         [self.contentButton setImage:[UIImage imageNamed:@"chat_recive_icon"] forState:UIControlStateNormal];
+        [self.contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         self.contentButton.iconFrame = CGRectMake(20, 19, 10, 21);
         self.contentButton.textFrame = CGRectMake(40, 19, 50, 21);
