@@ -49,4 +49,19 @@
     return NO;
 }
 
+- (MessageType)getMessageType {
+    for (XMPPElement *node in self.children) {
+        if ([node.name isEqualToString:MESSAGE_TYPE]) {
+            if ([node.stringValue isEqualToString:VOICE]) {
+                return MsgVoice;
+            } else if ([node.stringValue isEqualToString:TEXT]) {
+                return MsgText;
+            } else {
+                return MsgImage;
+            }
+        }
+    }
+    return MsgText;
+}
+
 @end

@@ -84,7 +84,7 @@ static NSString* CHATVIEW = @"chatView";
     NSLog(@"停止录音");
     [[GQRecordTools sharedRecorder] stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
         NSData *data = [NSData dataWithContentsOfURL:url];
-        [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"audio:%.1fs", time]];
+        [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"audio:%.1fs", time] typeName:VOICE];
     } andFailed:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
                                                                                   message:@"Recording time is too short!"
@@ -103,22 +103,11 @@ static NSString* CHATVIEW = @"chatView";
     if (message.length == 0) {
         return ;
     }
-    XMPPJID *jid = [XMPPJID jidWithString:self.friendName];
-    [[GQMessageManager manager]sendMessage:message forUser:jid];
+    [[GQMessageManager manager]sendMessage:message toUser:self.friendName];
 }
 
-- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name {
-    XMPPJID *jid = [XMPPJID jidWithString:self.friendName];
-    XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:jid];
-    [message addBody:name];
-    
-    NSString *base64str = [data base64EncodedStringWithOptions:0];
-    
-    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
-    [message addChild:attachment];
-    
-    [[GQStatic appDelegate].xmppStream sendElement:message];
-    NSLog(@"send data message:%@", message);
+- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name typeName:(NSString *)type{
+    [[GQMessageManager manager] sendMessageWithData:data bodyName:name typeName:type toUser:self.friendName];
 }
 
 #pragma mark -
@@ -173,11 +162,7 @@ static NSString* CHATVIEW = @"chatView";
     }
     
     cell.bgImageView.image = bgImage;
-    
-    
-    
-    
-    
+
     if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
         messageObj.messageStr = [messageObj.message compactXMLString];
         [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
@@ -185,7 +170,7 @@ static NSString* CHATVIEW = @"chatView";
     
     cell.audioPath  = nil;
     NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
-    if ([messageObj.body hasPrefix:@"audio"]) {
+    if ([messageObj.message getMessageType] == MsgVoice) {
         cell.audioPath = path;
     }
     return cell;

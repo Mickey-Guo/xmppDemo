@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "GQAppDelegate.h"
+#pragma mark 接收类型
+typedef enum{
+    
+    Send,
+    Receive
+    
+} SendType;
+
+#pragma mark 消息类型
+typedef enum
+{
+    MsgText,
+    MsgImage,
+    MsgVoice
+}
+MessageType;
 
 static NSString *USERID = @"userId";
 static NSString *PASS= @"pass";
@@ -28,6 +44,11 @@ static NSString *STREAM_MANAGER_CONNECT_SUCCESS = @"StreamManagerConnectSuccess"
 static NSString *STREAM_MANAGER_REGISTER_FAIL = @"StreamManagerRegisterFail";
 static NSString *STREAM_MANAGER_REGISTER_SUCCESS =  @"StreamManagerRegisterSuccess";
 static NSString *STREAM_MANAGER_RECEIVE_SUBSCRIBE = @"StreamManagerReceiveSubscribe";
+
+static NSString *MESSAGE_TYPE = @"MessageType";
+static NSString *VOICE = @"VoiceMessage";
+static NSString *TEXT = @"TextMessage";
+static NSString *IMG = @"ImageMessage";
 
 @interface GQStatic : NSObject 
 + (GQAppDelegate *)appDelegate;

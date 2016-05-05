@@ -16,6 +16,7 @@
 
 - (NSFetchedResultsController *)getHistoryByName:(NSString *)name;
 - (void)deleteHistoryByName:(NSString *)name;
-- (void)sendMessage:(NSString *)body forUser:(XMPPJID *)jid;
+- (void)sendMessage:(NSString *)body toUser:(NSString *)friendName;
+- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)body typeName:(NSString *)type toUser:(NSString *)friendName;
 - (void)deleteMessageStorage;
 @end

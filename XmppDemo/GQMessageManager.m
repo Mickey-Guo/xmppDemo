@@ -79,14 +79,35 @@
     }
 }
 
-- (void)sendMessage:(NSString *)body forUser:(XMPPJID *)jid {
+- (void)sendMessage:(NSString *)body toUser:(NSString *)friendName {
     if (body.length < 1) {
         return;
     }
+    XMPPJID *jid = [XMPPJID jidWithString:friendName];
     XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:jid];
     [message addBody:body];
+    XMPPElement *typeName = [XMPPElement elementWithName:MESSAGE_TYPE stringValue:TEXT];
+    //DDXMLElement *element = [XMPPElement elementWithName:MESSAGE_TYPE numberValue:@1];
+    [message addChild:typeName];
     NSLog(@"Sent to: %@ Content: %@", jid, message);
     [[GQStatic appDelegate].xmppStream sendElement:message];
+}
+
+- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)body typeName:(NSString *)type toUser:(NSString *)friendName {
+    XMPPJID *jid = [XMPPJID jidWithString:friendName];
+    XMPPMessage *message = [XMPPMessage messageWithType:@"chat" to:jid];
+    [message addBody:body];
+    
+    XMPPElement *typeName = [XMPPElement elementWithName:MESSAGE_TYPE stringValue:type];
+    [message addChild:typeName];
+    
+    NSString *base64str = [data base64EncodedStringWithOptions:0];
+    
+    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
+    [message addChild:attachment];
+    
+    [[GQStatic appDelegate].xmppStream sendElement:message];
+    NSLog(@"send data message:%@", message);
 }
 
 - (void)deleteMessageStorage {

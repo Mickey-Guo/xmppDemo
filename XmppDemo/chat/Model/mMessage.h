@@ -7,23 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#pragma mark 接收类型
-typedef enum{
-
-    Send,
-    Receive
-    
-} SendType;
-
-#pragma mark 消息类型
-typedef enum
-{
-   MsgText,
-   MsgImage,
-   MsgVoice
-}
-MessageType;
+#import "GQStatic.h"
 
 
 //图片消息

@@ -1,4 +1,6 @@
 #import "XMPPMessage.h"
+#import "mMessage.h"
+#import "GQStatic.h"
 
 @interface XMPPMessage(Tools)
 
@@ -15,4 +17,5 @@
  */
 - (NSString *)pathForAttachment:(NSString *)jid timestamp:(NSDate *)timestamp;
 
+- (MessageType) getMessageType;
 @end
