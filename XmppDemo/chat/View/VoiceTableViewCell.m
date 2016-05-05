@@ -12,6 +12,7 @@
 #import "mMessageVoice.h"
 #import "UIImage+Category.h"
 #import "VoiceButton.h"
+#import "GQRecordTools.h"
 
 @interface VoiceTableViewCell()
 
@@ -35,6 +36,7 @@
         self.backgroundColor = [UIColor clearColor];
         //显示时间
         UILabel *dateTimeView = [[UILabel alloc] init];
+        dateTimeView.textColor = [UIColor grayColor];
         [self.contentView addSubview:dateTimeView];
         self.dateTimeLabel = dateTimeView;
         
@@ -67,7 +69,7 @@
         
         //设置选中时没有颜色变化
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        [self.contentButton addTarget:self action:@selector(playVoice) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -139,6 +141,27 @@
     self.portraitImageView.frame = messageFrame.portraitFrame;
     self.contentButton.frame = messageFrame.contentFrame;
     
+}
+
+#pragma mark 播放声音
+- (void)playVoice {
+    // 如果有音频数据，直接播放音频
+    NSString *path = self.messageFrame.messageModel.messageVoice.voiceUrl;
+    if (path != nil) {
+        // 播放音频
+        [self.contentButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
+        // 如果单例的块代码中包含self，一定使用weakSelf
+        __weak VoiceTableViewCell *weakSelf = self;
+        [[GQRecordTools sharedRecorder] playPath:path completion:^{
+            if (weakSelf.messageFrame.messageModel.sendType == Send) {
+                [weakSelf.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            } else {
+                [weakSelf.contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            }
+        }];
+    }
+
 }
 
 

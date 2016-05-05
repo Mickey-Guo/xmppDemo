@@ -34,6 +34,7 @@
         self.backgroundColor = [UIColor clearColor];
         //显示时间
         UILabel *dateTimeView = [[UILabel alloc] init];
+        dateTimeView.textColor = [UIColor grayColor];
         [self.contentView addSubview:dateTimeView];
         self.dateTimeLabel = dateTimeView;
         

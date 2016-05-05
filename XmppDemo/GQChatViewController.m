@@ -158,6 +158,10 @@ static NSString* CHATVIEW = @"chatView";
         cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
         return cell;
     } else {
+        if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
+            messageObj.messageStr = [messageObj.message compactXMLString];
+            [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
+        }
         NSString *timeLenStr = messageObj.message.body;
         NSInteger timeLen = [timeLenStr integerValue];
         NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
@@ -172,10 +176,6 @@ static NSString* CHATVIEW = @"chatView";
         cell.messageFrame = frameModel;
         cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
         cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
-        if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
-            messageObj.messageStr = [messageObj.message compactXMLString];
-            [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
-        }
         return cell;
     }
     return nil;

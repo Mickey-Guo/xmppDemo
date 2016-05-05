@@ -19,8 +19,8 @@
 // 保存附件
 - (BOOL)saveAttachmentJID:(NSString *)jid timestamp:(NSDate *)timestamp {
     
-    // 判断子节点数量
-    if (self.childCount == 2) {
+    // 判断子节点数量,这里需要注意，只有voice和img才会有3个节点
+    if (self.childCount == 3) {
         NSInteger index = -1;
         
         // 遍历所有节点
