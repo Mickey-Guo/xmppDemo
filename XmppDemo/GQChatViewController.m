@@ -29,8 +29,9 @@
 
 static NSString* CHATVIEW = @"chatView";
 
-@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) XMPPUserCoreDataStorageObject *friend;
@@ -61,6 +62,7 @@ static NSString* CHATVIEW = @"chatView";
     [self.tView setBackgroundView:tableBg];
     /////////////////////////////////////////////////////////////////
     self.messageField.delegate = self;
+    self.messageTextView.delegate = self;
     [self scrollToButtomWithAnimated:YES];
 }
 
@@ -116,6 +118,22 @@ static NSString* CHATVIEW = @"chatView";
         [[GQMessageManager manager]sendMessage:message toUser:self.friendName];
         self.messageField.text = @"";
         [theTextField resignFirstResponder];
+    }
+    return YES;
+}
+
+#pragma mark - ******************** textView代理方法
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    // 判断按下的是不是回车键。
+    if ([text isEqualToString:@"\n"]) {
+        
+        // 自定义的信息发送方法，传入字符串直接发出去。
+        [[GQMessageManager manager]sendMessage:self.messageTextView.text toUser:self.friendName];
+        
+        self.messageTextView.text = nil;
+        [self.messageTextView resignFirstResponder];
+        return NO;
     }
     return YES;
 }
