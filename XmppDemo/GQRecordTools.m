@@ -75,7 +75,7 @@
     NSTimeInterval time = self.recorder.currentTime;
     [self.recorder stop];
     
-    if (time < 1.5) {
+    if (time < 1.0) {
         if (failed) {
             failed();
         }

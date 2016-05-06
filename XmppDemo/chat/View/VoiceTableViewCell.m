@@ -41,7 +41,7 @@
         self.dateTimeLabel = dateTimeView;
         
         dateTimeView.textAlignment = NSTextAlignmentCenter;
-        dateTimeView.font = [UIFont systemFontOfSize:13.0f];
+        dateTimeView.font = [UIFont systemFontOfSize:11.0f];
         
         //头像
         UIImageView *portraitView = [[UIImageView alloc] init];
