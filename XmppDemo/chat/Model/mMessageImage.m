@@ -19,6 +19,14 @@
     return self;
 }
 
+- (instancetype)initWithImageUrl:(NSString *)imageUrl andSize:(CGSize)imageSize {
+    if (self == [super init]) {
+        self.imageUrl = [imageUrl copy];
+        self.width = imageSize.width;
+        self.height = imageSize.height;
+    }
+    return self;
+}
 
 
 @end

@@ -35,4 +35,16 @@
     return resultImage;
 }
 
+- (CGSize)imageSize:(CGFloat)width {
+    if (self.size.width <width || width <= 0) {
+        return self.size;
+    }
+    
+    CGFloat scale = self.size.width/width;
+    CGFloat height = self.size.height/scale;
+    
+    CGRect rect = CGRectMake(0, 0, width, height);
+    return rect.size;
+}
+
 @end

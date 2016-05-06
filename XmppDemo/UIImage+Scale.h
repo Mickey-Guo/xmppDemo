@@ -12,5 +12,6 @@
 
 /** 把图片缩小到指定的宽度范围内为止 */
 - (UIImage *)scaleImageWithWidth:(CGFloat)width;
+- (CGSize) imageSize:(CGFloat)width;
 
 @end

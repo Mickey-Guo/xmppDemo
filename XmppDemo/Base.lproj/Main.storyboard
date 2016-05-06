@@ -402,6 +402,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-YE-9nH">
                                         <rect key="frame" x="282" y="9" width="30" height="30"/>
                                         <state key="normal" backgroundImage="chat_bottom_up_nor"/>
+                                        <connections>
+                                            <action selector="setPhoto:" destination="Sme-hV-X2h" eventType="touchUpInside" id="phm-p0-c3N"/>
+                                        </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Osc-vD-iOG">
                                         <rect key="frame" x="38" y="8" width="242" height="30"/>

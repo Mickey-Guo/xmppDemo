@@ -15,6 +15,7 @@
 #import "GQRosterManager.h"
 #import "GQRecordTools.h"
 #import "XMPPMessage+Tools.h"
+#import "UIImage+Scale.h"
 
 
 #import "UIImage+Category.h"
@@ -29,7 +30,7 @@
 
 static NSString* CHATVIEW = @"chatView";
 
-@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
@@ -39,6 +40,7 @@ static NSString* CHATVIEW = @"chatView";
 
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
+- (IBAction)setPhoto:(id)sender;
 @end
 
 @implementation GQChatViewController
@@ -89,7 +91,7 @@ static NSString* CHATVIEW = @"chatView";
     // Pass the selected object to the new view controller.
 }
 */
-
+#pragma mark - record
 - (IBAction)startRecord:(id)sender {
     NSLog(@"开始录音");
     [[GQRecordTools sharedRecorder] startRecord];
@@ -109,6 +111,27 @@ static NSString* CHATVIEW = @"chatView";
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
     }];
+}
+
+#pragma mark - setPhoto
+- (IBAction)setPhoto:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+    
+    picker.delegate = self;
+    
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - ******************** imgPickerController代理方法
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    NSData *data = UIImagePNGRepresentation(image);
+    
+    [self sendMessageWithData:data bodyName:@"image" typeName:IMG];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - textFieldView delegate
@@ -160,10 +183,17 @@ static NSString* CHATVIEW = @"chatView";
         model = [[mMessage alloc]initWithSendType:Receive andDateTime:strDate];
     }
     model.messageType = [messageObj.message getMessageType];
-    NSLog(@"indexPath:%@ sendType:%d", indexPath, model.sendType);
+    //NSLog(@"indexPath:%@ sendType:%d", indexPath, model.sendType);
     //mMessageFrame
     mMessageFrame *frameModel = [[mMessageFrame alloc]init];
     
+    //如果存进去了，就把字符串转化成简洁的节点后保存
+    if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
+        messageObj.messageStr = [messageObj.message compactXMLString];
+        [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
+    }
+    
+    //判断消息类型（文字，声音，图片）
     if (model.messageType == MsgText) {
         model.msg = [messageObj.body copy];
         static NSString *ID = @"textCell";
@@ -177,20 +207,31 @@ static NSString* CHATVIEW = @"chatView";
         cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
         cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
         return cell;
-    } else {
-        if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
-            messageObj.messageStr = [messageObj.message compactXMLString];
-            [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
-        }
+    } else if (model.messageType == MsgVoice){
         NSString *timeLenStr = messageObj.message.body;
         NSInteger timeLen = [timeLenStr integerValue];
         NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
-        mMessageVoice *voice = [[mMessageVoice alloc]initWithVoiceUrl:path andTimeLength:timeLen];
-        model.messageVoice = voice;
+        mMessageVoice *voiceMessage = [[mMessageVoice alloc]initWithVoiceUrl:path andTimeLength:timeLen];
+        model.messageVoice = voiceMessage;
         static NSString *ID = @"voiceCell";
         VoiceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if(cell == nil) {
             cell = [[VoiceTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        frameModel.messageModel = model;
+        cell.messageFrame = frameModel;
+        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
+        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        return cell;
+    } else {
+        NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
+        CGSize size = [[UIImage imageWithContentsOfFile:path]imageSize:200];
+        mMessageImage *imageMessage = [[mMessageImage alloc]initWithImageUrl:path andSize:size];
+        model.messageImage = imageMessage;
+        static NSString *ID = @"imageCell";
+        ImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        if (cell == nil) {
+            cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
         frameModel.messageModel = model;
         cell.messageFrame = frameModel;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 yinxiufeng. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface mMessageImage : NSObject
 
@@ -18,6 +18,7 @@
 @property(nonatomic,assign) float height;
 
 -(instancetype)initDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithImageUrl:(NSString *)imageUrl andSize:(CGSize)imageSize;
 
 
 @end
