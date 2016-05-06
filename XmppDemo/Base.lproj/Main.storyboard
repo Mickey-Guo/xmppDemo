@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Oum-iL-bc7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -378,24 +379,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqj-7G-AoP">
                                 <rect key="frame" x="0.0" y="64" width="320" height="48"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lf-Pr-Jfs">
-                                        <rect key="frame" x="275" y="8" width="37" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="37" id="hP5-ez-f3i"/>
-                                        </constraints>
-                                        <state key="normal" title="Send"/>
-                                        <connections>
-                                            <action selector="sendMessage:" destination="Sme-hV-X2h" eventType="touchUpInside" id="IdO-9x-7xS"/>
-                                        </connections>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K4h-33-A5C">
-                                        <rect key="frame" x="38" y="8" width="229" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="229" id="PMQ-Xx-ISV"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-1z-Db2">
                                         <rect key="frame" x="6" y="9" width="30" height="30"/>
                                         <constraints>
@@ -408,16 +391,32 @@
                                             <action selector="stopRecord:" destination="Sme-hV-X2h" eventType="touchUpInside" id="1zu-nB-FzK"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K4h-33-A5C">
+                                        <rect key="frame" x="38" y="8" width="241" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="241" id="8TG-Um-UOT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-YE-9nH">
+                                        <rect key="frame" x="282" y="9" width="30" height="30"/>
+                                        <state key="normal" backgroundImage="chat_bottom_up_nor"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="K4h-33-A5C" firstAttribute="leading" secondItem="z0Z-1z-Db2" secondAttribute="trailing" constant="2" id="Ler-xV-jC2"/>
-                                    <constraint firstAttribute="bottom" secondItem="K4h-33-A5C" secondAttribute="bottom" constant="10" id="PRJ-UW-YYg"/>
-                                    <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="yqj-7G-AoP" secondAttribute="topMargin" id="ZFE-2J-5fP"/>
-                                    <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="2lf-Pr-Jfs" secondAttribute="top" id="fjx-RS-o25"/>
-                                    <constraint firstItem="2lf-Pr-Jfs" firstAttribute="leading" secondItem="K4h-33-A5C" secondAttribute="trailing" constant="8" symbolic="YES" id="nGy-oW-6Nb"/>
+                                    <constraint firstItem="K4h-33-A5C" firstAttribute="top" secondItem="yqj-7G-AoP" secondAttribute="topMargin" id="8IR-QD-r8Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="K4h-33-A5C" secondAttribute="bottom" constant="10" id="8u1-dU-Sen"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="baseline" secondItem="z0Z-1z-Db2" secondAttribute="baseline" id="Bx0-S2-YtW"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="firstBaseline" secondItem="z0Z-1z-Db2" secondAttribute="firstBaseline" id="Las-ow-pNk"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="bottom" secondItem="z0Z-1z-Db2" secondAttribute="bottom" id="epj-oy-BeV"/>
+                                    <constraint firstItem="K4h-33-A5C" firstAttribute="leading" secondItem="z0Z-1z-Db2" secondAttribute="trailing" constant="2" id="f1n-lF-P5a"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="top" secondItem="z0Z-1z-Db2" secondAttribute="top" id="kFb-bX-zen"/>
+                                    <constraint firstItem="K4h-33-A5C" firstAttribute="leading" secondItem="yqj-7G-AoP" secondAttribute="leading" constant="38" id="lAa-e5-FtR"/>
                                     <constraint firstItem="z0Z-1z-Db2" firstAttribute="centerY" secondItem="yqj-7G-AoP" secondAttribute="centerY" id="nnn-aG-ImE"/>
-                                    <constraint firstItem="2lf-Pr-Jfs" firstAttribute="trailing" secondItem="yqj-7G-AoP" secondAttribute="trailingMargin" id="sJf-mW-ZAP"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="leading" secondItem="K4h-33-A5C" secondAttribute="trailing" constant="3" id="vOB-ZA-Pay"/>
+                                    <constraint firstItem="vKG-YE-9nH" firstAttribute="trailing" secondItem="yqj-7G-AoP" secondAttribute="trailingMargin" id="vti-LM-LWj"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hwg-h0-zdv">
@@ -544,6 +543,7 @@
         <image name="One" width="32" height="32"/>
         <image name="Three" width="32" height="32"/>
         <image name="Two" width="32" height="32"/>
+        <image name="chat_bottom_up_nor" width="34" height="34"/>
         <image name="chat_bottom_voice_nor" width="34" height="34"/>
     </resources>
 </document>

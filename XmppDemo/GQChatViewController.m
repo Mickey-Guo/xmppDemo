@@ -9,7 +9,6 @@
 #import "GQChatViewController.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
-#import "GQMessageCell.h"
 #import "GQStreamManager.h"
 #import "GQMessageManager.h"
 #import "XMPPUserCoreDataStorageObject.h"
@@ -30,14 +29,13 @@
 
 static NSString* CHATVIEW = @"chatView";
 
-@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface GQChatViewController ()<NSFetchedResultsControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) XMPPUserCoreDataStorageObject *friend;
 @property (strong, nonatomic) NSFetchedResultsController *history;
 
-- (IBAction)sendMessage:(id)sender;
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
 @end
@@ -61,6 +59,8 @@ static NSString* CHATVIEW = @"chatView";
     NSLog(@"%@: %@", CHATVIEW, _friendName);
     UIImageView *tableBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_bg"]];
     [self.tView setBackgroundView:tableBg];
+    /////////////////////////////////////////////////////////////////
+    self.messageField.delegate = self;
     [self scrollToButtomWithAnimated:YES];
 }
 
@@ -109,14 +109,15 @@ static NSString* CHATVIEW = @"chatView";
     }];
 }
 
-#pragma mark - send messages
-
-- (IBAction)sendMessage:(id)sender {
-    NSString *message = self.messageField.text;
-    if (message.length == 0) {
-        return ;
+#pragma mark - textFieldView delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if (theTextField == self.messageField) {
+        NSString *message = self.messageField.text;
+        [[GQMessageManager manager]sendMessage:message toUser:self.friendName];
+        self.messageField.text = @"";
+        [theTextField resignFirstResponder];
     }
-    [[GQMessageManager manager]sendMessage:message toUser:self.friendName];
+    return YES;
 }
 
 - (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name typeName:(NSString *)type{
@@ -180,65 +181,6 @@ static NSString* CHATVIEW = @"chatView";
         return cell;
     }
     return nil;
-    
-//    static NSString *CellIdentifier = @"MessageCellIdentifier";
-//    GQMessageCell *cell = (GQMessageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    
-//    if (cell == nil) {
-//        cell = [[GQMessageCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-//    }
-//    cell.userInteractionEnabled = YES;
-//
-//    
-//    CGRect rx = [ UIScreen mainScreen ].bounds;
-//    CGSize textSize = {rx.size.width-60 ,100000.0};
-//    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-//    NSString *message = messageObj.body;
-//    CGSize size = [message boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
-//    NSLog(@"size.height:%f",size.height);
-//    
-//    size.width +=(padding/2);
-//    UIFont *test_font = [UIFont boldSystemFontOfSize:13];
-//    size.height +=test_font.lineHeight;
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    NSString *strDate = [dateFormatter stringFromDate:messageObj.timestamp];
-//    cell.messageContentView.text = message;
-//    cell.senderAndTimeLabel.text = strDate;
-//    cell.accessoryType = UITableViewCellAccessoryNone;
-//    cell.userInteractionEnabled = NO;
-//    
-//    UIImage *bgImage = nil;
-//    
-//    //发送消息
-//    if (![messageObj isOutgoing]) {
-//        //背景图
-//        bgImage = [UIImage imageNamed:@"orange.png"];
-//        [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
-//        
-//        
-//        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
-//    } else {
-//        
-//        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:14 topCapHeight:15];
-//        
-//        [cell.messageContentView setFrame:CGRectMake(rx.size.width-size.width - padding, padding*2, size.width, size.height)];
-//        [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2, cell.messageContentView.frame.origin.y - padding/2, size.width + padding, size.height + padding)];
-//    }
-//    
-//    cell.bgImageView.image = bgImage;
-//
-//    if ([messageObj.message saveAttachmentJID:self.friendName timestamp:messageObj.timestamp]) {
-//        messageObj.messageStr = [messageObj.message compactXMLString];
-//        [[XMPPMessageArchivingCoreDataStorage sharedInstance].mainThreadManagedObjectContext save:NULL];
-//    }
-//    
-//    cell.audioPath  = nil;
-//    NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
-//    if ([messageObj.message getMessageType] == MsgVoice) {
-//        cell.audioPath = path;
-//    }
-//    return cell;
 }
 
 //每一行的高度
@@ -254,21 +196,6 @@ static NSString* CHATVIEW = @"chatView";
         frameModel = cell.messageFrame;
     }
     return frameModel.cellHeight;
-    
-//    XMPPMessageArchiving_Message_CoreDataObject *messageObj = [_history objectAtIndexPath:indexPath];
-//    NSString *msg = messageObj.body;
-//    
-//    CGRect rx = [UIScreen mainScreen].bounds;
-//    CGSize textSize = {rx.size.width-60, 10000.0};
-//    NSDictionary *valueLableAttribute = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:13]};
-//    CGSize size = [msg boundingRectWithSize:textSize options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:valueLableAttribute context:nil].size;
-//    
-//    size.height +=[UIFont systemFontOfSize:13].lineHeight;//修正偏差
-//    size.height += padding*3;
-//    
-//    CGFloat height = size.height < 65 ? 65 : size.height;
-//    
-//    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
