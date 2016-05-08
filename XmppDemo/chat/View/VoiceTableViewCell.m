@@ -153,13 +153,23 @@
         
         // 如果单例的块代码中包含self，一定使用weakSelf
         __weak VoiceTableViewCell *weakSelf = self;
-        [[GQRecordTools sharedRecorder] playPath:path completion:^{
+        GQRecordTools *recordTools = [GQRecordTools sharedRecorder];
+        if ([recordTools.player isPlaying]) {
+            [recordTools.player stop];
             if (weakSelf.messageFrame.messageModel.sendType == Send) {
                 [weakSelf.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             } else {
                 [weakSelf.contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             }
-        }];
+        } else {
+            [[GQRecordTools sharedRecorder] playPath:path completion:^{
+                if (weakSelf.messageFrame.messageModel.sendType == Send) {
+                    [weakSelf.contentButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                } else {
+                    [weakSelf.contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                }
+            }];
+        }
     }
 
 }

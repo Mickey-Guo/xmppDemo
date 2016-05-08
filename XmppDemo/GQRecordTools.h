@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface GQRecordTools : NSObject
+
+/** 播放器 */
+@property(nonatomic,strong) AVAudioPlayer *player;
 
 + (instancetype)sharedRecorder;
 

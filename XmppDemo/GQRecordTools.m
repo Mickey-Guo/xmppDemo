@@ -7,7 +7,6 @@
 //
 
 #import "GQRecordTools.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface GQRecordTools ()<AVAudioPlayerDelegate>
 
@@ -16,9 +15,6 @@
 
 /** 录音地址 */
 @property(nonatomic,strong) NSURL *recordURL;
-
-/** 播放器 */
-@property(nonatomic,strong) AVAudioPlayer *player;
 
 @property(nonatomic,copy) void (^palyCompletion)();
 
@@ -118,17 +114,17 @@
     // 判断是否正在播放
     if (self.player.isPlaying) {
         [self.player stop];
+    } else {
+        // 记录块代码
+        self.palyCompletion = completion;
+        
+        // 监听播放器播放状态
+        self.player = player();
+        
+        self.player.delegate = self;
+        
+        [self.player play];
     }
-    
-    // 记录块代码
-    self.palyCompletion = completion;
-    
-    // 监听播放器播放状态
-    self.player = player();
-    
-    self.player.delegate = self;
-    
-    [self.player play];
 }
 
 @end

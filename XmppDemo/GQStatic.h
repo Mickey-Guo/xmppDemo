@@ -50,6 +50,10 @@ static NSString *VOICE = @"VoiceMessage";
 static NSString *TEXT = @"TextMessage";
 static NSString *IMG = @"ImageMessage";
 
+static NSString *DEFAULT_AVARTAR = @"login_avatar_default";
+
+static NSInteger MAX_LEN = 1024*1024;
+
 @interface GQStatic : NSObject 
 + (GQAppDelegate *)appDelegate;
 + (XMPPStream *)xmppStream;

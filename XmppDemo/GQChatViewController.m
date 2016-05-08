@@ -37,6 +37,7 @@ static NSString* CHATVIEW = @"chatView";
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) XMPPUserCoreDataStorageObject *friend;
 @property (strong, nonatomic) NSFetchedResultsController *history;
+@property (strong, nonatomic) NSCache *cache;
 
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
@@ -68,6 +69,13 @@ static NSString* CHATVIEW = @"chatView";
     [self scrollToButtomWithAnimated:YES];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    GQRecordTools *recordTools = [GQRecordTools sharedRecorder];
+    if (recordTools.player.isPlaying) {
+        [recordTools.player stop];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -91,6 +99,19 @@ static NSString* CHATVIEW = @"chatView";
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - create cache
+- (NSCache *)cache {
+    if (_cache == nil) {
+        _cache = [[NSCache alloc]init];
+    }
+    return _cache;
+}
+
+#pragma mark - 键盘消失
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.messageTextView resignFirstResponder];
+}
 #pragma mark - record
 - (IBAction)startRecord:(id)sender {
     NSLog(@"开始录音");
@@ -101,6 +122,17 @@ static NSString* CHATVIEW = @"chatView";
     NSLog(@"停止录音");
     [[GQRecordTools sharedRecorder] stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
         NSData *data = [NSData dataWithContentsOfURL:url];
+        if (data.length > MAX_LEN) {
+            data = [data subdataWithRange:NSMakeRange(0, MAX_LEN)];
+            time = 40;
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                                     message:@"Recording time is longer than 40s! Data was cut and sent."
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
         [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"%d", (int)time] typeName:VOICE];
     } andFailed:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
@@ -208,8 +240,8 @@ static NSString* CHATVIEW = @"chatView";
         // ATTENTION:这里需要注意，frameModel是mMessageFrame类型，mMessageFrame的成员方法setMessageModel（mMessage类型）中需要用到mMessage中的一些属性，如果此时mMessage中没有什么内容的话，那么计算出的frame将是不正确的
         frameModel.messageModel = model;
         cell.messageFrame = frameModel;
-        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
-        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        cell.sendPortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
+        cell.recivePortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
         return cell;
     } else if (model.messageType == MsgVoice){
         NSString *timeLenStr = messageObj.message.body;
@@ -224,8 +256,8 @@ static NSString* CHATVIEW = @"chatView";
         }
         frameModel.messageModel = model;
         cell.messageFrame = frameModel;
-        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
-        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        cell.sendPortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
+        cell.recivePortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
         return cell;
     } else {
         NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
@@ -239,8 +271,8 @@ static NSString* CHATVIEW = @"chatView";
         }
         frameModel.messageModel = model;
         cell.messageFrame = frameModel;
-        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
-        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
+        cell.sendPortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
+        cell.recivePortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
         return cell;
     }
     return nil;
@@ -248,6 +280,10 @@ static NSString* CHATVIEW = @"chatView";
 
 //每一行的高度
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *row = [NSString stringWithFormat:@"%ld", indexPath.row];
+    if ([self.cache objectForKey:row] != nil) {
+        return [[self.cache objectForKey:row] floatValue];
+    }
     XMPPMessageArchiving_Message_CoreDataObject *messageObj = [_history objectAtIndexPath:indexPath];
     mMessageFrame *frameModel = nil;
     MessageType type = [messageObj.message getMessageType];
@@ -261,6 +297,7 @@ static NSString* CHATVIEW = @"chatView";
         ImageTableViewCell *cell = (ImageTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         frameModel = cell.messageFrame;
     }
+    [self.cache setObject:@(frameModel.cellHeight) forKey:row];
     return frameModel.cellHeight;
 }
 
@@ -270,6 +307,7 @@ static NSString* CHATVIEW = @"chatView";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSLog(@"selected: %@", indexPath);
+    [self.messageTextView resignFirstResponder];
 }
 
 
@@ -318,7 +356,7 @@ static NSString* CHATVIEW = @"chatView";
     NSInteger count = self.history.fetchedObjects.count;
     
     // 数组里面没东西还滚，不是找崩么
-    if (count > 3) {
+    if (count > 1) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(count - 1) inSection:0];
         
         // 2. 将要滚动到的位置
