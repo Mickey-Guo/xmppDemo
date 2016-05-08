@@ -421,6 +421,7 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
 	XMPPLogTrace();
+    NSLog(@"receive message: %@", message);
     //下面这个if是后来添加的
     if (![message.type  isEqual: @"chat"]) {
         return;

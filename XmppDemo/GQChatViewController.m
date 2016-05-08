@@ -116,7 +116,6 @@ static NSString* CHATVIEW = @"chatView";
 #pragma mark - setPhoto
 - (IBAction)setPhoto:(id)sender {
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-    
     picker.delegate = self;
     
     [self presentViewController:picker animated:YES completion:nil];
@@ -126,8 +125,13 @@ static NSString* CHATVIEW = @"chatView";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    
-    NSData *data = UIImagePNGRepresentation(image);
+
+    CGFloat compression = 1.0;
+    NSData *data = UIImageJPEGRepresentation(image, 1);
+    while (data.length > 1024*1024 && compression >= 0.0) {
+        compression -= 0.1;
+        data = UIImageJPEGRepresentation(image, compression);
+    }
     
     [self sendMessageWithData:data bodyName:@"image" typeName:IMG];
     
