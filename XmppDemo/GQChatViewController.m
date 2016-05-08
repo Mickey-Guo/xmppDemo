@@ -249,9 +249,14 @@ static NSString* CHATVIEW = @"chatView";
 
 
 - (void)scrollToButtomWithAnimated:(BOOL)animated {
-    CGSize contentSize = [self.tView contentSize];
-    CGSize screenSize = [[UIScreen mainScreen]bounds].size;
-    CGPoint point = CGPointMake(0, contentSize.height - screenSize.height+200);
-    [self.tView setContentOffset:point animated:animated];
+    NSInteger count = self.history.fetchedObjects.count;
+    
+    // 数组里面没东西还滚，不是找崩么
+    if (count > 3) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(count - 1) inSection:0];
+        
+        // 2. 将要滚动到的位置
+        [self.tView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 @end
