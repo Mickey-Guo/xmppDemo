@@ -99,7 +99,6 @@ static NSString* CHATVIEW = @"chatView";
     // Pass the selected object to the new view controller.
 }
 */
-
 #pragma mark - create cache
 - (NSCache *)cache {
     if (_cache == nil) {
@@ -157,7 +156,6 @@ static NSString* CHATVIEW = @"chatView";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-
     CGFloat compression = 1.0;
     NSData *data = UIImageJPEGRepresentation(image, 1);
     while (data.length > 1024*1024 && compression >= 0.0) {
