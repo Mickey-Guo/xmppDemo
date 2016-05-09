@@ -46,14 +46,7 @@ static NSString* FRIENDVIEW = @"FriendView";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSString *login = [[NSUserDefaults standardUserDefaults]objectForKey:USERID];
-    if (login) {
-//        if ([[GQStatic appDelegate] connect]) {
-//            NSLog(@"Show buddy list");
-//        }
-    } else {
-        [self showLogin];
-    }
+
 }
 
 - (void)didReceiveMemoryWarning {

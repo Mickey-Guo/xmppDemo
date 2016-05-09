@@ -26,7 +26,8 @@
     NSString *labelText = [NSString stringWithFormat:@"%@@%@", name, server];
     self.idLabel.text = [labelText copy];
     self.navigationItem.title = @"Me";
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"friend_bg2"]]];
+    UIImage *image = [UIImage imageNamed:@"friend_bg2"];
+    self.view.layer.contents = (id)image.CGImage;
 }
 
 - (IBAction)logout:(id)sender {

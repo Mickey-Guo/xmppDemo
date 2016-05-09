@@ -28,7 +28,9 @@ static NSString* LOGINVIEW = @"LoginView";
     // Do any additional setup after loading the view.
     GQStreamManager *streamManager = [GQStreamManager manager];
     //streamManager.loginDelegate = self;
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"friend_bg2"]]];
+//    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"friend_bg2"]]];
+    UIImage *image = [UIImage imageNamed:@"friend_bg2"];
+    self.view.layer.contents = (id)image.CGImage;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccess) name:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginFail) name:STREAM_MANAGER_LOGIN_FAIL object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(connectFail) name:STREAM_MANAGER_CONNECT_FAIL object:nil];

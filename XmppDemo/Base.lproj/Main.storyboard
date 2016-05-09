@@ -246,9 +246,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="7qW-mY-G1S" kind="relationship" relationship="viewControllers" id="dJa-Y2-Apy"/>
                         <segue destination="ozF-cf-Ebn" kind="relationship" relationship="viewControllers" id="L14-ny-TuW"/>
                         <segue destination="zZp-he-xmf" kind="relationship" relationship="viewControllers" id="kNT-Un-pqk"/>
-                        <segue destination="7qW-mY-G1S" kind="relationship" relationship="viewControllers" id="dJa-Y2-Apy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NUF-wB-yc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -264,7 +264,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recentCell" textLabel="gBC-gL-QA0" style="IBUITableViewCellStyleDefault" id="GB0-w9-bWB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recentCell" textLabel="gBC-gL-QA0" style="IBUITableViewCellStyleDefault" id="GB0-w9-bWB">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GB0-w9-bWB" id="8on-2c-9SX">
@@ -292,6 +292,7 @@
                     <connections>
                         <outlet property="tView" destination="sWf-GA-Psa" id="i27-mi-ai4"/>
                         <segue destination="Sme-hV-X2h" kind="push" identifier="toChat" id="F8s-x4-rua"/>
+                        <segue destination="w7N-4I-Hhp" kind="modal" identifier="toLogin" id="csQ-tX-Yl5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zk-gn-yLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,7 +477,7 @@
         <scene sceneID="sKe-pI-BoW">
             <objects>
                 <navigationController id="ozF-cf-Ebn" userLabel="FriensNav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="Two" id="1WS-8W-rry"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="friends_nor" selectedImage="friends_press" id="1WS-8W-rry"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pmd-V7-ksi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -493,7 +494,7 @@
         <scene sceneID="24s-iI-iTw">
             <objects>
                 <navigationController hidesBottomBarWhenPushed="YES" id="zZp-he-xmf" userLabel="MeNav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Me" image="Three" id="oEL-lz-6AG"/>
+                    <tabBarItem key="tabBarItem" title="Me" image="me_nor" selectedImage="me_press" id="oEL-lz-6AG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cT6-tQ-tSQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -556,7 +557,7 @@
         <scene sceneID="kQr-2X-G31">
             <objects>
                 <navigationController id="7qW-mY-G1S" userLabel="MessagesNav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="One" id="ac6-uz-F9a"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="recent_nor" selectedImage="recent_press" id="ac6-uz-F9a"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ykf-SO-KDs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -571,13 +572,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="One" width="32" height="32"/>
-        <image name="Three" width="32" height="32"/>
-        <image name="Two" width="32" height="32"/>
         <image name="chat_bottom_up_nor" width="34" height="34"/>
         <image name="chat_bottom_voice_nor" width="34" height="34"/>
+        <image name="friends_nor" width="30" height="30"/>
+        <image name="friends_press" width="30" height="30"/>
+        <image name="me_nor" width="30" height="30"/>
+        <image name="me_press" width="30" height="30"/>
+        <image name="recent_nor" width="30" height="30"/>
+        <image name="recent_press" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="F8s-x4-rua"/>
+        <segue reference="csQ-tX-Yl5"/>
     </inferredMetricsTieBreakers>
 </document>

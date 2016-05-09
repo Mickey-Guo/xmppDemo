@@ -10,6 +10,7 @@
 #import "Recent+CoreDataProperties.h"
 #import "GQXMPPRecent.h"
 #import "GQChatViewController.h"
+#import "GQStatic.h"
 
 @interface GQRecentViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tView;
@@ -37,9 +38,24 @@
     [self.tView reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSString *login = [[NSUserDefaults standardUserDefaults]objectForKey:USERID];
+    if (login) {
+        //        if ([[GQStatic appDelegate] connect]) {
+        //            NSLog(@"Show buddy list");
+        //        }
+    } else {
+        [self showLogin];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)showLogin {
+    [self performSegueWithIdentifier:@"toLogin" sender:self];
 }
 
 
@@ -49,6 +65,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if (![segue.identifier isEqualToString:@"toChat"]) {
+        return;
+    }
     NSString *name = (NSString *)sender;
     GQChatViewController *dest = [segue destinationViewController];
     dest.friendName  = name;

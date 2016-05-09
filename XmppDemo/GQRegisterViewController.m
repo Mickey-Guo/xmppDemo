@@ -42,7 +42,8 @@
     _passwordField1.delegate = self;
     _passwordField2.delegate = self;
     _serverAddressField.delegate = self;
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"friend_bg2"]]];
+    UIImage *image = [UIImage imageNamed:@"friend_bg2"];
+    self.view.layer.contents = (id)image.CGImage;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerSuccess) name:STREAM_MANAGER_REGISTER_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(registerFail) name:STREAM_MANAGER_REGISTER_FAIL object:nil];
 }
