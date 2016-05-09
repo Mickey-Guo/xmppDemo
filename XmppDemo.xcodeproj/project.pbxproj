@@ -49,6 +49,11 @@
 		AF36B0001CDA0ECE002772D8 /* XMPPMessage+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36AFFF1CDA0ECE002772D8 /* XMPPMessage+Tools.m */; };
 		AF36B0051CDA10E5002772D8 /* NSFileManager+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36B0021CDA10E5002772D8 /* NSFileManager+Tools.m */; };
 		AF36B0061CDA10E5002772D8 /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = AF36B0041CDA10E5002772D8 /* UIImage+Scale.m */; };
+		AF54DD441CE08597009B9D87 /* Recent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF54DD421CE08597009B9D87 /* Recent.xcdatamodeld */; };
+		AF54DD4A1CE08FDC009B9D87 /* Recent+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AF54DD471CE08FDC009B9D87 /* Recent+CoreDataProperties.m */; };
+		AF54DD4B1CE08FDC009B9D87 /* Recent.m in Sources */ = {isa = PBXBuildFile; fileRef = AF54DD491CE08FDC009B9D87 /* Recent.m */; };
+		AF54DD4E1CE09125009B9D87 /* GQXMPPRecent.m in Sources */ = {isa = PBXBuildFile; fileRef = AF54DD4D1CE09125009B9D87 /* GQXMPPRecent.m */; };
+		AF54DD511CE09E2F009B9D87 /* GQRecentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF54DD501CE09E2F009B9D87 /* GQRecentViewController.m */; };
 		AF6B1A2B1CACC5D5005C6AC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2A1CACC5D5005C6AC8 /* main.m */; };
 		AF6B1A2E1CACC5D5005C6AC8 /* GQAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */; };
 		AF6B1A341CACC5D5005C6AC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */; };
@@ -283,6 +288,15 @@
 		AF36B0021CDA10E5002772D8 /* NSFileManager+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Tools.m"; sourceTree = "<group>"; };
 		AF36B0031CDA10E5002772D8 /* UIImage+Scale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scale.h"; sourceTree = "<group>"; };
 		AF36B0041CDA10E5002772D8 /* UIImage+Scale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scale.m"; sourceTree = "<group>"; };
+		AF54DD431CE08597009B9D87 /* Recent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Recent.xcdatamodel; sourceTree = "<group>"; };
+		AF54DD461CE08FDC009B9D87 /* Recent+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Recent+CoreDataProperties.h"; sourceTree = "<group>"; };
+		AF54DD471CE08FDC009B9D87 /* Recent+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Recent+CoreDataProperties.m"; sourceTree = "<group>"; };
+		AF54DD481CE08FDC009B9D87 /* Recent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recent.h; sourceTree = "<group>"; };
+		AF54DD491CE08FDC009B9D87 /* Recent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recent.m; sourceTree = "<group>"; };
+		AF54DD4C1CE09125009B9D87 /* GQXMPPRecent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQXMPPRecent.h; sourceTree = "<group>"; };
+		AF54DD4D1CE09125009B9D87 /* GQXMPPRecent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQXMPPRecent.m; sourceTree = "<group>"; };
+		AF54DD4F1CE09E2F009B9D87 /* GQRecentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQRecentViewController.h; sourceTree = "<group>"; };
+		AF54DD501CE09E2F009B9D87 /* GQRecentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQRecentViewController.m; sourceTree = "<group>"; };
 		AF6B1A261CACC5D5005C6AC8 /* XmppDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XmppDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6B1A2A1CACC5D5005C6AC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQAppDelegate.h; sourceTree = "<group>"; };
@@ -644,7 +658,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AF36AF951CDA03FD002772D8 /* chat */ = {
+		AF36AF951CDA03FD002772D8 /* ChatFramework */ = {
 			isa = PBXGroup;
 			children = (
 				AF36AF961CDA03FD002772D8 /* Category */,
@@ -655,6 +669,7 @@
 				AF36AFBE1CDA03FD002772D8 /* Model */,
 				AF36AFC51CDA03FD002772D8 /* View */,
 			);
+			name = ChatFramework;
 			path = chat;
 			sourceTree = "<group>";
 		};
@@ -739,6 +754,53 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		AF54DD411CE0854C009B9D87 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF54DD521CE0F8B9009B9D87 /* TabViews */,
+				AF36AECC1CD0A6F0002772D8 /* GQRegisterViewController.h */,
+				AF36AECD1CD0A6F0002772D8 /* GQRegisterViewController.m */,
+				AF36AED71CD72DA3002772D8 /* GQAddFriendViewController.h */,
+				AF36AED81CD72DA3002772D8 /* GQAddFriendViewController.m */,
+				AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */,
+				AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */,
+				AFDBC4471CBCB434004D0967 /* GQLoginViewController.m */,
+				AFDBC4461CBCB434004D0967 /* GQLoginViewController.h */,
+				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
+				AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */,
+				AFDBC4701CC75EEB004D0967 /* GQFriendCell.h */,
+				AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		AF54DD451CE08F4D009B9D87 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AF54DD421CE08597009B9D87 /* Recent.xcdatamodeld */,
+				AF54DD461CE08FDC009B9D87 /* Recent+CoreDataProperties.h */,
+				AF54DD471CE08FDC009B9D87 /* Recent+CoreDataProperties.m */,
+				AF54DD481CE08FDC009B9D87 /* Recent.h */,
+				AF54DD491CE08FDC009B9D87 /* Recent.m */,
+				AF54DD4C1CE09125009B9D87 /* GQXMPPRecent.h */,
+				AF54DD4D1CE09125009B9D87 /* GQXMPPRecent.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		AF54DD521CE0F8B9009B9D87 /* TabViews */ = {
+			isa = PBXGroup;
+			children = (
+				AF36AEC91CD0A5C7002772D8 /* GQMeViewController.h */,
+				AF36AECA1CD0A5C7002772D8 /* GQMeViewController.m */,
+				AFDBC4491CBCC0A9004D0967 /* GQFriendsViewController.h */,
+				AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */,
+				AF54DD4F1CE09E2F009B9D87 /* GQRecentViewController.h */,
+				AF54DD501CE09E2F009B9D87 /* GQRecentViewController.m */,
+			);
+			name = TabViews;
+			sourceTree = "<group>";
+		};
 		AF6B1A1D1CACC5D5005C6AC8 = {
 			isa = PBXGroup;
 			children = (
@@ -758,25 +820,13 @@
 		AF6B1A281CACC5D5005C6AC8 /* XmppDemo */ = {
 			isa = PBXGroup;
 			children = (
-				AF36AF951CDA03FD002772D8 /* chat */,
+				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
+				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
+				AF54DD451CE08F4D009B9D87 /* CoreData */,
+				AF54DD411CE0854C009B9D87 /* Views */,
+				AF36AF951CDA03FD002772D8 /* ChatFramework */,
 				AFDBC4621CC61D60004D0967 /* Tools */,
 				AF6B23761CAD0FB4005C6AC8 /* XmppFramework */,
-				AFDBC4461CBCB434004D0967 /* GQLoginViewController.h */,
-				AFDBC4471CBCB434004D0967 /* GQLoginViewController.m */,
-				AF36AEC91CD0A5C7002772D8 /* GQMeViewController.h */,
-				AF36AECA1CD0A5C7002772D8 /* GQMeViewController.m */,
-				AF36AECC1CD0A6F0002772D8 /* GQRegisterViewController.h */,
-				AF36AECD1CD0A6F0002772D8 /* GQRegisterViewController.m */,
-				AFDBC4491CBCC0A9004D0967 /* GQFriendsViewController.h */,
-				AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */,
-				AF36AED71CD72DA3002772D8 /* GQAddFriendViewController.h */,
-				AF36AED81CD72DA3002772D8 /* GQAddFriendViewController.m */,
-				AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */,
-				AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */,
-				AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */,
-				AFDBC45D1CC0D7FC004D0967 /* GQMessageCell.m */,
-				AFDBC4701CC75EEB004D0967 /* GQFriendCell.h */,
-				AFDBC4711CC75EEB004D0967 /* GQFriendCell.m */,
 				AFDBC4751CC76D8D004D0967 /* GQFriendCell.xib */,
 				AF6B1A321CACC5D5005C6AC8 /* Main.storyboard */,
 				AF6B1A351CACC5D5005C6AC8 /* Assets.xcassets */,
@@ -1717,8 +1767,6 @@
 				AFDBC4551CBF8BED004D0967 /* GQStatic.m */,
 				AFDBC4631CC62100004D0967 /* GQStreamManager.h */,
 				AFDBC4641CC62100004D0967 /* GQStreamManager.m */,
-				AF6B1A2C1CACC5D5005C6AC8 /* GQAppDelegate.h */,
-				AF6B1A2D1CACC5D5005C6AC8 /* GQAppDelegate.m */,
 				AFDBC4691CC64CB3004D0967 /* GQRosterManager.h */,
 				AFDBC46A1CC64CB3004D0967 /* GQRosterManager.m */,
 				AFDBC4771CC8AD13004D0967 /* GQMessageManager.h */,
@@ -1870,13 +1918,16 @@
 				AFDBC4561CBF8BED004D0967 /* GQStatic.m in Sources */,
 				AFB93A921CBB4DF30071E0B1 /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				AFB93AA61CBB4DF30071E0B1 /* XMPPAutoTime.m in Sources */,
+				AF54DD4E1CE09125009B9D87 /* GQXMPPRecent.m in Sources */,
 				AFB93A7E1CBB4DF30071E0B1 /* XMPPvCardTempEmail.m in Sources */,
 				AFB93A871CBB4DF30071E0B1 /* XMPPIQ+XEP_0066.m in Sources */,
+				AF54DD4A1CE08FDC009B9D87 /* Recent+CoreDataProperties.m in Sources */,
 				AFB93A5C1CBB4DF30071E0B1 /* XMPPResourceMemoryStorageObject.m in Sources */,
 				AFB93A531CBB4DF30071E0B1 /* XMPPOutgoingFileTransfer.m in Sources */,
 				AF36AECE1CD0A6F0002772D8 /* GQRegisterViewController.m in Sources */,
 				AFB93A691CBB4DF30071E0B1 /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				AF6B24031CAD14B2005C6AC8 /* XMPPConstants.m in Sources */,
+				AF54DD441CE08597009B9D87 /* Recent.xcdatamodeld in Sources */,
 				AFB93AAC1CBB4DF30071E0B1 /* XMPPMessage+XEP_0280.m in Sources */,
 				AFB93A701CBB4DF30071E0B1 /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				AFB93A9C1CBB4DF30071E0B1 /* XMPPMessage+XEP_0172.m in Sources */,
@@ -1915,6 +1966,7 @@
 				AFB93A521CBB4DF30071E0B1 /* XMPPIncomingFileTransfer.m in Sources */,
 				AFB93A791CBB4DF30071E0B1 /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				AFB93A9A1CBB4DF30071E0B1 /* XMPPURI.m in Sources */,
+				AF54DD4B1CE08FDC009B9D87 /* Recent.m in Sources */,
 				AFB93A891CBB4DF30071E0B1 /* XMPPRegistration.m in Sources */,
 				AF6B1A2E1CACC5D5005C6AC8 /* GQAppDelegate.m in Sources */,
 				AF6B240D1CAD14B2005C6AC8 /* GCDMulticastDelegate.m in Sources */,
@@ -1960,6 +2012,7 @@
 				AFB93A6F1CBB4DF30071E0B1 /* XMPPRoomMemoryStorage.m in Sources */,
 				AF6B240A1CAD14B2005C6AC8 /* XMPPPresence.m in Sources */,
 				AF36AFF71CDA03FD002772D8 /* mMessageFrame.m in Sources */,
+				AF54DD511CE09E2F009B9D87 /* GQRecentViewController.m in Sources */,
 				AFB93A9F1CBB4DF30071E0B1 /* XMPPMessageDeliveryReceipts.m in Sources */,
 				AF6B23911CAD0FCD005C6AC8 /* DDDispatchQueueLogFormatter.m in Sources */,
 				AF6B24101CAD14B2005C6AC8 /* XMPPSRVResolver.m in Sources */,
@@ -2173,6 +2226,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		AF54DD421CE08597009B9D87 /* Recent.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AF54DD431CE08597009B9D87 /* Recent.xcdatamodel */,
+			);
+			currentVersion = AF54DD431CE08597009B9D87 /* Recent.xcdatamodel */;
+			path = Recent.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		AFB9398F1CBB4DF30071E0B1 /* XMPPRoom.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

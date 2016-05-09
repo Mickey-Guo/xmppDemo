@@ -9,6 +9,7 @@
 #import "GQStreamManager.h"
 #import "GQAppDelegate.h"
 #import "GQStatic.h"
+#import "GQXMPPRecent.h"
 
 typedef NS_ENUM(NSInteger, ManagerOpertion) {
     ManagerOpertionLogin,
@@ -25,6 +26,7 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 
 @property (assign, nonatomic) ManagerOpertion operation;
 @property (strong, nonatomic) GQAppDelegate *appDelegate;
+@property (strong, nonatomic) GQXMPPRecent *recent;
 
 @end
 
@@ -48,6 +50,7 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 
 - (void)getStream {
     _stream = _appDelegate.xmppStream;
+    _recent = _appDelegate.recent;
 }
 
 - (void)goOnline {
@@ -167,6 +170,9 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
     NSLog(@"Message: %@", message);
+    if ([message isChatMessageWithBody]) {
+        [self.recent insertName:message.from.bare message:message.body time:[NSDate date]];
+    }
 }
 
 //when we receive a presence notification, we can dispatch the message to the chat delegate

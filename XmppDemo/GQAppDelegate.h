@@ -13,6 +13,7 @@
 @class GQMessageManager;
 @class XMPPRoster;
 @class XMPPMessageArchiving;
+@class GQXMPPRecent;
 
 @class GQFriendsViewController;
 
@@ -29,6 +30,17 @@
 @property (strong, nonatomic, readonly) GQStreamManager *streamManager;
 @property (strong, nonatomic, readonly) GQRosterManager *rosterManager;
 @property (strong, nonatomic, readonly) GQMessageManager *messageManager;
+
+@property (strong, nonatomic, readonly) GQXMPPRecent *recent;
+
+
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
+
 
 @end
 

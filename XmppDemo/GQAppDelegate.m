@@ -11,6 +11,7 @@
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
 #import "GQMessageManager.h"
+#import "GQXMPPRecent.h"
 #import "XMPPMessageArchivingCoreDataStorage.h"
 
 
@@ -70,12 +71,31 @@
     [_messageArchiving activate:_xmppStream];
     _messageManager = [[GQMessageManager alloc]init];
     
+    _recent = [GQXMPPRecent shareInstance];
+    [_recent setUp];
+    
     //好友添加的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showAddFriendAlert:) name:STREAM_MANAGER_RECEIVE_SUBSCRIBE object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    //[self saveContext];
+}
+
+- (void)saveContext {
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentationDirectory inDomains:NSUserDomainMask]lastObject];
 }
 
 - (void)showAddFriendAlert:(NSNotification *)sender {

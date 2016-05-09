@@ -16,6 +16,7 @@
 #import "GQRecordTools.h"
 #import "XMPPMessage+Tools.h"
 #import "UIImage+Scale.h"
+#import "GQXMPPRecent.h"
 
 
 #import "UIImage+Category.h"
@@ -38,6 +39,7 @@ static NSString* CHATVIEW = @"chatView";
 @property (strong, nonatomic) XMPPUserCoreDataStorageObject *friend;
 @property (strong, nonatomic) NSFetchedResultsController *history;
 @property (strong, nonatomic) NSCache *cache;
+@property (strong, nonatomic) GQXMPPRecent *recent;
 
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
@@ -88,6 +90,8 @@ static NSString* CHATVIEW = @"chatView";
     
     _history = [[GQMessageManager manager]getHistoryByName:_friendName];
     _history.delegate = self;
+    
+    _recent = [GQXMPPRecent shareInstance];
 }
 
 /*
@@ -133,6 +137,7 @@ static NSString* CHATVIEW = @"chatView";
             [self presentViewController:alertController animated:YES completion:nil];
         }
         [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"%d", (int)time] typeName:VOICE];
+        [self.recent insertName:self.friendName message:@"[voice]" time:[NSDate date]];
     } andFailed:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
                                                                                   message:@"Recording time is too short!"
@@ -164,6 +169,7 @@ static NSString* CHATVIEW = @"chatView";
     }
     
     [self sendMessageWithData:data bodyName:@"image" typeName:IMG];
+    [self.recent insertName:self.friendName message:@"[image]" time:[NSDate date]];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -173,6 +179,8 @@ static NSString* CHATVIEW = @"chatView";
     if (theTextField == self.messageField) {
         NSString *message = self.messageField.text;
         [[GQMessageManager manager]sendMessage:message toUser:self.friendName];
+        [self.recent insertName:self.friendName message:message time:[NSDate date]];
+        
         self.messageField.text = @"";
         [theTextField resignFirstResponder];
     }
@@ -187,7 +195,7 @@ static NSString* CHATVIEW = @"chatView";
         
         // 自定义的信息发送方法，传入字符串直接发出去。
         [[GQMessageManager manager]sendMessage:self.messageTextView.text toUser:self.friendName];
-        
+        [self.recent insertName:self.friendName message:self.messageTextView.text time:[NSDate date]];
         self.messageTextView.text = nil;
         [self.messageTextView resignFirstResponder];
         return NO;
