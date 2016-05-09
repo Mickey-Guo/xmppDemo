@@ -107,7 +107,11 @@
     [message addChild:attachment];
     
     [[GQStatic appDelegate].xmppStream sendElement:message];
+<<<<<<< HEAD
     NSLog(@"send data message:%@", message);
+=======
+    NSLog(@"send data message:%@, to:%@", message.body, message.toStr);
+>>>>>>> origin/usingTextview
 }
 
 - (void)deleteMessageStorage {

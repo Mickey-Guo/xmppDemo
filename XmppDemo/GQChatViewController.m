@@ -99,7 +99,6 @@ static NSString* CHATVIEW = @"chatView";
     // Pass the selected object to the new view controller.
 }
 */
-
 #pragma mark - create cache
 - (NSCache *)cache {
     if (_cache == nil) {
@@ -157,7 +156,6 @@ static NSString* CHATVIEW = @"chatView";
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-
     CGFloat compression = 1.0;
     NSData *data = UIImageJPEGRepresentation(image, 1);
     while (data.length > 1024*1024 && compression >= 0.0) {
@@ -273,6 +271,21 @@ static NSString* CHATVIEW = @"chatView";
         cell.messageFrame = frameModel;
         cell.sendPortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
         cell.recivePortraitImage = [UIImage imageNamed:DEFAULT_AVARTAR];
+        return cell;
+    } else {
+        NSString *path = [messageObj.message pathForAttachment:self.friendName timestamp:messageObj.timestamp];
+        CGSize size = [[UIImage imageWithContentsOfFile:path]imageSize:200];
+        mMessageImage *imageMessage = [[mMessageImage alloc]initWithImageUrl:path andSize:size];
+        model.messageImage = imageMessage;
+        static NSString *ID = @"imageCell";
+        ImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        if (cell == nil) {
+            cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        frameModel.messageModel = model;
+        cell.messageFrame = frameModel;
+        cell.sendPortraitImage = [UIImage imageNamed:@"1.jpg"];
+        cell.recivePortraitImage = [UIImage imageNamed:@"2.jpg"];
         return cell;
     }
     return nil;
