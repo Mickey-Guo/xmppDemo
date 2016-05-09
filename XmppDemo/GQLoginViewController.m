@@ -28,9 +28,11 @@ static NSString* LOGINVIEW = @"LoginView";
     // Do any additional setup after loading the view.
     GQStreamManager *streamManager = [GQStreamManager manager];
     //streamManager.loginDelegate = self;
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"friend_bg2"]]];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSuccess) name:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginFail) name:STREAM_MANAGER_LOGIN_FAIL object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(connectFail) name:STREAM_MANAGER_CONNECT_FAIL object:nil];}
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(connectFail) name:STREAM_MANAGER_CONNECT_FAIL object:nil];
+}
 
 - (void)viewDidUnload {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:STREAM_MANAGER_LOGIN_FAIL object:nil];
@@ -63,6 +65,10 @@ static NSString* LOGINVIEW = @"LoginView";
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSLog(@"Saved standardUserDefaults");
+    NSLog(@"userid: %@", [[NSUserDefaults standardUserDefaults]stringForKey:USERID]);
+    NSLog(@"pass: %@", [[NSUserDefaults standardUserDefaults]stringForKey:PASS]);
+    NSLog(@"server: %@", [[NSUserDefaults standardUserDefaults]stringForKey:SERVER]);
+    NSLog(@"source: %@", [[NSUserDefaults standardUserDefaults]stringForKey:SOURCE]);
     
     //[[GQStatic appDelegate] connect];
     GQStreamManager *streamManager = [GQStreamManager manager];

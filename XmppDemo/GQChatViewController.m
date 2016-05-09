@@ -61,7 +61,7 @@ static NSString* CHATVIEW = @"chatView";
     self.tView.dataSource = self;
     self.navigationItem.title = _friendName;
     NSLog(@"%@: %@", CHATVIEW, _friendName);
-    UIImageView *tableBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_bg"]];
+    UIImageView *tableBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friend_bg2"]];
     [self.tView setBackgroundView:tableBg];
     /////////////////////////////////////////////////////////////////
     self.messageField.delegate = self;

@@ -38,6 +38,7 @@ static NSString* FRIENDVIEW = @"FriendView";
     
     self.tView.delegate = self;
     self.tView.dataSource = self;
+    self.tView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"friend_bg2"]];
     self.navigationItem.leftBarButtonItem =self.editButtonItem;
     NSLog(@"%@ did load", FRIENDVIEW);
 }

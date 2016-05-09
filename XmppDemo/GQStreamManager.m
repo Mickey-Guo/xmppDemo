@@ -65,15 +65,19 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
     self.operation = ManagerOpertionLogin;
     //[self connect];
     //return;
-    [_stream disconnect];
-    
-    [self getStream];
+    [self.stream disconnect];
     [self getUser];
+    [self getStream];
     NSLog(@"name:%@ pass:%@ server:%@ resource:%@",_name, _password, _server, _resource);
     
     XMPPJID *jid = [XMPPJID jidWithUser:_name domain:_server resource:_resource];
     NSLog(@"XMPPJID *jid = %@",jid);
     [self getConnectWithJID:jid];
+}
+
+- (void)setupStream {
+    self.stream = [[XMPPStream alloc] init];
+    [self.stream addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 - (BOOL)connect {
     
