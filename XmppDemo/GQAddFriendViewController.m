@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIImage *image = [UIImage imageNamed:@"friend_bg2"];
+    self.view.layer.contents = (id)image.CGImage;
 }
 
 - (void)didReceiveMemoryWarning {

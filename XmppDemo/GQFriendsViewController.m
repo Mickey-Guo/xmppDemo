@@ -14,6 +14,7 @@
 #import "GQRosterManager.h"
 #import "GQMessageManager.h"
 #import "NSFileManager+Tools.h"
+#import "GQXMPPRecent.h"
 
 
 static NSString* FRIENDVIEW = @"FriendView";
@@ -21,6 +22,7 @@ static NSString* FRIENDVIEW = @"FriendView";
 @interface GQFriendsViewController () <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tView;
 @property (strong, nonatomic) NSString *chatUserName;
+@property (strong, nonatomic) GQXMPPRecent *recent;
 
 @property (strong, nonatomic) NSFetchedResultsController *friendsController;
 
@@ -40,6 +42,7 @@ static NSString* FRIENDVIEW = @"FriendView";
     self.tView.dataSource = self;
     self.tView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"friend_bg2"]];
     self.navigationItem.leftBarButtonItem =self.editButtonItem;
+    self.recent = [GQXMPPRecent shareInstance];
     NSLog(@"%@ did load", FRIENDVIEW);
 }
 
@@ -101,15 +104,9 @@ static NSString* FRIENDVIEW = @"FriendView";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"GQFriendCell";
+    static NSString *CellIdentifier = @"FriendCell";
     
-    GQFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        //cell = (GQFriendCell *)[[NSBundle mainBundle]loadNibNamed:CellIdentifier owner:self options:nil].firstObject;
-        [_tView registerNib:[UINib nibWithNibName:CellIdentifier bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
-        cell = [_tView dequeueReusableCellWithIdentifier:CellIdentifier];
-    }
-    
+    GQFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
     cell.name = friend.jidStr;
     switch (friend.section) {
@@ -126,7 +123,6 @@ static NSString* FRIENDVIEW = @"FriendView";
             cell.presence = @"Unknown";
             break;
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return (UITableViewCell *)cell;
 }
@@ -150,11 +146,13 @@ static NSString* FRIENDVIEW = @"FriendView";
     return @"Delete Friend";
 }
 
+//完成编辑后的操作
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XMPPUserCoreDataStorageObject *friend = [_friendsController objectAtIndexPath:indexPath];
     [[GQMessageManager manager]deleteHistoryByName:friend.jidStr];
     [NSFileManager deleteDirInCachPathWithName:friend.jidStr];
+    [self.recent removeRecentByName:friend.jidStr];
     [[GQRosterManager manager]removeFriend:friend.jidStr];
 }
 
