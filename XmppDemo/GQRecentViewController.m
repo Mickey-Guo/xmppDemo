@@ -11,6 +11,9 @@
 #import "GQXMPPRecent.h"
 #import "GQChatViewController.h"
 #import "GQStatic.h"
+#import "GQRecentCell.h"
+#import "GQMessageManager.h"
+#import "NSFileManager+Tools.h"
 
 @interface GQRecentViewController ()<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *tView;
@@ -32,6 +35,7 @@
     self.results = [self.recent getRecentFriends];
     self.results.delegate = self;
     NSLog(@"results: %@", self.results);
+    self.navigationItem.leftBarButtonItem =self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,10 +90,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *ID = @"recentCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    GQRecentCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     Recent *friend = [self.results objectAtIndexPath:indexPath];
-    cell.textLabel.text = friend.name;
+    [cell setName:friend.name lastMessage:friend.lastMessage andLastTime:friend.lastTime];
     return cell;
+}
+
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+//定义编辑样式
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView setEditing:YES animated:YES];
+    return UITableViewCellEditingStyleDelete;
+}
+
+//设置编辑模式显示样式
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Delete Messages";
+}
+
+//完成编辑后的操作
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Recent *friend = [self.results objectAtIndexPath:indexPath];
+    [[GQMessageManager manager]deleteHistoryByName:friend.name];
+    [NSFileManager deleteDirInCachPathWithName:friend.name];
+    [self.recent removeRecentByName:friend.name];
 }
 
 #pragma mark - TableViewDelegate

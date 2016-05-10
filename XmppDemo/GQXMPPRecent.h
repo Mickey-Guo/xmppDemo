@@ -19,6 +19,7 @@
 - (void)setUp;
 - (void)insertName:(NSString *)name message:(NSString *)message time:(NSDate *)date;
 - (NSFetchedResultsController *)getRecentFriends;
+- (void)removeRecentByName:(NSString *)name;
 
 - (void)deleteRecentStorage;
 

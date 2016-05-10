@@ -79,6 +79,31 @@
     return resultsController;
 }
 
+- (void)removeRecentByName:(NSString *)name {
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Recent" inManagedObjectContext:self.context];
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    request.entity = entityDescription;
+    
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"name=%@", name];
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *recentList = [self.context executeFetchRequest:request error:&error];
+    if ([recentList count] > 0) {
+        int count = (int)[recentList count];
+        for (int i = 0; i < count; i++) {
+            NSManagedObject *message = [recentList objectAtIndex:i];
+            [self.context deleteObject:message];
+            error  = nil;
+            if ([self.context hasChanges] && ![self.context save:&error]) {
+                NSLog(@"删除和%@的recent记录失败", name);
+            }
+        }
+    }
+
+}
+
 - (void)deleteRecentStorage {
     NSError *err = nil;
     [[NSFileManager defaultManager]removeItemAtPath:[_persistentStoreURL path] error:&err];
