@@ -7,6 +7,7 @@
 //
 
 #import "GQRecordTools.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface GQRecordTools ()<AVAudioPlayerDelegate>
 
@@ -61,6 +62,7 @@
 
 /** 开始录音 */
 - (void)startRecord{
+    AudioServicesPlaySystemSound(1106);  
     [self.recorder record];
 }
 

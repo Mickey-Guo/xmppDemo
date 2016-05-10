@@ -207,6 +207,7 @@
 		AFB93AB01CBB4DF30071E0B1 /* XMPPMessage+XEP_0333.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A481CBB4DF30071E0B1 /* XMPPMessage+XEP_0333.m */; };
 		AFB93AB11CBB4DF30071E0B1 /* NSXMLElement+XEP_0335.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A4B1CBB4DF30071E0B1 /* NSXMLElement+XEP_0335.m */; };
 		AFB93AB21CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */; };
+		AFCD73A41CE2379A004CB36D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */; };
 		AFDBC4361CBCAE63004D0967 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4351CBCAE63004D0967 /* CoreData.framework */; };
 		AFDBC4381CBCAE6E004D0967 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */; };
 		AFDBC43A1CBCAE80004D0967 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */; };
@@ -609,6 +610,7 @@
 		AFB93A4D1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+XEP_0352.h"; sourceTree = "<group>"; };
 		AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XEP_0352.m"; sourceTree = "<group>"; };
 		AFB93AB31CBB4F450071E0B1 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = XmppFramwork/XMPPFramework.h; sourceTree = "<group>"; };
+		AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AFDBC4351CBCAE63004D0967 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -643,6 +645,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFCD73A41CE2379A004CB36D /* AudioToolbox.framework in Frameworks */,
 				AFDBC4421CBCAEE2004D0967 /* libxml2.tbd in Frameworks */,
 				AFDBC4401CBCAEA3004D0967 /* CoreGraphics.framework in Frameworks */,
 				AFDBC43E1CBCAE98004D0967 /* Foundation.framework in Frameworks */,
@@ -846,6 +849,7 @@
 				AF6B24131CAD14DC005C6AC8 /* libresolv.9.tbd */,
 				AFDBC4411CBCAEE2004D0967 /* libxml2.tbd */,
 				AF6B24141CAD14DC005C6AC8 /* libresolv.tbd */,
+				AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */,
 				AFDBC43F1CBCAEA3004D0967 /* CoreGraphics.framework */,
 				AFDBC43D1CBCAE98004D0967 /* Foundation.framework */,
 				AFDBC43B1CBCAE89004D0967 /* UIKit.framework */,

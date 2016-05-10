@@ -41,8 +41,9 @@ static NSString* CHATVIEW = @"chatView";
 @property (strong, nonatomic) NSFetchedResultsController *history;
 @property (strong, nonatomic) NSCache *cache;
 @property (strong, nonatomic) GQXMPPRecent *recent;
-//@property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) GQRecordTools *recorder;
+@property (nonatomic) BOOL isRecording;
 
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
@@ -71,6 +72,8 @@ static NSString* CHATVIEW = @"chatView";
     /////////////////////////////////////////////////////////////////
     self.messageField.delegate = self;
     self.messageTextView.delegate = self;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:MAX_VOICE_TIME target:self selector:@selector(forceSendVoiceMessage) userInfo:nil repeats:NO];
+    [self.timer invalidate];
     [self scrollToButtomWithAnimated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.recorder = [GQRecordTools sharedRecorder];
@@ -124,11 +127,13 @@ static NSString* CHATVIEW = @"chatView";
 #pragma mark - record
 - (IBAction)startRecord:(id)sender {
     NSLog(@"开始录音");
+    self.isRecording = YES;
     [self.recorder startRecord];
-    [NSTimer scheduledTimerWithTimeInterval:MAX_VOICE_TIME target:self selector:@selector(forceSendVoiceMessage) userInfo:nil repeats:NO];
+    [self.timer fire];
 }
 
 - (IBAction)stopRecord:(id)sender {
+    [self.timer invalidate];
     NSLog(@"停止录音");
     [self.recorder stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
         NSData *data = [NSData dataWithContentsOfURL:url];
