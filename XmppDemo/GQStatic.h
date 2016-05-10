@@ -53,6 +53,7 @@ static NSString *IMG = @"ImageMessage";
 static NSString *DEFAULT_AVARTAR = @"login_avatar_default";
 
 static NSInteger MAX_LEN = 1024*1024;
+static NSInteger MAX_VOICE_TIME = 3;
 
 @interface GQStatic : NSObject 
 + (GQAppDelegate *)appDelegate;

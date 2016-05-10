@@ -36,10 +36,13 @@ static NSString* CHATVIEW = @"chatView";
 @property (weak, nonatomic) IBOutlet UITextView *messageTextView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (strong, nonatomic) IBOutlet UITableView *tView;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (strong, nonatomic) XMPPUserCoreDataStorageObject *friend;
 @property (strong, nonatomic) NSFetchedResultsController *history;
 @property (strong, nonatomic) NSCache *cache;
 @property (strong, nonatomic) GQXMPPRecent *recent;
+//@property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) GQRecordTools *recorder;
 
 - (IBAction)startRecord:(id)sender;
 - (IBAction)stopRecord:(id)sender;
@@ -69,12 +72,15 @@ static NSString* CHATVIEW = @"chatView";
     self.messageField.delegate = self;
     self.messageTextView.delegate = self;
     [self scrollToButtomWithAnimated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.recorder = [GQRecordTools sharedRecorder];
+        NSLog(@"Init recorder");
+    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    GQRecordTools *recordTools = [GQRecordTools sharedRecorder];
-    if (recordTools.player.isPlaying) {
-        [recordTools.player stop];
+    if (self.recorder.player.isPlaying) {
+        [self.recorder.player stop];
     }
 }
 
@@ -118,18 +124,20 @@ static NSString* CHATVIEW = @"chatView";
 #pragma mark - record
 - (IBAction)startRecord:(id)sender {
     NSLog(@"开始录音");
-    [[GQRecordTools sharedRecorder] startRecord];
+    [self.recorder startRecord];
+    [NSTimer scheduledTimerWithTimeInterval:MAX_VOICE_TIME target:self selector:@selector(forceSendVoiceMessage) userInfo:nil repeats:NO];
 }
 
 - (IBAction)stopRecord:(id)sender {
     NSLog(@"停止录音");
-    [[GQRecordTools sharedRecorder] stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
+    [self.recorder stopRecordSuccess:^(NSURL *url, NSTimeInterval time) {
         NSData *data = [NSData dataWithContentsOfURL:url];
-        if (data.length > MAX_LEN) {
-            data = [data subdataWithRange:NSMakeRange(0, MAX_LEN)];
-            time = 40;
+        if (time > MAX_VOICE_TIME-1) {
+            NSLog(@"ACTUAL TIME: %f", time);
+            time = MAX_VOICE_TIME;
+            [self.recordButton resignFirstResponder];
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
-                                                                                     message:@"Recording time is longer than 40s! Data was cut and sent."
+                                                                                     message:@"Recording time must be no longer than 40s!"
                                                                               preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             }];
@@ -138,6 +146,7 @@ static NSString* CHATVIEW = @"chatView";
         }
         [self sendMessageWithData:data bodyName:[NSString stringWithFormat:@"%d", (int)time] typeName:VOICE];
         [self.recent insertName:self.friendName message:@"[voice]" time:[NSDate date]];
+        NSLog(@"present over long warining");
     } andFailed:^{
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning"
                                                                                   message:@"Recording time is too short!"
@@ -146,7 +155,12 @@ static NSString* CHATVIEW = @"chatView";
         }];
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
+        NSLog(@"present too short warining");
     }];
+}
+
+- (void)forceSendVoiceMessage {
+    [self stopRecord:nil];
 }
 
 #pragma mark - setPhoto
