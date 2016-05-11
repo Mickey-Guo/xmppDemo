@@ -12,6 +12,7 @@
 #import "mMessageImage.h"
 #import "UIImage+Category.h"
 #import "ImageButton.h"
+#import "GQStatic.h"
 
 @interface ImageTableViewCell()
 
@@ -57,7 +58,7 @@
         [self.contentView addSubview:contentView];
         self.contentButton = contentView;
         //设置按钮中内容的边距
-        self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(BUTTON_MARGIN, BUTTON_MARGIN, BUTTON_MARGIN, BUTTON_MARGIN);
         
         //设置选中时没有颜色变化
         self.selectionStyle = UITableViewCellSelectionStyleNone;

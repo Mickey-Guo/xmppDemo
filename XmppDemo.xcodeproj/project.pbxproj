@@ -209,7 +209,6 @@
 		AFB93AB21CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */; };
 		AFCD73A41CE2379A004CB36D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */; };
 		AFCD73AC1CE3134E004CB36D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD73AB1CE3134E004CB36D /* TTTAttributedLabel.m */; };
-		AFCD73AF1CE3194C004CB36D /* GQAttributedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD73AE1CE3194C004CB36D /* GQAttributedButton.m */; };
 		AFDBC4361CBCAE63004D0967 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4351CBCAE63004D0967 /* CoreData.framework */; };
 		AFDBC4381CBCAE6E004D0967 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */; };
 		AFDBC43A1CBCAE80004D0967 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */; };
@@ -615,8 +614,6 @@
 		AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AFCD73AA1CE3134E004CB36D /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		AFCD73AB1CE3134E004CB36D /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
-		AFCD73AD1CE3194C004CB36D /* GQAttributedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQAttributedButton.h; sourceTree = "<group>"; };
-		AFCD73AE1CE3194C004CB36D /* GQAttributedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQAttributedButton.m; sourceTree = "<group>"; };
 		AFDBC4351CBCAE63004D0967 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -672,8 +669,6 @@
 		AF36AF951CDA03FD002772D8 /* ChatFramework */ = {
 			isa = PBXGroup;
 			children = (
-				AFCD73AD1CE3194C004CB36D /* GQAttributedButton.h */,
-				AFCD73AE1CE3194C004CB36D /* GQAttributedButton.m */,
 				AFCD73A91CE3134E004CB36D /* TTTAttributedLabel */,
 				AF36AF961CDA03FD002772D8 /* Category */,
 				AF36AF9D1CDA03FD002772D8 /* ChatViewController.h */,
@@ -2069,7 +2064,6 @@
 				AFB93A8E1CBB4DF30071E0B1 /* XMPPTransports.m in Sources */,
 				AFB93AA51CBB4DF30071E0B1 /* XMPPPing.m in Sources */,
 				AF36AFF21CDA03FD002772D8 /* mMessage.m in Sources */,
-				AFCD73AF1CE3194C004CB36D /* GQAttributedButton.m in Sources */,
 				AFB93A961CBB4DF30071E0B1 /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				AFB93AAF1CBB4DF30071E0B1 /* XMPPMessage+XEP_0308.m in Sources */,
 				AFB93A981CBB4DF30071E0B1 /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
@@ -2190,6 +2184,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = XmppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2213,6 +2208,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = XmppDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
