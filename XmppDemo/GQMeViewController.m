@@ -11,6 +11,7 @@
 #import "GQStatic.h"
 #import "GQStreamManager.h"
 #import "GQRosterManager.h"
+#import "GQAttributedButton.h"
 
 @interface GQMeViewController()
 

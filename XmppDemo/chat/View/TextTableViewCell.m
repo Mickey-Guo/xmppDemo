@@ -10,6 +10,8 @@
 #import "mMessageFrame.h"
 #import "mMessage.h"
 #import "UIImage+Category.h"
+#import "TTTAttributedLabel.h"
+#import "GQAttributedButton.h"
 
 @interface TextTableViewCell()
 
@@ -52,13 +54,17 @@
        
         
         //聊天内容
-        UIButton *contentView = [[UIButton alloc] init];
+        GQAttributedButton *contentView = [[GQAttributedButton alloc] init];
         [self.contentView addSubview:contentView];
         self.contentButton = contentView;
+        contentView.messageLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
+        //contentView.messageLabel.delegate = self;
         //设置字体大小
-        contentView.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        contentView.messageLabel.font = [UIFont systemFontOfSize:10.0f];
+        //设置字体颜色
+        contentView.messageLabel.textColor = [UIColor darkGrayColor];
         //设置换行
-        contentView.titleLabel.numberOfLines = 0;
+        contentView.messageLabel.numberOfLines = 0;
         //设置按钮中内容的边距
         self.contentButton.contentEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
         
