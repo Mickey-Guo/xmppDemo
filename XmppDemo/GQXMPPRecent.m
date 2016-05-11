@@ -38,9 +38,9 @@
     self.context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     self.context.persistentStoreCoordinator = storeCoordinator;
     
-    NSString *jidString = [GQStatic appDelegate].xmppStream.myJID.bare;
-    NSString *appendURL = [NSString stringWithFormat:@"%@.Recent.sqlite", jidString];
-    self.persistentStoreURL = [[[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject]URLByAppendingPathComponent:appendURL];
+//    NSString *jidString = [GQStatic appDelegate].xmppStream.myJID.bare;
+//    NSString *appendURL = [NSString stringWithFormat:@"%@.Recent.sqlite", jidString];
+    self.persistentStoreURL = [[[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject]URLByAppendingPathComponent:@"Recent.sqlite"];
     NSError *error = nil;
     NSPersistentStore *store = [storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:_persistentStoreURL options:nil error:&error];
     if (!store) {
