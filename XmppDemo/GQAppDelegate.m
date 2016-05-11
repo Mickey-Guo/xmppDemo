@@ -72,7 +72,7 @@
     _messageManager = [[GQMessageManager alloc]init];
     
     _recent = [GQXMPPRecent shareInstance];
-    [_recent setUp];
+//    [_recent setUp];
     
     //好友添加的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showAddFriendAlert:) name:STREAM_MANAGER_RECEIVE_SUBSCRIBE object:nil];

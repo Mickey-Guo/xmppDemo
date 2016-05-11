@@ -32,8 +32,6 @@
     self.tView.dataSource = self;
     self.tView.delegate = self;
     self.tView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"friend_bg2"]];
-    self.results = [self.recent getRecentFriends];
-    self.results.delegate = self;
     NSLog(@"results: %@", self.results);
     self.navigationItem.leftBarButtonItem =self.editButtonItem;
 }
@@ -45,9 +43,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     NSString *login = [[NSUserDefaults standardUserDefaults]objectForKey:USERID];
     if (login) {
-        //        if ([[GQStatic appDelegate] connect]) {
-        //            NSLog(@"Show buddy list");
-        //        }
+        self.results = [self.recent getRecentFriends];
+        self.results.delegate = self;
     } else {
         [self showLogin];
     }

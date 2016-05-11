@@ -15,6 +15,10 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSURL *persistentStoreURL;
+@property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+
+- (NSURL *)applicationDocumentsDirectory;
 
 @end
 
@@ -30,24 +34,44 @@
 }
 
 - (void)setUp {
-    NSURL *modelURL = [[NSBundle mainBundle]URLForResource:@"Recent" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc]initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *storeCoordinator = [[NSPersistentStoreCoordinator alloc]initWithManagedObjectModel:model];
-    
     self.context = [[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     self.context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
-    self.context.persistentStoreCoordinator = storeCoordinator;
-    
-    NSString *jidString = [GQStatic appDelegate].xmppStream.myJID.bare;
-    NSString *appendURL = [NSString stringWithFormat:@"%@.Recent.sqlite", jidString];
-    self.persistentStoreURL = [[[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject]URLByAppendingPathComponent:appendURL];
-    NSError *error = nil;
-    NSPersistentStore *store = [storeCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:_persistentStoreURL options:nil error:&error];
-    if (!store) {
-        NSLog(@"unable to add store: %@", error);
-    }
+    self.context.persistentStoreCoordinator = [self persistentStoreCoordinator];
 }
 
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+//    if (_persistentStoreCoordinator) {
+//        return _persistentStoreCoordinator;
+//    }
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+                                   initWithManagedObjectModel:[self managedObjectModel]];
+    NSString *jidString = [GQStatic appDelegate].xmppStream.myJID.bare;
+    NSString *appendURL = [NSString stringWithFormat:@"%@.Recent.sqlite", jidString];
+    NSURL *storeURL = [[self applicationDocumentsDirectory]
+                       URLByAppendingPathComponent:appendURL];
+    NSError *error = nil;
+    NSPersistentStore *store = [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                              configuration:nil
+                                                        URL:storeURL
+                                                    options:nil
+                                                      error:nil];
+    if (!store) {
+        NSLog(@"NSPersistentStore error: %@",error);
+    }
+    return _persistentStoreCoordinator;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    NSURL *modelURL = [[NSBundle mainBundle]
+                       URLForResource:@"Recent" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc]
+                           initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
+}
+
+- (NSURL*)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentationDirectory                               inDomains:NSUserDomainMask]lastObject];
+}
 - (void)insertName:(NSString *)name message:(NSString *)message time:(NSDate *)date {
     Recent *friend = nil;
     NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Recent"];
