@@ -160,6 +160,7 @@ typedef NS_ENUM(NSInteger, ManagerOpertion) {
     NSLog(@"xmppStreamDidAuthenticate");
     [self goOnline];
     [[NSNotificationCenter defaultCenter]postNotificationName:STREAM_MANAGER_LOGIN_SUCCESS object:nil];
+    [_recent setUp];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(DDXMLElement *)error {

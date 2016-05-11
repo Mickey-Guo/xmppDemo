@@ -624,7 +624,6 @@
 		AFDBC44A1CBCC0A9004D0967 /* GQFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQFriendsViewController.m; sourceTree = "<group>"; };
 		AFDBC44C1CBCC4BA004D0967 /* GQChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQChatViewController.h; sourceTree = "<group>"; };
 		AFDBC44D1CBCC4BA004D0967 /* GQChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQChatViewController.m; sourceTree = "<group>"; };
-		AFDBC44F1CBCE2D7004D0967 /* GQChatDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GQChatDelegate.h; path = ../../GQChatDelegate.h; sourceTree = "<group>"; };
 		AFDBC4541CBF8BED004D0967 /* GQStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQStatic.h; sourceTree = "<group>"; };
 		AFDBC4551CBF8BED004D0967 /* GQStatic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQStatic.m; sourceTree = "<group>"; };
 		AFDBC45C1CC0D7FC004D0967 /* GQMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQMessageCell.h; sourceTree = "<group>"; };
@@ -1071,7 +1070,6 @@
 		AF6B23CC1CAD14B2005C6AC8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				AFDBC44F1CBCE2D7004D0967 /* GQChatDelegate.h */,
 				AF6B23CD1CAD14B2005C6AC8 /* NSData+XMPP.h */,
 				AF6B23CE1CAD14B2005C6AC8 /* NSData+XMPP.m */,
 				AF6B23CF1CAD14B2005C6AC8 /* NSNumber+XMPP.h */,
