@@ -208,6 +208,7 @@
 		AFB93AB11CBB4DF30071E0B1 /* NSXMLElement+XEP_0335.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A4B1CBB4DF30071E0B1 /* NSXMLElement+XEP_0335.m */; };
 		AFB93AB21CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */; };
 		AFCD73A41CE2379A004CB36D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */; };
+		AFCD73AC1CE3134E004CB36D /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCD73AB1CE3134E004CB36D /* TTTAttributedLabel.m */; };
 		AFDBC4361CBCAE63004D0967 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4351CBCAE63004D0967 /* CoreData.framework */; };
 		AFDBC4381CBCAE6E004D0967 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */; };
 		AFDBC43A1CBCAE80004D0967 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */; };
@@ -611,6 +612,8 @@
 		AFB93A4E1CBB4DF30071E0B1 /* NSXMLElement+XEP_0352.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XEP_0352.m"; sourceTree = "<group>"; };
 		AFB93AB31CBB4F450071E0B1 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = XmppFramwork/XMPPFramework.h; sourceTree = "<group>"; };
 		AFCD73A31CE2379A004CB36D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AFCD73AA1CE3134E004CB36D /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		AFCD73AB1CE3134E004CB36D /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		AFDBC4351CBCAE63004D0967 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AFDBC4371CBCAE6E004D0967 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AFDBC4391CBCAE80004D0967 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -666,6 +669,7 @@
 		AF36AF951CDA03FD002772D8 /* ChatFramework */ = {
 			isa = PBXGroup;
 			children = (
+				AFCD73A91CE3134E004CB36D /* TTTAttributedLabel */,
 				AF36AF961CDA03FD002772D8 /* Category */,
 				AF36AF9D1CDA03FD002772D8 /* ChatViewController.h */,
 				AF36AF9E1CDA03FD002772D8 /* ChatViewController.m */,
@@ -1759,6 +1763,15 @@
 			path = "XEP-0352";
 			sourceTree = "<group>";
 		};
+		AFCD73A91CE3134E004CB36D /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				AFCD73AA1CE3134E004CB36D /* TTTAttributedLabel.h */,
+				AFCD73AB1CE3134E004CB36D /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
 		AFDBC4621CC61D60004D0967 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1955,6 +1968,7 @@
 				AF6B23901CAD0FCD005C6AC8 /* DDContextFilterLogFormatter.m in Sources */,
 				AF6B23A61CAD128C005C6AC8 /* NSString+DDXML.m in Sources */,
 				AF6B24041CAD14B2005C6AC8 /* XMPPElement.m in Sources */,
+				AFCD73AC1CE3134E004CB36D /* TTTAttributedLabel.m in Sources */,
 				AFB93AA81CBB4DF30071E0B1 /* NSXMLElement+XEP_0203.m in Sources */,
 				AFB93A741CBB4DF30071E0B1 /* XMPPRoom.m in Sources */,
 				AFB93A7F1CBB4DF30071E0B1 /* XMPPvCardTempLabel.m in Sources */,
